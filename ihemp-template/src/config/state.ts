@@ -3,6 +3,7 @@ export const stateConfig = {
   abbreviation: "CO",
   domain: "ihempcolorado.com",
   siteName: "iHemp Colorado",
+  logo: "/images/ihemp-colorado-logo-cream.webp",
   startYear: 2018,
   tagline: "Your Colorado Hemp Law Guide",
   description: "Stay compliant with Colorado hemp regulations.",

@@ -1,23 +1,16 @@
-import { stateConfig } from "@/config/state";
+import { stateConfig } from '@/config/state'
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-  const yearDisplay =
-    currentYear === stateConfig.startYear
-      ? `${stateConfig.startYear}`
-      : `${stateConfig.startYear}-${currentYear}`;
-
   return (
-    <footer
-      style={{ backgroundColor: "var(--hemp-brown)", color: "var(--hemp-cream)" }}
-      className="mt-16"
-    >
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <p className="font-bold text-lg">{stateConfig.siteName}</p>
-        <p className="text-xs opacity-50 mt-4">
-          © {yearDisplay} {stateConfig.siteName}.
+    <footer className="bg-hemp-brown text-hemp-cream py-8 mt-auto">
+      <div className="max-w-6xl mx-auto px-4 text-center">
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} {stateConfig.siteName}. All rights reserved.
+        </p>
+        <p className="text-xs mt-2 opacity-75">
+          Informational purposes only. Not legal advice.
         </p>
       </div>
     </footer>
-  );
+  )
 }

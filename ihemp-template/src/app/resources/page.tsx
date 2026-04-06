@@ -1,32 +1,98 @@
-import { stateConfig } from "@/config/state";
+import { colorado } from '@/data/states/colorado'
+import { stateConfig } from '@/config/state'
+import Link from 'next/link'
 
-export default function ResourcesPage() {
+export const metadata = {
+  title: `${stateConfig.pages.resources.title} | ${stateConfig.siteName}`,
+  description: stateConfig.pages.resources.description,
+}
+
+const stateData = colorado
+
+const amazonProducts = [
+  { title: 'Hemp Farming Guide', description: 'Complete guide to growing industrial hemp from seed to harvest.', url: '#' },
+  { title: 'Hemp Seed Starter Kit', description: 'Everything you need to start your first hemp grow.', url: '#' },
+  { title: 'CBD Testing Kit', description: 'At-home cannabinoid testing for THC compliance.', url: '#' },
+  { title: 'Hemp Processing Tools', description: 'Professional-grade tools for hemp harvesting and processing.', url: '#' },
+]
+
+const ihempMerch = [
+  { title: 'iHemp International Tee', description: 'Rep the hemp movement. Premium organic cotton.', url: 'https://ihempinternational.com' },
+  { title: 'Hemp Advocate Cap', description: 'Show your support for industrial hemp.', url: 'https://ihempinternational.com' },
+]
+
+const ihempHarvestProducts = [
+  { title: 'Premium Hemp Flower', description: 'Farm-fresh, lab-tested hemp flower grown with care.', url: 'https://ihempharvest.com' },
+  { title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
+  { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biomass for processors and manufacturers.', url: 'https://ihempharvest.com' },
+]
+
+export default function Resources() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16">
-      <h1 className="text-4xl font-bold tracking-tight">
-        {stateConfig.pages.resources.title}
-      </h1>
-      <p className="mt-4 max-w-2xl text-lg text-gray-700">
-        {stateConfig.pages.resources.description}
-      </p>
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        <section className="rounded-lg border p-6">
-          <h2 className="text-2xl font-semibold">Get Involved</h2>
-          <ul className="mt-4 space-y-2">
-            <li><a href={stateConfig.resources.legislatureUrl} target="_blank" rel="noreferrer" className="underline">Colorado General Assembly</a></li>
-            <li><a href={stateConfig.resources.findLegislatorUrl} target="_blank" rel="noreferrer" className="underline">Find My Legislator</a></li>
-            <li><a href={stateConfig.resources.congressUrl} target="_blank" rel="noreferrer" className="underline">Congress.gov</a></li>
-          </ul>
-        </section>
-        <section className="rounded-lg border p-6">
-          <h2 className="text-2xl font-semibold">Advocacy Organizations</h2>
-          <ul className="mt-4 space-y-2">
-            <li><a href="https://thehia.org/" target="_blank" rel="noreferrer" className="underline">Hemp Industries Association</a></li>
-            <li><a href="https://hempsupporter.com/" target="_blank" rel="noreferrer" className="underline">U.S. Hemp Roundtable</a></li>
-            <li><a href="https://www.votehemp.com/" target="_blank" rel="noreferrer" className="underline">Vote Hemp</a></li>
-          </ul>
-        </section>
+    <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="mb-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>{stateData.name} Hemp Resources</h1>
+        <p className="text-sm text-hemp-brown/70">Tools, products, and links to support your hemp journey.</p>
       </div>
-    </main>
-  );
+      <div className="bg-hemp-gold/10 border border-hemp-gold/30 rounded-lg p-4 mb-10 text-sm text-hemp-brown/70">
+        <strong className="text-hemp-brown">Disclosure:</strong> Some links on this page are affiliate links. We may earn a small commission at no extra cost to you. This helps support our mission to provide free hemp information.
+      </div>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>From Our Farm — iHemp Harvest</h2>
+        <p className="text-hemp-brown/70 mb-5">Premium hemp products grown and crafted with care.</p>
+        <div className="grid sm:grid-cols-3 gap-4">
+          {ihempHarvestProducts.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-leaf/10 border-2 border-hemp-leaf/30 rounded-lg p-5 hover:border-hemp-leaf hover:shadow-md transition group">
+              <div className="w-full h-32 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <p className="font-bold text-hemp-green group-hover:text-hemp-leaf transition">{product.title}</p>
+              <p className="text-sm text-hemp-brown/70 mt-1">{product.description}</p>
+              <p className="text-sm font-medium text-hemp-leaf mt-3">Shop Now →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Merch — iHemp International</h2>
+        <p className="text-hemp-brown/70 mb-5">Wear the movement. Support industrial hemp.</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {ihempMerch.map((item, i) => (
+            <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-5 hover:border-hemp-gold hover:shadow-md transition group">
+              <div className="w-full h-32 bg-white rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <p className="font-bold text-hemp-brown group-hover:text-hemp-green transition">{item.title}</p>
+              <p className="text-sm text-hemp-brown/70 mt-1">{item.description}</p>
+              <p className="text-sm font-medium text-hemp-green mt-3">Shop Now →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Recommended Hemp Products</h2>
+        <p className="text-hemp-brown/70 mb-5">Our top picks for hemp growing, testing, and learning.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {amazonProducts.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-4" style={{ fontFamily: 'var(--font-fredoka)' }}>Official and Educational Links</h2>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {stateData.resources.filter(r => r.url).map((resource, i) => (
+            <a key={i} href={resource.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <p className="font-semibold text-hemp-green group-hover:text-hemp-leaf transition">{resource.label}</p>
+              <p className="text-sm text-hemp-brown/60 mt-1">Visit →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <div className="text-center pt-4">
+        <Link href="/" className="text-hemp-green hover:text-hemp-leaf font-medium">← Back to Home</Link>
+      </div>
+    </div>
+  )
 }

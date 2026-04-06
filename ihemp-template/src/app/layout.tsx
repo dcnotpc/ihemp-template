@@ -1,17 +1,18 @@
+import Navigation from '@/components/Navigation'
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Fredoka } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { stateConfig } from "@/config/state";
 
 const inter = Inter({ subsets: ["latin"] });
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["700"], variable: "--font-fredoka" });
 
 export const metadata: Metadata = {
   title: stateConfig.siteName,
   description: stateConfig.description,
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -19,9 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-hemp-cream text-hemp-earth`}>
+      <body className={`${inter.className} ${fredoka.variable} bg-hemp-cream text-hemp-brown min-h-screen flex flex-col`}>
         <Header />
-        <main className="max-w-4xl mx-auto px-4 py-8">
+        <main className="flex-grow">
           {children}
         </main>
         <Footer />

@@ -1,16 +1,59 @@
 @import "tailwindcss";
 
-:root {
-  --hemp-green: #2d5016;
-  --hemp-cream: #faf3e0;
-  --hemp-gold: #c9a227;
-  --hemp-brown: #5c4033;
-  --hemp-sage: #87a96b;
-  --hemp-light: #f5f0e8;
+@theme {
+  --color-hemp-green: #2d5016;
+  --color-hemp-sage: #87a96b;
+  --color-hemp-gold: #c9a227;
+  --color-hemp-brown: #5c4033;
+  --color-hemp-cream: #faf3e0;
+  --font-sans: "Inter", sans-serif;
 }
 
 body {
   background: #ffffff;
   color: #171717;
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Blog Content Styles */
+.blog-content {
+  @apply text-gray-700 text-lg leading-relaxed;
+}
+.blog-content h1 {
+  @apply text-3xl font-bold text-hemp-green mt-10 mb-4;
+}
+.blog-content h2 {
+  @apply text-2xl font-bold text-hemp-green mt-10 mb-3 pb-2 border-b border-gray-200;
+}
+.blog-content h3 {
+  @apply text-xl font-semibold text-hemp-green mt-6 mb-2;
+}
+.blog-content p {
+  @apply mb-6 leading-relaxed;
+}
+.blog-content ul {
+  @apply list-disc pl-6 mb-6 space-y-2;
+}
+.blog-content ol {
+  @apply list-decimal pl-6 mb-6 space-y-2;
+}
+.blog-content li {
+  @apply text-gray-700;
+}
+.blog-content strong {
+  @apply font-bold text-gray-900;
+}
+.blog-content em {
+  @apply italic;
+}
+.blog-content a {
+  @apply text-hemp-green underline hover:text-hemp-green/70 transition-colors;
+}
+.blog-content blockquote {
+  @apply border-l-4 border-hemp-green bg-white pl-6 py-4 my-6 italic text-gray-600 rounded-r-lg;
+}
+.blog-content hr {
+  @apply my-8 border-gray-300;
+}
+.blog-content img {
+  @apply rounded-xl my-6 shadow-md;
 }

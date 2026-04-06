@@ -1,27 +1,20 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./content/**/*.{md,mdx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        hemp: {
-          green: "#2E7D32",
-          leaf: "#4CAF50",
-          gold: "#FFD54F",
-          cream: "#FFF8E1",
-          earth: "#5D4037",
-          sky: "#81D4FA",
-        },
-      },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        "hemp-green": "#2D5A27",
       },
     },
   },
-  plugins: [],
+  plugins: [typography],
 };
+
 export default config;

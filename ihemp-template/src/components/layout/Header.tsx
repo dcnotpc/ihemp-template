@@ -1,23 +1,34 @@
-import Link from "next/link";
-import { stateConfig } from "@/config/state";
+'use client'
+
+import Link from 'next/link'
+import { stateConfig } from '@/config/state'
 
 export default function Header() {
-  return (
-    <header
-      style={{ backgroundColor: "var(--hemp-green)", color: "var(--hemp-cream)" }}
-      className="border-b"
-    >
-      <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
-          {stateConfig.siteName}
-        </Link>
+  const navItems = Object.entries(stateConfig.pages).map(([key, page]) => ({
+    href: `/${key}`,
+    label: page.title,
+  }))
 
-        <nav className="flex gap-4 text-sm">
-          <Link href="/laws">Laws</Link>
-          <Link href="/blog">Blog</Link>
-          <Link href="/resources">Resources</Link>
+  return (
+    <header className="bg-hemp-green text-white shadow-md">
+      <div className="max-w-6xl mx-auto px-4 py-4">
+        <nav className="flex items-center justify-between">
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <img src={stateConfig.logo} alt={stateConfig.siteName} className="h-10" />
+          </Link>
+          <div className="flex gap-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="hover:text-hemp-cream transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </nav>
       </div>
     </header>
-  );
+  )
 }

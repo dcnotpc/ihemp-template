@@ -18,9 +18,10 @@
         "name": "next"
       }
     ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+"paths": {
+  "@/*": ["./src/*"],
+"@hemp-data/*": ["../../../hemp-state-data/data/*"]
+}
   },
   "include": [
     "next-env.d.ts",
