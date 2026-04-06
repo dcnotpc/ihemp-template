@@ -6,7 +6,7 @@ import { stateConfig } from '@/config/state'
 export default function Header() {
   const navItems = Object.entries(stateConfig.pages).map(([key, page]) => ({
     href: `/${key}`,
-    label: page.title,
+    label: page.title as string,
   }))
 
   return (

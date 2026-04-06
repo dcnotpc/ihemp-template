@@ -82,7 +82,7 @@ export default function Resources() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-hemp-green mb-4" style={{ fontFamily: 'var(--font-fredoka)' }}>Official and Educational Links</h2>
         <div className="grid sm:grid-cols-2 gap-3">
-          {stateData.resources.filter(r => r.url).map((resource, i) => (
+          {(stateData.resources ?? []).filter((r: any) => r.url).map((resource: any, i: number) => (
             <a key={i} href={resource.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
               <p className="font-semibold text-hemp-green group-hover:text-hemp-leaf transition">{resource.label}</p>
               <p className="text-sm text-hemp-brown/60 mt-1">Visit →</p>

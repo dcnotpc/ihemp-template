@@ -1,4 +1,3 @@
-import Navigation from '@/components/Navigation'
 import type { Metadata } from "next";
 import { Inter, Fredoka } from "next/font/google";
 import "./globals.css";

@@ -57,7 +57,7 @@ export default function Laws() {
       <section className="mb-8">
         <h2 className="text-2xl font-bold text-hemp-green mb-4" style={{ fontFamily: 'var(--font-fredoka)' }}>Key Legislation</h2>
         <div className="space-y-3">
-          {stateData.laws.map((law, i) => (
+{stateData.laws.map((law: any, i: number) => (
             <a key={i} href={law.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
               <div>
                 <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition">{law.title}</p>

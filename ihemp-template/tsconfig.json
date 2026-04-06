@@ -19,8 +19,8 @@
       }
     ],
 "paths": {
-  "@/*": ["./src/*"],
-"@hemp-data/*": ["../../../hemp-state-data/data/*"]
+  "@/*": ["./src/*"]
+  // "@hemp-data/*": ["../../../hemp-state-data/data/*"]
 }
   },
   "include": [

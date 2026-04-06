@@ -7,3 +7,9 @@ out/
 
 # Logs
 *.log
+
+# Test files
+.env.test
+test-*
+package-build.json
+memory/

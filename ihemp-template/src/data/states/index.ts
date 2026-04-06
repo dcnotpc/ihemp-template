@@ -26,26 +26,26 @@ import { missouri } from './missouri'
 import { montana } from './montana'
 import { nebraska } from './nebraska'
 import { nevada } from './nevada'
-import { newHampshire } from './new-hampshire'
-import { newJersey } from './new-jersey'
-import { newMexico } from './new-mexico'
-import { newYork } from './new-york'
-import { northCarolina } from './north-carolina'
-import { northDakota } from './north-dakota'
+import { newhampshire } from './new-hampshire'
+import { newjersey } from './new-jersey'
+import { newmexico } from './new-mexico'
+import { newyork } from './new-york'
+import { northcarolina } from './north-carolina'
+import { northdakota } from './north-dakota'
 import { ohio } from './ohio'
 import { oklahoma } from './oklahoma'
 import { oregon } from './oregon'
 import { pennsylvania } from './pennsylvania'
-import { rhodeIsland } from './rhode-island'
-import { southCarolina } from './south-carolina'
-import { southDakota } from './south-dakota'
+import { rhodeisland } from './rhode-island'
+import { southcarolina } from './south-carolina'
+import { southdakota } from './south-dakota'
 import { tennessee } from './tennessee'
 import { texas } from './texas'
 import { utah } from './utah'
 import { vermont } from './vermont'
 import { virginia } from './virginia'
 import { washington } from './washington'
-import { westVirginia } from './west-virginia'
+import { westvirginia } from './west-virginia'
 import { wisconsin } from './wisconsin'
 import { wyoming } from './wyoming'
 
@@ -54,11 +54,11 @@ export const states = [
   connecticut, delaware, florida, georgia, hawaii, idaho,
   illinois, indiana, iowa, kansas, kentucky, louisiana,
   maine, maryland, massachusetts, michigan, minnesota, mississippi,
-  missouri, montana, nebraska, nevada, newHampshire, newJersey,
-  newMexico, newYork, northCarolina, northDakota, ohio, oklahoma,
-  oregon, pennsylvania, rhodeIsland, southCarolina, southDakota,
+  missouri, montana, nebraska, nevada, newhampshire, newjersey,
+  newmexico, newyork, northcarolina, northdakota, ohio, oklahoma,
+  oregon, pennsylvania, rhodeisland, southcarolina, southdakota,
   tennessee, texas, utah, vermont, virginia, washington,
-  westVirginia, wisconsin, wyoming,
+  westvirginia, wisconsin, wyoming,
 ]
 
 export const getStateBySlug = (slug: string) =>
