@@ -1,21 +1,22 @@
 {
   "version": 2,
-  "functions": {},
-  "env": {
-    "NEXT_PUBLIC_STATE": {
-      "description": "State site to build (e.g., colorado, kentucky, texas)",
-      "value": "colorado"
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
     }
+  ],
+  "env": {
+    "NEXT_PUBLIC_STATE": "colorado"
   },
   "build": {
     "env": {
       "NEXT_PUBLIC_STATE": "colorado"
     }
   },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
+  "functions": {
+    "pages/api/**/*.js": {
+      "maxDuration": 10
     }
-  ]
+  }
 }
