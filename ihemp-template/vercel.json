@@ -9,11 +9,6 @@
   "env": {
     "NEXT_PUBLIC_STATE": "colorado"
   },
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_STATE": "colorado"
-    }
-  },
   "functions": {
     "pages/api/**/*.js": {
       "maxDuration": 10
