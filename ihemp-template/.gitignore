@@ -12,4 +12,11 @@ out/
 .env.test
 test-*
 package-build.json
+
+# OpenClaw workspace files
 memory/
+monitor-tokens.py
+monitor-tokens.sh
+reports/
+schedule-weekly-monitor.txt
+token-usage-report.txt

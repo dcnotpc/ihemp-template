@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "functions": {},
+  "env": {
+    "NEXT_PUBLIC_STATE": {
+      "description": "State site to build (e.g., colorado, kentucky, texas)",
+      "value": "colorado"
+    }
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_STATE": "colorado"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ]
+}
