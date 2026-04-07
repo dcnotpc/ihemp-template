@@ -26,8 +26,8 @@ export default function Countdown() {
   }, [])
 
   return (
-    <section className="bg-green-900 text-white py-12 text-center">
-      <h2 className="text-2xl font-bold mb-4">Countdown to the Hemp Ban</h2>
+    <section className="bg-green-900 text-white py-8 text-center">
+      <h2 className="text-xl font-bold mb-4">Countdown to the Hemp Ban</h2>
       <div className="flex justify-center gap-6 text-3xl font-mono">
         {mounted ? (
           <>
