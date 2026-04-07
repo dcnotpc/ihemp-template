@@ -1,19 +1,24 @@
 ---
-title: "Colorado Hemp Industry Update: Spring 2026"
+title: "Introducing Our State Hemp Resource Network"
 date: "2026-04-06"
-state: "CO"
-excerpt: "A look at the latest regulatory changes and market trends for Colorado hemp businesses."
-tags: ["compliance", "market-trends"]
+states: ["all"]
+excerpt: "Learn about our network of state-specific hemp education websites and resources."
+tags: ["announcement", "network"]
 ---
 
-## Colorado Hemp Market Overview
+## Welcome to the iHemp Network
 
-The Colorado hemp industry continues to evolve as new regulations take shape for 2026.
+We're excited to launch a network of state-specific hemp education websites to help farmers, businesses, and consumers navigate hemp regulations in their state.
 
-### Key Updates
+### What We Offer
 
-- New testing requirements effective July 1, 2026
-- Updated licensing procedures for processors
-- Expanded approved cultivar list
+- State-specific hemp law guides
+- Compliance requirements and licensing information
+- Industry news and market trends
+- Educational resources and advocacy tools
 
-Stay tuned for more updates as the season progresses.
+### Our Mission
+
+To provide accurate, accessible information about hemp regulations in every state, empowering the hemp community to grow responsibly and legally.
+
+Stay tuned for state-specific content coming soon!

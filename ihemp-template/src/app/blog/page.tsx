@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/blog";
 import { stateConfig } from "@/config/state";
 
 export default function Blog() {
-  const posts = getAllPosts();
+  const posts = getAllPosts(stateConfig.slug);
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-16">

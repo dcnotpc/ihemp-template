@@ -28,12 +28,12 @@ export default function HeroTitle() {
       className="font-bold tracking-wider drop-shadow-lg flex flex-col items-center"
       style={{ fontFamily: 'var(--font-fredoka)', color: '#F5E6C8' }}
     >
-      <span ref={hempRef} className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+      <span ref={hempRef} className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
         HEMP ON
       </span>
       <span
         ref={stateRef}
-        className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase whitespace-nowrap"
+        className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase whitespace-nowrap"
         style={{ transform: transformStyle, transformOrigin: 'center top' }}
       >
         {stateConfig.name}

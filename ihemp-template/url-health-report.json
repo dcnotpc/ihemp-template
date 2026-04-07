@@ -1,0 +1,571 @@
+{
+  "target_states": {
+    "iHempArkansas.com": "arkansas",
+    "iHempCalifornia.com": "california",
+    "iHempColorado.com": "colorado",
+    "iHempFlorida.com": "florida",
+    "iHempGeorgia.com": "georgia",
+    "iHempIndiana.com": "indiana",
+    "iHempIowa.com": "iowa",
+    "iHempKansas.com": "kansas",
+    "iHempKentucky.com": "kentucky",
+    "iHempMI.com": "michigan",
+    "iHempMississippi.com": "mississippi",
+    "iHempNebraska.com": "nebraska",
+    "iHempOhio.com": "ohio",
+    "iHempOklahoma.com": "oklahoma",
+    "iHempTennessee.com": "tennessee",
+    "iHempTexas.com": "texas"
+  },
+  "results_by_state": {
+    "arkansas": [],
+    "california": [
+      {
+        "field": "SB-566 Industrial hemp",
+        "url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201320140SB566",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201320140SB566",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "SB-566 Industrial hemp",
+        "url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202120220AB45",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202120220AB45",
+          "redirected": false
+        },
+        "line": 12
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.cdfa.ca.gov/is/plant/industrialhemp/",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.cdfa.ca.gov/500.html?aspxerrorpath=/is/plant/industrialhemp/",
+          "redirected": true
+        },
+        "line": 15
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.cdfa.ca.gov/is/plant/industrialhemp/",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.cdfa.ca.gov/500.html?aspxerrorpath=/is/plant/industrialhemp/",
+          "redirected": true
+        },
+        "line": 17
+      }
+    ],
+    "colorado": [
+      {
+        "field": "SB13-241 Regulation of Industrial Hemp",
+        "url": "https://leg.colorado.gov/bills/sb13-241",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://leg.colorado.gov/bills/sb13-241",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "SB13-241 Regulation of Industrial Hemp",
+        "url": "https://leg.colorado.gov/bills/sb19-220",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://leg.colorado.gov/bills/sb19-220",
+          "redirected": false
+        },
+        "line": 12
+      },
+      {
+        "field": "SB19-220 Industrial Hemp Regulatory Authority",
+        "url": "https://leg.colorado.gov/bills/hb19-1322",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://leg.colorado.gov/bills/hb19-1322",
+          "redirected": false
+        },
+        "line": 13
+      },
+      {
+        "field": "HB19-1322 Legalize Hemp Food Additive",
+        "url": "https://leg.colorado.gov/bills/hb22-1341",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://leg.colorado.gov/bills/hb22-1341",
+          "redirected": false
+        },
+        "line": 14
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://ag.colorado.gov/plants/hemp",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://ag.colorado.gov/plants/hemp",
+          "redirected": false
+        },
+        "line": 17
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://ag.colorado.gov/plants/hemp",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://ag.colorado.gov/plants/hemp",
+          "redirected": false
+        },
+        "line": 19
+      }
+    ],
+    "florida": [
+      {
+        "field": "SB1020 State Hemp Program",
+        "url": "https://www.flsenate.gov/Session/Bill/2019/1020",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.flsenate.gov/Session/Bill/2019/1020",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.fdacs.gov/Cannabis-Hemp/Hemp-CBD-in-Florida",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.fdacs.gov/Cannabis-Hemp/Hemp-CBD-in-Florida",
+          "redirected": false
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.fdacs.gov/Cannabis-Hemp/Hemp-CBD-in-Florida",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.fdacs.gov/Cannabis-Hemp/Hemp-CBD-in-Florida",
+          "redirected": false
+        },
+        "line": 16
+      }
+    ],
+    "georgia": [
+      {
+        "field": "State Hemp Program",
+        "url": "https://agr.georgia.gov/hemp-program",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://agr.georgia.gov/hemp-program",
+          "redirected": false
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://agr.georgia.gov/hemp-program",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://agr.georgia.gov/hemp-program",
+          "redirected": false
+        },
+        "line": 16
+      }
+    ],
+    "indiana": [
+      {
+        "field": "HEA1349 Hemp and Hemp Products",
+        "url": "https://iga.in.gov/legislative/2019/bills/house/1349/details",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://iga.in.gov/legislative/2019/bills/house/1349/details",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.oisc.purdue.edu/hemp/index.html",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://oisc.purdue.edu/hemp/index.html",
+          "redirected": true
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.oisc.purdue.edu/hemp/index.html",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://oisc.purdue.edu/hemp/index.html",
+          "redirected": true
+        },
+        "line": 16
+      }
+    ],
+    "iowa": [
+      {
+        "field": "SF599 Industrial Hemp",
+        "url": "https://www.legis.iowa.gov/legislation/BillBook?ga=88&ba=SF599",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.legis.iowa.gov/legislation/BillBook?ga=88&ba=SF599",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "SF599 Industrial Hemp",
+        "url": "https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=HF2605",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=HF2605",
+          "redirected": false
+        },
+        "line": 12
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://iowaagriculture.gov/industrial-hemp",
+        "result": {
+          "status": 404,
+          "success": false,
+          "final_url": "https://iowaagriculture.gov/industrial-hemp",
+          "redirected": false
+        },
+        "line": 15
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://iowaagriculture.gov/industrial-hemp",
+        "result": {
+          "status": 404,
+          "success": false,
+          "final_url": "https://iowaagriculture.gov/industrial-hemp",
+          "redirected": false
+        },
+        "line": 17
+      }
+    ],
+    "kansas": [
+      {
+        "field": "HB2167 Commercial Industrial Hemp Act",
+        "url": "https://www.kslegislature.org/li/b2019_20/measures/hb2167/",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.kslegislature.gov/li_2020/b2019_20/measures/hb2167/",
+          "redirected": true
+        },
+        "line": 11
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.agriculture.ks.gov/divisions-programs/plant-protect-weed-control/industrial-hemp",
+        "result": {
+          "status": 404,
+          "success": false,
+          "final_url": "https://www.agriculture.ks.gov/divisions-programs/plant-protect-weed-control/industrial-hemp",
+          "redirected": false
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.agriculture.ks.gov/divisions-programs/plant-protect-weed-control/industrial-hemp",
+        "result": {
+          "status": 404,
+          "success": false,
+          "final_url": "https://www.agriculture.ks.gov/divisions-programs/plant-protect-weed-control/industrial-hemp",
+          "redirected": false
+        },
+        "line": 16
+      }
+    ],
+    "kentucky": [
+      {
+        "field": "SB50 Industrial Hemp",
+        "url": "https://apps.legislature.ky.gov/record/13rs/sb50.html",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://apps.legislature.ky.gov/record/13rs/sb50.html",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "SB50 Industrial Hemp",
+        "url": "https://apps.legislature.ky.gov/record/23rs/sb47.html",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://apps.legislature.ky.gov/record/23rs/sb47.html",
+          "redirected": false
+        },
+        "line": 12
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.kyagr.com/marketing/hemp.html",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.kyagr.com/marketing/hemp.html",
+          "redirected": false
+        },
+        "line": 15
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.kyagr.com/marketing/hemp.html",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.kyagr.com/marketing/hemp.html",
+          "redirected": false
+        },
+        "line": 17
+      }
+    ],
+    "michigan": [
+      {
+        "field": "Public Act 220 of 2020",
+        "url": "https://www.legislature.mi.gov/documents/2019-2020/publicact/pdf/2020-PA-0220.pdf",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.legislature.mi.gov/documents/2019-2020/publicact/pdf/2020-PA-0220.pdf",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "Public Act 220 of 2020",
+        "url": "https://www.legislature.mi.gov/documents/2019-2020/publicact/pdf/2020-PA-0221.pdf",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.legislature.mi.gov/documents/2019-2020/publicact/pdf/2020-PA-0221.pdf",
+          "redirected": false
+        },
+        "line": 12
+      },
+      {
+        "field": "Public Act 221 of 2020",
+        "url": "https://www.legislature.mi.gov/documents/2021-2022/publicact/pdf/2021-PA-0154.pdf",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.legislature.mi.gov/documents/2021-2022/publicact/pdf/2021-PA-0154.pdf",
+          "redirected": false
+        },
+        "line": 13
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.michigan.gov/mdard/plants-pests/plant-health/industrial-hemp",
+        "result": {
+          "status": 404,
+          "success": false,
+          "final_url": "https://www.michigan.gov/mdard/404",
+          "redirected": true
+        },
+        "line": 16
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.michigan.gov/mdard/plants-pests/plant-health/industrial-hemp",
+        "result": {
+          "status": "ERROR",
+          "success": false,
+          "error": "HTTPSConnectionPool(host='www.michigan.gov', port=443): Read timed out. (read timeout=10)"
+        },
+        "line": 18
+      }
+    ],
+    "mississippi": [],
+    "nebraska": [
+      {
+        "field": "State Hemp Program",
+        "url": "https://nda.nebraska.gov/hemp/",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://nda.nebraska.gov/hemp",
+          "redirected": true
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://nda.nebraska.gov/hemp/",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://nda.nebraska.gov/hemp",
+          "redirected": true
+        },
+        "line": 16
+      }
+    ],
+    "ohio": [
+      {
+        "field": "SB57 Legalize Hemp and Hemp Products",
+        "url": "https://www.legislature.ohio.gov/legislation/133/sb57",
+        "result": {
+          "status": "ERROR",
+          "success": false,
+          "error": "HTTPSConnectionPool(host='www.legislature.ohio.gov', port=443): Max retries exceeded with url: /legislation/133/sb57 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"
+        },
+        "line": 11
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://agri.ohio.gov/divisions/hemp-program",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://agri.ohio.gov/divisions/hemp-program",
+          "redirected": false
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://agri.ohio.gov/divisions/hemp-program",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://agri.ohio.gov/divisions/hemp-program",
+          "redirected": false
+        },
+        "line": 16
+      }
+    ],
+    "oklahoma": [
+      {
+        "field": "State Hemp Program",
+        "url": "https://ag.ok.gov/plant-industry/",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://ag.ok.gov/plant-industry/",
+          "redirected": false
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://ag.ok.gov/plant-industry/",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://ag.ok.gov/plant-industry/",
+          "redirected": false
+        },
+        "line": 16
+      }
+    ],
+    "tennessee": [
+      {
+        "field": "SB378 Hemp-Derived Cannabinoid Products",
+        "url": "https://wapp.capitol.tn.gov/apps/BillInfo/default.aspx?BillNumber=SB0378&GA=113",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://wapp.capitol.tn.gov/apps/BillInfo/Default?BillNumber=SB0378&GA=113",
+          "redirected": true
+        },
+        "line": 11
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.tn.gov/agriculture/farms/hemp-industry.html",
+        "result": {
+          "status": "ERROR",
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.tn.gov/agriculture/farms/hemp-industry.html",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://www.tn.gov/agriculture/farms/hemp-industry.html",
+          "redirected": false
+        },
+        "line": 16
+      }
+    ],
+    "texas": [
+      {
+        "field": "HB1325 Hemp Production and Regulation",
+        "url": "https://capitol.texas.gov/tlodocs/86R/billtext/html/HB01325F.htm",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://capitol.texas.gov/tlodocs/86R/billtext/html/HB01325F.htm",
+          "redirected": false
+        },
+        "line": 11
+      },
+      {
+        "field": "State Hemp Program",
+        "url": "https://www.texasagriculture.gov/Regulatory-Programs/Hemp",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://texasagriculture.gov/Regulatory-Programs/Hemp",
+          "redirected": true
+        },
+        "line": 14
+      },
+      {
+        "field": "License/Application Portal",
+        "url": "https://www.texasagriculture.gov/Regulatory-Programs/Hemp",
+        "result": {
+          "status": 200,
+          "success": true,
+          "final_url": "https://texasagriculture.gov/Regulatory-Programs/Hemp",
+          "redirected": true
+        },
+        "line": 16
+      }
+    ]
+  },
+  "summary": {
+    "total_urls": 47,
+    "working_urls": 39,
+    "broken_urls": 8
+  }
+}

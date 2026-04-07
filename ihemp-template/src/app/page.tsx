@@ -4,7 +4,7 @@ import Countdown from '@/components/Countdown'
 export default function Home() {
   return (
     <div>
-      <section className="relative w-full h-[50vh] sm:h-[55vh] md:h-[60vh] flex items-center justify-center">
+      <section className="relative w-full h-[40vh] sm:h-[45vh] md:h-[50vh] flex items-center justify-center">
         <img src="/images/hemp-field.webp" alt="Hemp fiber field" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/30" />
         <div className="relative z-10 text-center px-4">

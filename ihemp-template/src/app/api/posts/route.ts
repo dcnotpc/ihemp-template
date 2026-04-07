@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { slug, title, description, date, published = true, content } = body;
+  const { slug, title, description, date, published = true, content, state, states } = body;
 
   if (!slug || !title || !content) {
     return NextResponse.json(
@@ -21,11 +21,23 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Build frontmatter with state/states fields
+  const frontmatterLines = [
+    `title: "${title.replace(/"/g, '\\"')}"`,
+    `description: "${(description ?? "").replace(/"/g, '\\"')}"`,
+    `date: "${date ?? new Date().toISOString().split("T")[0]}"`,
+    `published: ${published}`,
+  ];
+
+  // Add state/states field based on what's provided
+  if (states && Array.isArray(states)) {
+    frontmatterLines.push(`states: ${JSON.stringify(states)}`);
+  } else if (state) {
+    frontmatterLines.push(`state: "${state}"`);
+  }
+
   const frontmatter = `---
-title: "${title.replace(/"/g, '\\"')}"
-description: "${(description ?? "").replace(/"/g, '\\"')}"
-date: "${date ?? new Date().toISOString().split("T")[0]}"
-published: ${published}
+${frontmatterLines.join('\n')}
 ---
 
 `;

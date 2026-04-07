@@ -1,0 +1,355 @@
+{
+  "Kentucky": {
+    "laws": [
+      {
+        "url": "https://apps.legislature.ky.gov/record/13rs/sb50.html",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html",
+        "message": "OK - HTML content"
+      },
+      {
+        "url": "https://apps.legislature.ky.gov/record/23rs/sb47.html",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html",
+        "message": "OK - HTML content"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.kyagr.com/marketing/hemp.html",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html",
+        "message": "OK - HTML content"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.kyagr.com/marketing/hemp.html",
+      "success": true,
+      "status_code": 200,
+      "content_type": "text/html",
+      "message": "OK - HTML content"
+    }
+  },
+  "Ohio": {
+    "laws": [
+      {
+        "url": "https://www.legislature.ohio.gov/legislation/133/sb57",
+        "success": false,
+        "status_code": 0,
+        "content_type": "CONNECTION_ERROR",
+        "message": "Connection failed"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://agri.ohio.gov/divisions/plant-health/industrial-hemp",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "Page exists but may indicate error"
+      }
+    ],
+    "regulatory": {
+      "url": "https://agri.ohio.gov/divisions/plant-health/industrial-hemp",
+      "success": false,
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "message": "Page exists but may indicate error"
+    }
+  },
+  "Florida": {
+    "laws": [
+      {
+        "url": "https://www.flsenate.gov/Session/Bill/2019/1020",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "OK - HTML content"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.fdacs.gov/Cannabis-Hemp/Hemp-CBD-in-Florida",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "Page exists but may indicate error"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.fdacs.gov/Cannabis-Hemp/Hemp-CBD-in-Florida",
+      "success": false,
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "message": "Page exists but may indicate error"
+    }
+  },
+  "Indiana": {
+    "laws": [
+      {
+        "url": "https://iga.in.gov/legislative/2019/bills/house/1349/details",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html",
+        "message": "OK - HTML content"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.oisc.purdue.edu/hemp/index.html",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html",
+        "message": "OK - HTML content"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.oisc.purdue.edu/hemp/index.html",
+      "success": true,
+      "status_code": 200,
+      "content_type": "text/html",
+      "message": "OK - HTML content"
+    }
+  },
+  "Iowa": {
+    "laws": [
+      {
+        "url": "https://www.legis.iowa.gov/legislation/BillBook?ga=88&ba=SF599",
+        "success": false,
+        "status_code": 0,
+        "content_type": "TIMEOUT",
+        "message": "Request timed out after 10s"
+      },
+      {
+        "url": "https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=HF2605",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html;charset=utf-8",
+        "message": "Page exists but may indicate error"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://iowaagriculture.gov/industrial-hemp",
+        "success": false,
+        "status_code": 404,
+        "content_type": "text/html; charset=utf-8",
+        "message": "HTTP 404"
+      }
+    ],
+    "regulatory": {
+      "url": "https://iowaagriculture.gov/industrial-hemp",
+      "success": false,
+      "status_code": 404,
+      "content_type": "text/html; charset=utf-8",
+      "message": "HTTP 404"
+    }
+  },
+  "Kansas": {
+    "laws": [
+      {
+        "url": "https://www.kslegislature.org/li/b2019_20/measures/hb2167/",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "OK - HTML content"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.agriculture.ks.gov/divisions-programs/plant-protect-weed-control/industrial-hemp",
+        "success": false,
+        "status_code": 403,
+        "content_type": "text/html",
+        "message": "HTTP 403"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.agriculture.ks.gov/divisions-programs/plant-protect-weed-control/industrial-hemp",
+      "success": false,
+      "status_code": 403,
+      "content_type": "text/html",
+      "message": "HTTP 403"
+    }
+  },
+  "Texas": {
+    "laws": [
+      {
+        "url": "https://capitol.texas.gov/tlodocs/86R/billtext/html/HB01325F.htm",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html",
+        "message": "Page exists but may indicate error"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.texasagriculture.gov/Regulatory-Programs/Hemp",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "OK - HTML content"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.texasagriculture.gov/Regulatory-Programs/Hemp",
+      "success": true,
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "message": "OK - HTML content"
+    }
+  },
+  "Tennessee": {
+    "laws": [
+      {
+        "url": "https://wapp.capitol.tn.gov/apps/BillInfo/default.aspx?BillNumber=SB0378&GA=113",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "Page exists but may indicate error"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.tn.gov/agriculture/farms/hemp-industry.html",
+        "success": false,
+        "status_code": 0,
+        "content_type": "CONNECTION_ERROR",
+        "message": "Connection failed"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.tn.gov/agriculture/farms/hemp-industry.html",
+      "success": true,
+      "status_code": 200,
+      "content_type": "text/html;charset=utf-8",
+      "message": "OK - HTML content"
+    }
+  },
+  "Colorado": {
+    "laws": [
+      {
+        "url": "https://leg.colorado.gov/bills/sb13-241",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "OK - HTML content"
+      },
+      {
+        "url": "https://leg.colorado.gov/bills/sb19-220",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "Page exists but may indicate error"
+      },
+      {
+        "url": "https://leg.colorado.gov/bills/hb19-1322",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "OK - HTML content"
+      },
+      {
+        "url": "https://leg.colorado.gov/bills/hb22-1341",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "Page exists but may indicate error"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://ag.colorado.gov/plants/industrial-hemp-program",
+        "success": false,
+        "status_code": 404,
+        "content_type": "text/html; charset=utf-8",
+        "message": "HTTP 404"
+      }
+    ],
+    "regulatory": {
+      "url": "https://ag.colorado.gov/plants/industrial-hemp-program",
+      "success": false,
+      "status_code": 404,
+      "content_type": "text/html; charset=utf-8",
+      "message": "HTTP 404"
+    }
+  },
+  "Michigan": {
+    "laws": [
+      {
+        "url": "https://www.legislature.mi.gov/documents/2019-2020/publicact/pdf/2020-PA-0220.pdf",
+        "success": false,
+        "status_code": 403,
+        "content_type": "text/html",
+        "message": "HTTP 403"
+      },
+      {
+        "url": "https://www.legislature.mi.gov/documents/2019-2020/publicact/pdf/2020-PA-0221.pdf",
+        "success": false,
+        "status_code": 403,
+        "content_type": "text/html",
+        "message": "HTTP 403"
+      },
+      {
+        "url": "https://www.legislature.mi.gov/documents/2021-2022/publicact/pdf/2021-PA-0154.pdf",
+        "success": false,
+        "status_code": 403,
+        "content_type": "text/html",
+        "message": "HTTP 403"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.michigan.gov/mdard/plants-pests/plant-health/industrial-hemp",
+        "success": false,
+        "status_code": 403,
+        "content_type": "text/html",
+        "message": "HTTP 403"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.michigan.gov/mdard/plants-pests/plant-health/industrial-hemp",
+      "success": false,
+      "status_code": 403,
+      "content_type": "text/html",
+      "message": "HTTP 403"
+    }
+  },
+  "California": {
+    "laws": [
+      {
+        "url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201320140SB566",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "OK - HTML content"
+      },
+      {
+        "url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202120220AB45",
+        "success": true,
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "message": "OK - HTML content"
+      }
+    ],
+    "resources": [
+      {
+        "url": "https://www.cdfa.ca.gov/is/plant/industrialhemp/",
+        "success": false,
+        "status_code": 200,
+        "content_type": "text/html",
+        "message": "Page exists but may indicate error"
+      }
+    ],
+    "regulatory": {
+      "url": "https://www.cdfa.ca.gov/is/plant/industrialhemp/",
+      "success": false,
+      "status_code": 200,
+      "content_type": "text/html",
+      "message": "Page exists but may indicate error"
+    }
+  }
+}
