@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import HeroTitle from '@/components/HeroTitle'
 import Countdown from '@/components/Countdown'
+import { stateConfig } from '@/config/state'
+
 export default function Home() {
   return (
     <div>
@@ -48,7 +50,7 @@ export default function Home() {
               <div className="h-48 bg-green-200 flex items-center justify-center"><span className="text-green-700 text-sm">Featured Image</span></div>
               <div className="p-5">
                 <p className="text-sm text-green-600 mb-1">March 20, 2026</p>
-                <h4 className="text-lg font-bold text-stone-800">Colorados Hemp Program: A Model for the Nation</h4>
+                <h4 className="text-lg font-bold text-stone-800">{stateConfig.name}'s Hemp Program: A Model for the Nation</h4>
               </div>
             </div>
           </div>

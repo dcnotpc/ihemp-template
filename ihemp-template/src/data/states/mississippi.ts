@@ -8,7 +8,7 @@ export const mississippi: State = {
   summary: 'Mississippi authorizes hemp cultivation under a state program overseen by the Mississippi Department of Agriculture and Commerce. The cultivation framework generally tracks federal hemp standards, though businesses should separately review state treatment of consumable and intoxicating hemp-derived products because that area can change faster than the grower program.',
   thcLimit: '0.3% total THC on a dry-weight basis for hemp production, aligned with federal law; pre-harvest compliance is based on total THC.',
   laws: [
-    { title: 'Mississippi Hemp Cultivation Act', url: '', year: 2020 }
+    { title: 'Mississippi Hemp Cultivation Act (SB2725)', url: 'https://billstatus.ls.state.ms.us/documents/2020/html/SB/2700-2799/SB2725CS.htm', year: 2020 }
   ],
   resources: [
     { label: 'State Hemp Program', url: 'https://www.mdac.ms.gov/programs/hemp-cultivation-in-ms/' },

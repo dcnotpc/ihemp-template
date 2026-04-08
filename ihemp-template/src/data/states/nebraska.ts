@@ -8,7 +8,7 @@ export const nebraska: State = {
   summary: "Nebraska permits hemp cultivation, processing, and handling through NDA registration under the Nebraska Hemp Farming Act. The state largely tracks federal production rules, though cannabinoid product compliance can involve separate requirements beyond cultivation.",
   thcLimit: "0.3% total THC on a dry-weight basis, aligned with federal production rules; pre-harvest compliance is based on total THC.",
   laws: [
-    { title: "LB657 Nebraska Hemp Farming Act", url: "", year: 2019 }
+    { title: "LB657 Nebraska Hemp Farming Act", url: "https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=37622", year: 2019 }
   ],
   resources: [
     { label: "State Hemp Program", url: "https://nda.nebraska.gov/hemp/" },

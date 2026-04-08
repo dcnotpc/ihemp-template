@@ -7,27 +7,38 @@ export const metadata = {
   description: stateConfig.pages.resources.description,
 }
 
-const stateData = getStateBySlug(stateConfig.slug)
-
-const amazonProducts = [
-  { title: 'Hemp Farming Guide', description: 'Complete guide to growing industrial hemp from seed to harvest.', url: '#' },
-  { title: 'Hemp Seed Starter Kit', description: 'Everything you need to start your first hemp grow.', url: '#' },
-  { title: 'CBD Testing Kit', description: 'At-home cannabinoid testing for THC compliance.', url: '#' },
-  { title: 'Hemp Processing Tools', description: 'Professional-grade tools for hemp harvesting and processing.', url: '#' },
-]
-
-const ihempMerch = [
-  { title: 'iHemp International Tee', description: 'Rep the hemp movement. Premium organic cotton.', url: 'https://ihempinternational.com' },
-  { title: 'Hemp Advocate Cap', description: 'Show your support for industrial hemp.', url: 'https://ihempinternational.com' },
-]
-
-const ihempHarvestProducts = [
-  { title: 'Premium Hemp Flower', description: 'Farm-fresh, lab-tested hemp flower grown with care.', url: 'https://ihempharvest.com' },
-  { title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
-  { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biomass for processors and manufacturers.', url: 'https://ihempharvest.com' },
-]
-
 export default function Resources() {
+  const stateData = getStateBySlug(stateConfig.slug)
+  
+  if (!stateData) {
+    return (
+      <div className="max-w-5xl mx-auto px-4 py-12">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-bold text-red-700 mb-3">State Data Not Found</h2>
+          <p className="text-red-600">Unable to load state data for &quot;{stateConfig.slug}&quot;. Please check your configuration.</p>
+        </div>
+      </div>
+    )
+  }
+  
+  const amazonProducts = [
+    { title: 'Hemp Farming Guide', description: 'Complete guide to growing industrial hemp from seed to harvest.', url: '#' },
+    { title: 'Hemp Seed Starter Kit', description: 'Everything you need to start your first hemp grow.', url: '#' },
+    { title: 'CBD Testing Kit', description: 'At-home cannabinoid testing for THC compliance.', url: '#' },
+    { title: 'Hemp Processing Tools', description: 'Professional-grade tools for hemp harvesting and processing.', url: '#' },
+  ]
+  
+  const ihempMerch = [
+    { title: 'iHemp International Tee', description: 'Rep the hemp movement. Premium organic cotton.', url: 'https://ihempinternational.com' },
+    { title: 'Hemp Advocate Cap', description: 'Show your support for industrial hemp.', url: 'https://ihempinternational.com' },
+  ]
+  
+  const ihempHarvestProducts = [
+    { title: 'Premium Hemp Flower', description: 'Farm-fresh, lab-tested hemp flower grown with care.', url: 'https://ihempharvest.com' },
+    { title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
+    { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biomass for processors and manufacturers.', url: 'https://ihempharvest.com' },
+  ]
+  
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-10">

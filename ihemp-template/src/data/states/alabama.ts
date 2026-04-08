@@ -8,8 +8,8 @@ export const alabama: State = {
   summary: "Alabama allows hemp cultivation under ADAI licensing and uses USDA-style sampling and testing rules. The state permits hemp-derived products, but product-specific compliance requires closer review than cultivation alone.",
   thcLimit: "0.3% total THC on a dry-weight basis, aligned with federal production rules; pre-harvest compliance is based on total THC.",
   laws: [
-    { title: "SB225 Alabama Industrial Hemp Research Program Act", url: "", year: 2016 },
-    { title: "HB445 Hemp Extract Products", url: "", year: 2021 }
+    { title: "SB225 Alabama Industrial Hemp Research Program Act", url: "https://legiscan.com/AL/bill/SB225/2019", year: 2019 },
+    { title: "HB445 Hemp Extract Products", url: "https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2025RS/HB445-enr.pdf", year: 2025 }
   ],
   resources: [
     { label: "State Hemp Program", url: "https://agi.alabama.gov/hemp/" },

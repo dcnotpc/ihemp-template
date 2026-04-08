@@ -8,7 +8,7 @@ export const arkansas: State = {
   summary: 'Arkansas allows hemp cultivation and processing under a state licensing program administered by the Arkansas Department of Agriculture. The state has taken a more restrictive posture than many others on hemp-derived cannabinoid products, especially intoxicating products, so cultivation is legal but retail product compliance is higher risk.',
   thcLimit: '0.3% total THC on a dry-weight basis for hemp production, aligned with federal law; pre-harvest compliance is based on total THC.',
   laws: [
-    { title: 'Arkansas Industrial Hemp Act', url: '', year: 2017 }
+    { title: 'Arkansas Industrial Hemp Act (HB1778)', url: 'https://arkleg.state.ar.us/Bills/Detail?ddBienniumSession=2017/2017R&measureno=HB1778', year: 2017 }
   ],
   resources: [
     { label: 'State Hemp Program', url: 'https://agriculture.arkansas.gov/crops-industry/quality-control-and-compliance/hemp-home/' },

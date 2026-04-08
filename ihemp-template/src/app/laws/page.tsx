@@ -9,6 +9,18 @@ export const metadata = {
 
 export default function Laws() {
   const stateData = getStateBySlug(stateConfig.slug)
+  
+  if (!stateData) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-bold text-red-700 mb-3">State Data Not Found</h2>
+          <p className="text-red-600">Unable to load state data for &quot;{stateConfig.slug}&quot;. Please check your configuration.</p>
+        </div>
+      </div>
+    )
+  }
+  
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <div className="mb-10">

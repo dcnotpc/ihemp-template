@@ -8,7 +8,7 @@ export const oklahoma: State = {
   summary: "Oklahoma allows hemp cultivation and processing under ODAFF licensing and has generally maintained an accessible production framework. Retail and finished-product compliance still requires attention to testing, labeling, and any state action involving intoxicating cannabinoids.",
   thcLimit: "0.3% total THC on a dry-weight basis, aligned with federal production rules; pre-harvest compliance is based on total THC.",
   laws: [
-    { title: "SB868 Oklahoma Industrial Hemp Program", url: "", year: 2019 }
+    { title: "SB868 Oklahoma Industrial Hemp Program", url: "https://legiscan.com/OK/bill/SB868/2019", year: 2019 }
   ],
   resources: [
     { label: "State Hemp Program", url: "https://ag.ok.gov/plant-industry/" },

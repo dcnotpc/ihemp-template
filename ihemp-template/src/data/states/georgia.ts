@@ -8,7 +8,7 @@ export const georgia: State = {
   summary: "Georgia permits hemp cultivation under state licensing and allows some hemp-derived products, but the retail market is more constrained than in many states because intoxicating cannabinoid products and low-THC formulations face closer scrutiny. Businesses should review both agriculture rules and evolving enforcement for finished products.",
   thcLimit: "0.3% THC on a dry-weight basis; production sampling and testing must satisfy USDA-compliant pre-harvest requirements.",
   laws: [
-    { title: "HB213 Georgia Hemp Farming Act", url: "", year: 2019 }
+    { title: "HB213 Georgia Hemp Farming Act", url: "https://legiscan.com/GA/bill/HB213/2019", year: 2019 }
   ],
   resources: [
     { label: "State Hemp Program", url: "https://agr.georgia.gov/hemp-program" },
