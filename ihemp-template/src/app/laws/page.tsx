@@ -1,5 +1,5 @@
-import { colorado } from '@/data/states/colorado'
 import { stateConfig } from '@/config/state'
+import { getStateBySlug } from '@/data/states'
 import Link from 'next/link'
 
 export const metadata = {
@@ -7,9 +7,8 @@ export const metadata = {
   description: stateConfig.pages.laws.description,
 }
 
-const stateData = colorado
-
 export default function Laws() {
+  const stateData = getStateBySlug(stateConfig.slug)
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <div className="mb-10">
