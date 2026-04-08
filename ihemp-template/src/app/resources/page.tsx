@@ -1,5 +1,5 @@
-import { colorado } from '@/data/states/colorado'
 import { stateConfig } from '@/config/state'
+import { getStateBySlug } from '@/data/states'
 import Link from 'next/link'
 
 export const metadata = {
@@ -7,7 +7,7 @@ export const metadata = {
   description: stateConfig.pages.resources.description,
 }
 
-const stateData = colorado
+const stateData = getStateBySlug(stateConfig.slug)
 
 const amazonProducts = [
   { title: 'Hemp Farming Guide', description: 'Complete guide to growing industrial hemp from seed to harvest.', url: '#' },
