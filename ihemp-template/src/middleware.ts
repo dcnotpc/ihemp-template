@@ -13,10 +13,19 @@ export function middleware(req: NextRequest) {
     // 4. For now, we'll just allow access for development
     
     const authHeader = req.headers.get('authorization');
-    const expectedAuth = `Bearer ${process.env.OPENCLAW_API_SECRET}`;
+    const apiSecret = process.env.OPENCLAW_API_SECRET;
     
-    // Allow if no auth required (development) or if auth matches
-    if (!process.env.OPENCLAW_API_SECRET || authHeader === expectedAuth) {
+    // If no API secret is set (e.g., development, Vercel preview), allow access
+    // This handles cases where environment variables aren't available at runtime
+    if (!apiSecret) {
+      console.warn('OPENCLAW_API_SECRET not set, allowing access to dashboard');
+      return NextResponse.next();
+    }
+    
+    const expectedAuth = `Bearer ${apiSecret}`;
+    
+    // Allow if auth matches
+    if (authHeader === expectedAuth) {
       return NextResponse.next();
     }
     
