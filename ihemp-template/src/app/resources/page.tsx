@@ -22,10 +22,14 @@ export default function Resources() {
   }
   
   const amazonProducts = [
-    { title: 'Hemp Farming Guide', description: 'Complete guide to growing industrial hemp from seed to harvest.', url: '#' },
-    { title: 'Hemp Seed Starter Kit', description: 'Everything you need to start your first hemp grow.', url: '#' },
-    { title: 'CBD Testing Kit', description: 'At-home cannabinoid testing for THC compliance.', url: '#' },
-    { title: 'Hemp Processing Tools', description: 'Professional-grade tools for hemp harvesting and processing.', url: '#' },
+    { title: 'CBD Salve Containers', description: 'Stick containers and sample containers for CBD salve products.', url: 'https://amzn.to/4t96X39' },
+    { title: 'Shea Butter for CBD Salve', description: 'High-quality shea butter for making CBD salve at home.', url: 'https://amzn.to/4snzP6D' },
+    { title: 'Unrefined Coconut Oil', description: 'Perfect base oil for CBD salve and other hemp products.', url: 'https://amzn.to/3PShRvz' },
+    { title: 'CBD Salve Tins', description: 'Reusable tins for storing and selling CBD salve.', url: 'https://amzn.to/4dBiX8Q' },
+    { title: 'Menthol Crystals', description: 'For adding cooling effect to topical CBD products.', url: 'https://amzn.to/4sYi3rA' },
+    { title: 'Cayenne Pepper Extract', description: 'Warming ingredient for topical CBD formulations.', url: 'https://amzn.to/4mifGxb' },
+    { title: 'Peppermint Essential Oil', description: 'Adds refreshing scent and cooling sensation to CBD products.', url: 'https://amzn.to/4tFc9f7' },
+    { title: 'CBD Sample Products', description: 'Small quantities for recipe testing and product development.', url: 'https://amzn.to/4cvOw2C' },
   ]
   
   const ihempMerch = [
