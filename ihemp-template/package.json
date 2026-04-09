@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "vercel-build": "npm install && next build"
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",
