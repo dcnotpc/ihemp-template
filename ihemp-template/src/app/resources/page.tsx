@@ -22,14 +22,17 @@ export default function Resources() {
   }
   
   const amazonProducts = [
-    { title: 'CBD Salve Containers', description: 'Stick containers and sample containers for CBD salve products.', url: 'https://amzn.to/4t96X39' },
-    { title: 'Shea Butter for CBD Salve', description: 'High-quality shea butter for making CBD salve at home.', url: 'https://amzn.to/4snzP6D' },
-    { title: 'Unrefined Coconut Oil', description: 'Perfect base oil for CBD salve and other hemp products.', url: 'https://amzn.to/3PShRvz' },
-    { title: 'CBD Salve Tins', description: 'Reusable tins for storing and selling CBD salve.', url: 'https://amzn.to/4dBiX8Q' },
-    { title: 'Menthol Crystals', description: 'For adding cooling effect to topical CBD products.', url: 'https://amzn.to/4sYi3rA' },
-    { title: 'Cayenne Pepper Extract', description: 'Warming ingredient for topical CBD formulations.', url: 'https://amzn.to/4mifGxb' },
-    { title: 'Peppermint Essential Oil', description: 'Adds refreshing scent and cooling sensation to CBD products.', url: 'https://amzn.to/4tFc9f7' },
-    { title: 'CBD Sample Products', description: 'Small quantities for recipe testing and product development.', url: 'https://amzn.to/4cvOw2C' },
+    { title: 'CBD Salve Stick Containers', description: 'High-quality stick containers for CBD salve application.', url: 'https://amzn.to/4t96X39' },
+    { title: 'CBD Salve Sample Containers', description: 'Small sample containers for testing and travel-sized products.', url: 'https://amzn.to/4spL922' },
+    { title: 'Shea Butter for CBD Salve', description: 'Premium-grade shea butter base for CBD salve formulations.', url: 'https://amzn.to/4snzP6D' },
+    { title: 'Unrefined Coconut Oil', description: 'High-quality coconut oil for CBD base ingredients.', url: 'https://amzn.to/3PShRvz' },
+    { title: 'CBD Salve Tins', description: 'Professional tins for storing and selling finished CBD products.', url: 'https://amzn.to/4dBiX8Q' },
+    { title: 'Menthol Crystals', description: 'Pure menthol for adding cooling sensation to topical CBD.', url: 'https://amzn.to/4sYi3rA' },
+    { title: 'Cayenne Pepper Extract', description: 'Natural warming extract for topical CBD formulations.', url: 'https://amzn.to/4mifGxb' },
+    { title: 'Peppermint Essential Oil', description: 'Organic peppermint oil for scent and cooling effect.', url: 'https://amzn.to/4tFc9f7' },
+    { title: 'CBD Sample Products', description: 'Small CBD quantities for recipe development and testing.', url: 'https://amzn.to/4cvOw2C' },
+    { title: 'Foil for Chocolate CBD Balls', description: 'Wrapping foil for homemade CBD edibles and treats.', url: 'https://amzn.to/48meLWR' },
+    { title: 'CBD Recipe Essentials', description: 'Additional supplies for advanced CBD product creation.', url: 'https://amzn.to/4vpasnN' },
   ]
   
   const ihempMerch = [
@@ -83,7 +86,7 @@ export default function Resources() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Recommended Hemp Products</h2>
         <p className="text-hemp-brown/70 mb-5">Our top picks for hemp growing, testing, and learning.</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {amazonProducts.map((product, i) => (
             <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
               <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
