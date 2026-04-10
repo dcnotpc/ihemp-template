@@ -45,6 +45,24 @@ export default function Resources() {
     { title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
     { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biomass for processors and manufacturers.', url: 'https://ihempharvest.com' },
   ]
+
+  const hempGrowingEquipment = [
+    { title: 'Hemp Seeds (Industrial)', description: 'High-CBD, certified industrial hemp seeds for farming.', url: 'https://amzn.to/4dfHg1h' },
+    { title: 'Organic Potting Soil', description: 'Nutrient-rich soil optimized for hemp cultivation.', url: 'https://amzn.to/4ea3J5N' },
+    { title: 'Fabric Grow Bags', description: 'Breathable fabric pots for healthy root development.', url: 'https://amzn.to/4a2YG0X' },
+    { title: 'Grow Lights (LED)', description: 'Full-spectrum LED lights for indoor hemp growing.', url: 'https://amzn.to/4d8t6xt' },
+    { title: 'Soil pH Tester', description: 'Digital meter to monitor soil acidity for optimal growth.', url: 'https://amzn.to/4a2Z2a7' },
+    { title: 'Garden Irrigation Kit', description: 'Drip irrigation system for efficient watering.', url: 'https://amzn.to/4a2Ze0b' },
+  ]
+
+  const testingAndMeasurementKits = [
+    { title: 'THC Test Strips', description: 'Quick-test strips for verifying THC content (<0.3%).', url: 'https://amzn.to/4d8u3Ll' },
+    { title: 'Digital Moisture Meter', description: 'Accurate soil moisture reader for hemp plants.', url: 'https://amzn.to/4d8ub8m' },
+    { title: 'TDS/PPM Water Tester', description: 'Measures water quality and nutrient concentration.', url: 'https://amzn.to/4a2Zg0R' },
+    { title: 'Magnifying Loupe (60x)', description: 'Jewelers loupe for inspecting trichomes and pests.', url: 'https://amzn.to/4d8uf8Q' },
+    { title: 'Digital Scale (0.01g)', description: 'Precision scale for weighing harvest and products.', url: 'https://amzn.to/4a2Zk0S' },
+    { title: 'Temperature/Humidity Gauge', description: 'Monitor grow environment conditions.', url: 'https://amzn.to/4d8uj8U' },
+  ]
   
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
@@ -88,6 +106,34 @@ export default function Resources() {
         <p className="text-hemp-brown/70 mb-5">Our top picks for hemp growing, testing, and learning.</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {amazonProducts.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Growing Equipment</h2>
+        <p className="text-hemp-brown/70 mb-5">Essential tools and supplies for cultivating hemp.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {hempGrowingEquipment.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Testing & Measurement Kits</h2>
+        <p className="text-hemp-brown/70 mb-5">Tools for quality control and compliance testing.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {testingAndMeasurementKits.map((product, i) => (
             <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
               <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
               <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
