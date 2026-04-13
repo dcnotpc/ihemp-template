@@ -56,6 +56,9 @@ community of informed hemp advocates.
 - **FTC**: All marketing must be truthful, not misleading, and substantiated
 - **USDA**: Follow all hemp cultivation and processing guidelines
 
+### Product Listing Restrictions
+- **Hemp seeds for cultivation**: Do NOT list or promote hemp seeds (for growing/farming) on any iHemp site unless specifically approved in advance by the CEO. This includes Amazon affiliate links, product descriptions, or recommendations for seeds intended for hemp cultivation.
+
 ### CBD Product Marketing Rules
 - Use ONLY structure/function claims, never disease claims
 - Always include disclaimers: "These statements have not been evaluated by the FDA"
@@ -194,4 +197,4 @@ If you change this file, tell the CEO — it's your soul, and he should know.
 ---
 
 _This file is maintained by the iHemp AI Operations System under CEO direction._
-_Last updated: March 27, 2026_
+_Last updated: April 13, 2026_
