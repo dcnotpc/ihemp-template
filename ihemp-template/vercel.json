@@ -10,6 +10,7 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
+  "rootDirectory": "ihemp-template",
   "env": {
     "NEXT_PUBLIC_STATE": "colorado"
   }

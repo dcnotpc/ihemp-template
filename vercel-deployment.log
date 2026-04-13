@@ -1,0 +1,102 @@
+============================================================
+🌿 iHemp Vercel Batch Creator - Fixed
+============================================================
+🔐 Testing API connection...
+✅ Connected as: Dave Crabill (dave@escmi.com)
+📊 Found 11 existing projects
+   • ihemp-kansas
+   • ihemp-iowa
+   • ihemp-indiana
+   • ihemp-florida
+   • ihemp-california
+   • ihemp-georgia
+   • ihemp-arkansas
+   • test-ihemp-api
+   • ihemp-colorado
+   • turtle-derby
+   • ihemp-alabama
+📋 Existing: ['ihemp-kansas', 'ihemp-iowa', 'ihemp-indiana', 'ihemp-florida', 'ihemp-california', 'ihemp-georgia', 'ihemp-arkansas', 'test-ihemp-api', 'ihemp-colorado', 'turtle-derby', 'ihemp-alabama']
+
+🚀 Creating project: ihemp-kentucky
+✅ Created: ihemp-kentucky (ID: prj_HnKeXA2tu63d8otf9AYjZKlFs1Fr)
+   🌐 Adding domain: ihempkentucky.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+🚀 Creating project: ihemp-michigan
+✅ Created: ihemp-michigan (ID: prj_VxgTU8E3GbJALJbjLzbLli7zrJ3e)
+   🌐 Adding domain: ihempmi.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+🚀 Creating project: ihemp-mississippi
+✅ Created: ihemp-mississippi (ID: prj_JysJlLH5g2xhOKArT9Xy1vIBoBGG)
+   🌐 Adding domain: ihempmississippi.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+🚀 Creating project: ihemp-nebraska
+✅ Created: ihemp-nebraska (ID: prj_HLOEuDfXUBfLkc9WGOq2gXNBnGfR)
+   🌐 Adding domain: ihempnebraska.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+🚀 Creating project: ihemp-ohio
+✅ Created: ihemp-ohio (ID: prj_ROfZzIGS8AfQoOxuSsyPwmSqEmfV)
+   🌐 Adding domain: ihempohio.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+🚀 Creating project: ihemp-oklahoma
+✅ Created: ihemp-oklahoma (ID: prj_nTkMv9XFTjloWpEkSPiyWGCThw9i)
+   🌐 Adding domain: ihempoklahoma.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+🚀 Creating project: ihemp-tennessee
+✅ Created: ihemp-tennessee (ID: prj_VHfV4ZQJjiBokwGuXne5iV5dZnPE)
+   🌐 Adding domain: ihemptennessee.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+🚀 Creating project: ihemp-texas
+✅ Created: ihemp-texas (ID: prj_7yYP5NGR6HVFEpYmufjygk2V6eUl)
+   🌐 Adding domain: ihemptexas.com
+   ✅ Domain added
+   🚀 Triggering deployment...
+   ⚠️  Deployment may have issues: {'error': {'code': 'bad_request', 'message': 'Invalid request: "files" field should be an array'}}
+
+============================================================
+📊 SUMMARY
+============================================================
+
+✅ Successfully processed: 8 states
+   • kentucky     → ihemp-kentucky            (created ) → ihempkentucky.com
+   • michigan     → ihemp-michigan            (created ) → ihempmi.com
+   • mississippi  → ihemp-mississippi         (created ) → ihempmississippi.com
+   • nebraska     → ihemp-nebraska            (created ) → ihempnebraska.com
+   • ohio         → ihemp-ohio                (created ) → ihempohio.com
+   • oklahoma     → ihemp-oklahoma            (created ) → ihempoklahoma.com
+   • tennessee    → ihemp-tennessee           (created ) → ihemptennessee.com
+   • texas        → ihemp-texas               (created ) → ihemptexas.com
+
+🔗 All 17 iHemp states will be available at:
+   • https://ihempalabama.com
+   • https://ihempcolorado.com
+   • https://ihempkentucky.com
+   • https://ihempmi.com
+   • https://ihempmississippi.com
+   • https://ihempnebraska.com
+   • https://ihempohio.com
+   • https://ihempoklahoma.com
+   • https://ihemptennessee.com
+   • https://ihemptexas.com
+
+⏱️  Deployments take 2-5 minutes each. Check Vercel dashboard for status.
