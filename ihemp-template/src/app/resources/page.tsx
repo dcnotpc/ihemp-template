@@ -47,7 +47,6 @@ export default function Resources() {
   ]
 
   const hempGrowingEquipment = [
-    { title: 'Hemp Seeds (Industrial)', description: 'High-CBD, certified industrial hemp seeds for farming.', url: 'https://amzn.to/4dfHg1h' },
     { title: 'Organic Potting Soil', description: 'Nutrient-rich soil optimized for hemp cultivation.', url: 'https://amzn.to/4ea3J5N' },
     { title: 'Fabric Grow Bags', description: 'Breathable fabric pots for healthy root development.', url: 'https://amzn.to/4a2YG0X' },
     { title: 'Grow Lights (LED)', description: 'Full-spectrum LED lights for indoor hemp growing.', url: 'https://amzn.to/4d8t6xt' },
