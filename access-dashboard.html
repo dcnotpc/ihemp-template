@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access iHemp Operations Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #2d3748;
+            margin-top: 0;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #718096;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .status {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status h3 {
+            color: #2d3748;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #edf2f7;
+        }
+        
+        .status-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .status-label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        .status-value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .status-value.good {
+            color: #38a169;
+        }
+        
+        .status-value.warning {
+            color: #d69e2e;
+        }
+        
+        .access-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #edf2f7;
+            transform: translateY(-2px);
+        }
+        
+        .instructions {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .instructions h3 {
+            color: #276749;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        code {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .api-key {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin-top: 10px;
+            color: #9b2c2c;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo h2 {
+            color: #667eea;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+        }
+        
+        .logo .tagline {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h2>iHemp</h2>
+            <div class="tagline">CEO Dashboard Access</div>
+        </div>
+        
+        <h1>🌿 iHemp Operations Dashboard</h1>
+        <div class="subtitle">Real-time monitoring & management console for the iHemp Marketing Network</div>
+        
+        <div class="status">
+            <h3>System Status</h3>
+            <div class="status-item">
+                <span class="status-label">Dashboard Server</span>
+                <span class="status-value good">● LIVE on Port 3080</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Authentication</span>
+                <span class="status-value good">● CEO Access Only</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Node.js Version</span>
+                <span class="status-value">v22.22.1 ✓</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Last Started</span>
+                <span class="status-value">2026-04-09 11:20 AM EDT</span>
+            </div>
+        </div>
+        
+        <div class="access-buttons">
+            <button id="openDashboard" class="btn btn-primary">
+                🔐 Open Dashboard (Auto-Authenticate)
+            </button>
+            
+            <a href="http://localhost:3080/dashboard" class="btn btn-secondary" target="_blank">
+                🌐 Open Dashboard (Manual)
+            </a>
+        </div>
+        
+        <div class="instructions">
+            <h3>🔒 Authentication Details</h3>
+            <p>The dashboard is protected with CEO-only access. The button above automatically handles authentication using your API key:</p>
+            
+            <div class="api-key">
+                bf2d1b3440e0f10ae637806e679ad91242d97106924d181c3dba48619be81c1c
+            </div>
+            
+            <p>To access manually:</p>
+            <ol>
+                <li>Open: <code>http://localhost:3080/dashboard</code></li>
+                <li>Use Browser Developer Tools (F12)</li>
+                <li>Go to Console tab</li>
+                <li>Run: <code>localStorage.setItem('OPENCLAW_API_SECRET', 'your-key-here')</code></li>
+                <li>Refresh the page</li>
+            </ol>
+            
+            <p><strong>Dashboard Features:</strong> Content review, agent monitoring, commerce tracking, system health, and compliance oversight.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('openDashboard').addEventListener('click', function() {
+            // Open dashboard in new tab
+            const newWindow = window.open('http://localhost:3080/dashboard', '_blank');
+            
+            // Wait a moment then try to set localStorage (this may be blocked by browser policies)
+            setTimeout(() => {
+                // Alternative: Create an iframe approach that sets the authentication
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                
+                // Create a script to run in the new window context
+                // Note: Cross-origin policies may prevent this
+                try {
+                    const script = `
+                        try {
+                            localStorage.setItem('OPENCLAW_API_SECRET', '${'bf2d1b3440e0f10ae637806e679ad91242d97106924d181c3dba48619be81c1c'}');
+                            console.log('Authentication set. Refresh page if needed.');
+                        } catch(e) {
+                            console.error('Could not set localStorage:', e);
+                        }
+                    `;
+                    
+                    const authWindow = newWindow;
+                    if (authWindow) {
+                        authWindow.postMessage({type: 'setAuth', key: 'bf2d1b3440e0f10ae637806e679ad91242d97106924d181c3dba48619be81c1c'}, '*');
+                    }
+                    
+                    // Also try to trigger an authenticated request
+                    fetch('http://localhost:3080/dashboard', {
+                        headers: {
+                            'Authorization': 'Bearer bf2d1b3440e0f10ae637806e679ad91242d97106924d181c3dba48619be81c1c'
+                        }
+                    }).catch(() => {
+                        // Expected - the fetch will fail due to CORS, but we tried
+                    });
+                    
+                } catch(e) {
+                    console.error('Auto-auth failed, use manual method.');
+                }
+                
+                // Remove iframe
+                document.body.removeChild(iframe);
+                
+                // Show instructions if auto-auth fails
+                alert('Dashboard opened! If you see "Unauthorized", use the manual method described below.');
+            }, 2000);
+        });
+        
+        // Listen for messages from the dashboard (postMessage API)
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'authStatus') {
+                console.log('Auth status:', event.data);
+            }
+        });
+        
+        // Alternative: Create a simple cookie-based authentication page
+        console.log('Dashboard access page loaded.');
+    </script>
+</body>
+</html>

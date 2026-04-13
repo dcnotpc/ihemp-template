@@ -62,7 +62,7 @@ export default function Resources() {
     { title: 'Digital Scale (0.01g)', description: 'Precision scale for weighing harvest and products.', url: 'https://amzn.to/4a2Zk0S' },
     { title: 'Temperature/Humidity Gauge', description: 'Monitor grow environment conditions.', url: 'https://amzn.to/4d8uj8U' },
   ]
-  
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-10">
@@ -106,16 +106,20 @@ export default function Resources() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {amazonProducts.map((product, i) => (
             <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
-              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
-              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
-              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
-              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
-            </a>
-          ))}
+-              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+-              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+-              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+-              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
++              <img src={product.image} alt={product.alt} className="w-full h-28 object-cover rounded mb-3" />
++              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
++              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
++              <p className="text-xs font-medium text-hemp-green mt-2">Shop on Amazon →</p>
+             </a>
+           ))}
         </div>
       </section>
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Growing Equipment</h2>
+        <h2 className="text-2xl font-bold text-hemp-green mb-4" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Growing Equipment</h2>
         <p className="text-hemp-brown/70 mb-5">Essential tools and supplies for cultivating hemp.</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {hempGrowingEquipment.map((product, i) => (
@@ -143,7 +147,7 @@ export default function Resources() {
         </div>
       </section>
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-4" style={{ fontFamily: 'var(--font-fredoka)' }}>Official and Educational Links</h2>
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Official and Educational Links</h2>
         <div className="grid sm:grid-cols-2 gap-3">
           {(stateData.resources ?? []).filter((r: any) => r.url).map((resource: any, i: number) => (
             <a key={i} href={resource.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
@@ -159,3 +163,5 @@ export default function Resources() {
     </div>
   )
 }
+*** End Patch
+}'} 

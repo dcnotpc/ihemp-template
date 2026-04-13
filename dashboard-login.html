@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iHemp Operations Dashboard - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .login-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .login-content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2E7D32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .api-key-display {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin-top: 5px;
+            user-select: all;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>🌿 iHemp Operations Dashboard</h1>
+            <p>CEO Access Only - Secure Authentication Required</p>
+        </div>
+        
+        <div class="login-content">
+            <div class="error-message" id="errorMessage">
+                Invalid API key. Please try again.
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                ✅ Authentication successful! Redirecting to dashboard...
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="apiKey">Enter API Key</label>
+                    <input type="password" id="apiKey" placeholder="Paste your API key here" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Authenticate & Access Dashboard</button>
+            </form>
+            
+            <div class="info-box">
+                <strong>ℹ️ Your API Key:</strong>
+                <div class="api-key-display" id="apiKeyDisplay">
+                    bf2d1b3440e0f10ae637806e679ad91242d97106924d181c3dba48619be81c1c
+                </div>
+                <p style="margin-top: 8px;">Click to copy, then paste into the field above.</p>
+            </div>
+            
+            <div class="footer">
+                <p>© 2026 iHemp Marketing Network | CEO: David Alan Crabill</p>
+                <p>Flint, Michigan | All access logged for security</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Your API key (hardcoded for CEO access)
+        const VALID_API_KEY = 'bf2d1b3440e0f10ae637806e679ad91242d97106924d181c3dba48619be81c1c';
+        
+        // Dashboard URL (update this to your actual dashboard location)
+        const DASHBOARD_URL = 'http://localhost:3000/dashboard';
+        
+        // Elements
+        const loginForm = document.getElementById('loginForm');
+        const apiKeyInput = document.getElementById('apiKey');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const apiKeyDisplay = document.getElementById('apiKeyDisplay');
+        
+        // Copy API key on click
+        apiKeyDisplay.addEventListener('click', function() {
+            const text = this.textContent.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = this.textContent;
+                this.textContent = '✅ Copied to clipboard!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+        
+        // Handle form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const enteredKey = apiKeyInput.value.trim();
+            
+            // Clear previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            if (enteredKey === VALID_API_KEY) {
+                // Authentication successful
+                successMessage.style.display = 'block';
+                
+                // Store in localStorage for the dashboard
+                localStorage.setItem('OPENCLAW_API_SECRET', VALID_API_KEY);
+                
+                // Store in sessionStorage for this session
+                sessionStorage.setItem('authenticated', 'true');
+                sessionStorage.setItem('auth_timestamp', Date.now().toString());
+                
+                // Redirect to dashboard after 1.5 seconds
+                setTimeout(() => {
+                    // For local development, redirect to localhost
+                    // For production, this would be your actual dashboard URL
+                    window.location.href = DASHBOARD_URL;
+                }, 1500);
+                
+            } else {
+                // Authentication failed
+                errorMessage.style.display = 'block';
+                apiKeyInput.value = '';
+                apiKeyInput.focus();
+            }
+        });
+        
+        // Auto-focus on API key field
+        apiKeyInput.focus();
+        
+        // Check if already authenticated
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            const authTime = parseInt(sessionStorage.getItem('auth_timestamp') || '0');
+            const now = Date.now();
+            const hoursSinceAuth = (now - authTime) / (1000 * 60 * 60);
+            
+            // If authenticated within last 8 hours, auto-redirect
+            if (hoursSinceAuth < 8) {
+                successMessage.textContent = '✅ Session valid. Redirecting...';
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = DASHBOARD_URL;
+                }, 1000);
+            } else {
+                // Session expired
+                sessionStorage.removeItem('authenticated');
+                sessionStorage.removeItem('auth_timestamp');
+            }
+        }
+        
+        // Add a test button for development
+        const testDiv = document.createElement('div');
+        testDiv.innerHTML = `
+            <div style="margin-top: 20px; padding: 10px; background: #fff3e0; border-radius: 8px; border: 1px solid #ffb74d;">
+                <p style="color: #e65100; font-size: 12px; margin-bottom: 8px;">
+                    <strong>🛠 Development Mode:</strong> Dashboard running on: <code>${DASHBOARD_URL}</code>
+                </p>
+                <button id="testAccess" style="background: #ff9800; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;">
+                    Test API Connection
+                </button>
+                <div id="testResult" style="margin-top: 8px; font-size: 11px;"></div>
+            </div>
+        `;
+        document.querySelector('.login-content').appendChild(testDiv);
+        
+        // Test API connection
+        document.getElementById('testAccess').addEventListener('click', async function() {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.textContent = 'Testing connection...';
+            resultDiv.style.color = '#ff9800';
+            
+            try {
+                const response = await fetch(DASHBOARD_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${VALID_API_KEY}`
+                    }
+                });
+                
+                if (response.status === 200) {
+                    resultDiv.textContent = '✅ Dashboard is accessible and responding';
+                    resultDiv.style.color = '#4CAF50';
+                } else if (response.status === 401) {
+                    resultDiv.textContent = '🔐 Authentication required (expected)';
+                    resultDiv.style.color = '#ff9800';
+                } else {
+                    resultDiv.textContent = `⚠️ Unexpected response: ${response.status} ${response.statusText}`;
+                    resultDiv.style.color = '#f44336';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Connection failed: ${error.message}`;
+                resultDiv.style.color = '#f44336';
+            }
+        });
+    </script>
+</body>
+</html>
