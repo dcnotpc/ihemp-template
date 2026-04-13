@@ -9,7 +9,24 @@ export const metadata = {
 
 export default function Resources() {
   const stateData = getStateBySlug(stateConfig.slug)
-  
+
+  if (!stateData) {
+    return (
+      <div className="max-w button if available, or triple-click to select lines carefully:
+
+```tsx
+import { stateConfig } from '@/config/state'
+import { getStateBySlug } from '@/data/states'
+import Link from 'next/link'
+
+export const metadata = {
+  title: `${stateConfig.pages.resources.title} | ${stateConfig.siteName}`,
+  description: stateConfig.pages.resources.description,
+}
+
+export default function Resources() {
+  const stateData = getStateBySlug(stateConfig.slug)
+
   if (!stateData) {
     return (
       <div className="max-w-5xl mx-auto px-4 py-12">
@@ -18,49 +35,74 @@ export default function Resources() {
           <p className="text-red-600">Unable to load state data for &quot;{stateConfig.slug}&quot;. Please check your configuration.</p>
         </div>
       </div>
+    )-5xl mx-auto px-4 py-12">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-bold text-red-700 mb-3">State Data Not Found</h2>
+          <p className="text-red-600">Unable to load state data for &quot;{stateConfig.slug}&quot;. Please check your configuration.</p>
+        </div>
+      </div>
     )
   }
-  
-  const amazonProducts = [
-    { title: 'CBD Salve Stick Containers', description: 'High-quality stick containers for CBD salve application.', url: 'https://amzn.to/4t96X39' },
-    { title: 'CBD Salve Sample Containers', description: 'Small sample containers for testing and travel-sized products.', url: 'https://amzn.to/4spL922' },
-    { title: 'Shea Butter for CBD Salve', description: 'Premium-grade shea butter base for CBD salve formulations.', url: 'https://amzn.to/4snzP6D' },
-    { title: 'Unrefined Coconut Oil', description: 'High-quality coconut oil for CBD base ingredients.', url: 'https://amzn.to/3PShRvz' },
-    { title: 'CBD Salve Tins', description: 'Professional tins for storing and selling finished CBD products.', url: 'https://amzn.to/4dBiX8Q' },
-    { title: 'Menthol Crystals', description: 'Pure menthol for adding cooling sensation to topical CBD.', url: 'https://amzn.to/4sYi3rA' },
-    { title: 'Cayenne Pepper Extract', description: 'Natural warming extract for topical CBD formulations.', url: 'https://amzn.to/4mifGxb' },
-    { title: 'Peppermint Essential Oil', description: 'Organic peppermint oil for scent and cooling effect.', url: 'https://amzn.to/4tFc9f7' },
-    { title: 'CBD Sample Products', description: 'Small CBD quantities for recipe development and testing.', url: 'https://amzn.to/4cvOw2C' },
-    { title: 'Foil for Chocolate CBD Balls', description: 'Wrapping foil for homemade CBD edibles and treats.', url: 'https://amzn.to/48meLWR' },
-    { title: 'CBD Recipe Essentials', description: 'Additional supplies for advanced CBD product creation.', url: 'https://amzn.to/4vpasnN' },
+
+  const salveIngredients = [
+    { title: 'Our Earths Secrets Shea Butter', description: 'Raw, unrefined African shea butter. A primary base ingredient that gives CBD salve its smooth, moisturizing consistency.', url: 'https://amzn.to/4snzP6D', image: 'https://m.media-amazon.com/images/I/71WO4IN0qBL._SL1500_.jpg' },
+    { title: 'Natural Farms Shea Butter', description: 'Another excellent shea butter option with great texture that blends well into CBD salve recipes.', url: 'https://amzn.to/4vpasnN', image: 'https://m.media-amazon.com/images
+  }
+
+  const salveIngredients = [
+    { title: 'Our Earths Secrets Shea Butter', description: 'Raw, unrefined African shea butter. A primary base ingredient that gives CBD salve its smooth, moisturizing consistency.', url: 'https://amzn.to/4snzP6D', image: 'https://m.media-amazon.com/images/I/71WO4IN0qBL._SL1500_.jpg' },
+    { title: 'Natural Farms Shea Butter', description: 'Another excellent shea butter option with great texture that blends well into CBD salve recipes.', url: 'https://amzn.to/4vpasnN', image: 'https://m.media-amazon.com/images/I/51B1r3EjOlL._SL1080_.jpg' },
+    { title: 'Unrefined Coconut Oil', description: 'Organic virgin coconut oil. An essential carrier oil for CBD salve that aids absorption and adds soot/I/51B1r3EjOlL._SL1080_.jpg' },
+    { title: 'Unrefined Coconut Oil', description: 'Organic virgin coconut oil. An essential carrier oil for CBD salve that aids absorption and adds soothing properties.', url: 'https://amzn.to/3PShRvz', image: 'https://m.media-amazon.com/images/I/718fXnLCTdL._SL1500_.jpg' },
+    { title:hing properties.', url: 'https://amzn.to/3PShRvz', image: 'https://m.media-amazon.com/images/I/718fXnLCTdL._SL1500_.jpg' },
+    { title: 'Menthol Crystals', description: 'Pure menthol crystals that add powerful cooling relief to CBD salve. A little goes a long way.', url: 'https://amzn.to/4sYi3rA', image: 'https:// 'Menthol Crystals', description: 'Pure menthol crystals that add powerful cooling relief to CBD salve. A little goes a long way.', url: 'https://amzn.to/4sYi3rA', image: 'https://m.media-amazon.com/images/I/81P+F5H6dlL._AC_SL1500_.jpg' },
+    { title: 'Cayenne Pepper Oil', description: 'Natural warming extract for CBD salve. Adds heat therapy benefits form.media-amazon.com/images/I/81P+F5H6dlL._AC_SL1500_.jpg' },
+    { title: 'Cayenne Pepper Oil', description: 'Natural warming extract for CBD salve. Adds heat therapy benefits for muscle and joint relief.', url: 'https://amzn.to/4mifGxb', image: 'https://m.media-amazon.com/images/I/81wPg-5NDML._AC_SL1500_.jpg' }, muscle and joint relief.', url: 'https://amzn.to/4mifGxb', image: 'https://m.media-amazon.com/images/I/81wPg-5NDML._AC_SL1500_.jpg' },
+    { title: 'Peppermint Essential Oil', description: 'Essential oil that adds a refreshing cooling sensation and pleasant scent to CBD salve blends.', url: 'https://amzn.to/4tFc9f7', image: 'https
+    { title: 'Peppermint Essential Oil', description: 'Essential oil that adds a refreshing cooling sensation and pleasant scent to CBD salve blends.', url: 'https://amzn.to/4tFc9f7', image: 'https://m.media-amazon.com/images/I/61aKJDSAUGL._AC_SL1500_.jpg' },
   ]
-  
+
+  const salveContainers = [
+    { title: 'CBD Salve Stick Containers', description: 'Push-up stick containers perfect for on-the-go CBD salve application.', url: 'https://amzn.to/4t96X39', image: 'https://m.media-amazon.com/images/I/51ojFaCbVJS._AC_SL1400_.jpg' },
+    { title: 'Red Top Sample Containers', description: 'Small sample-size containers with red tops. Great for sharing samples.', url: 'https://amzn.to/4spL922', image: 'https://m.media-amazon.com/images/I/617FOHzsGOL._SL1152_.jpg' },
+    { title: 'Blue Top Sample Containers', description: 'Sample containers with blue tops. Perfect for g://m.media-amazon.com/images/I/61aKJDSAUGL._AC_SL1500_.jpg' },
+  ]
+
+  const salveContainers = [
+    { title: 'CBD Salve Stick Containers', description: 'Push-up stick containers perfect for on-the-go CBD salve application.', url: 'https://amzn.to/4t96X39', image: 'https://m.media-amazon.com/images/I/51ojFaCbVJS._AC_SL1400_.jpg' },
+    { title: 'Red Top Sample Containers', description: 'Small sample-size containers with red tops. Great for sharing samples.', url: 'https://amzn.to/4spL922', image: 'https://m.media-amazon.com/images/I/617FOHzsGOL._SL1152_.jpg' },
+    { title: 'Blue Top Sample Containers', description: 'Sample containers with blue tops. Perfect for giveaway samples.', url: 'https://amzn.to/4cvOw2C', image: 'https://m.media-amazon.com/images/I/81AJOa5RaEL._AC_SL1500_.jpg' },iveaway samples.', url: 'https://amzn.to/4cvOw2C', image: 'https://m.media-amazon.com/images/I/81AJOa5RaEL._AC_SL1500_.jpg' },
+    { title: 'Black 2oz CBD Salve Tins', description: 'Sleek black metal tins for storing 2oz portions of finished CBD salve.', url: 'https://amzn.to/4dBiX8Q',
+    { title: 'Black 2oz CBD Salve Tins', description: 'Sleek black metal tins for storing 2oz portions of finished CBD salve.', url: 'https://amzn.to/4dBiX8Q', image: 'https://m.media-amazon.com/images/I/81ODyslgjGL._AC_SL1500_.jpg' },
+  ]
+
   const ihempMerch = [
     { title: 'iHemp International Tee', description: 'Rep the hemp movement. Premium organic cotton.', url: 'https://ihempinternational.com' },
     { title: 'Hemp Advocate Cap', description: 'Show your support for industrial hemp.', url: 'https://ihempinternational.com' },
   ]
-  
+
+  const ihempHarvestProducts = [
+    { title: 'Premium Hemp Flower', description: 'Farm-fresh, lab-tested hemp flower grown with care.', url: 'https://ihempharvest.com' },
+     image: 'https://m.media-amazon.com/images/I/81ODyslgjGL._AC_SL1500_.jpg' },
+  ]
+
+  const ihempMerch = [
+    { title: 'iHemp International Tee', description: 'Rep the hemp movement. Premium organic cotton.', url: 'https://ihempinternational.com' },
+    { title: 'Hemp Advocate Cap', description: 'Show your support for industrial hemp.', url: 'https://ihempinternational.com' },
+  ]
+
   const ihempHarvestProducts = [
     { title: 'Premium Hemp Flower', description: 'Farm-fresh, lab-tested hemp flower grown with care.', url: 'https://ihempharvest.com' },
     { title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
+    { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biom{ title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
     { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biomass for processors and manufacturers.', url: 'https://ihempharvest.com' },
   ]
 
-  const hempGrowingEquipment = [
-    { title: 'Organic Potting Soil', description: 'Nutrient-rich soil optimized for hemp cultivation.', url: 'https://amzn.to/4ea3J5N' },
-    { title: 'Fabric Grow Bags', description: 'Breathable fabric pots for healthy root development.', url: 'https://amzn.to/4a2YG0X' },
-    { title: 'Grow Lights (LED)', description: 'Full-spectrum LED lights for indoor hemp growing.', url: 'https://amzn.to/4d8t6xt' },
-    { title: 'Soil pH Tester', description: 'Digital meter to monitor soil acidity for optimal growth.', url: 'https://amzn.to/4a2Z2a7' },
-    { title: 'Garden Irrigation Kit', description: 'Drip irrigation system for efficient watering.', url: 'https://amzn.to/4a2Ze0b' },
-  ]
-
-  const testingAndMeasurementKits = [
-    { title: 'THC Test Strips', description: 'Quick-test strips for verifying THC content (<0.3%).', url: 'https://amzn.to/4d8u3Ll' },
-    { title: 'Digital Moisture Meter', description: 'Accurate soil moisture reader for hemp plants.', url: 'https://amzn.to/4d8ub8m' },
-    { title: 'TDS/PPM Water Tester', description: 'Measures water quality and nutrient concentration.', url: 'https://amzn.to/4a2Zg0R' },
-    { title: 'Magnifying Loupe (60x)', description: 'Jewelers loupe for inspecting trichomes and pests.', url: 'https://amzn.to/4d8uf8Q' },
-    { title: 'Digital Scale (0.01g)', description: 'Precision scale for weighing harvest and products.', url: 'https://amzn.to/4a2Zk0S' },
-    { title: 'Temperature/Humidity Gauge', description: 'Monitor grow environment conditions.', url: 'https://amzn.to/4d8uj8U' },
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="mb-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>{stateData.name} Hemp Resources</h1>
+        ass for processors and manufacturers.', url: 'https://ihempharvest.com' },
   ]
 
   return (
@@ -70,10 +112,20 @@ export default function Resources() {
         <p className="text-sm text-hemp-brown/70">Tools, products, and links to support your hemp journey.</p>
       </div>
       <div className="bg-hemp-gold/10 border border-hemp-gold/30 rounded-lg p-4 mb-10 text-sm text-hemp-brown/70">
-        <strong className="text-hemp-brown">Disclosure:</strong> Some links on this page are affiliate links. We may earn a small commission at no extra cost to you. This helps support our mission to provide free hemp information.
+        <strong className="text-hemp-brown">Disclosure:</strong> Some links on this page are affiliate links. We may earn a small commission at no extra cost to you.
+      </div><p className="text-sm text-hemp-brown/70">Tools, products, and links to support your hemp journey.</p>
+      </div>
+      <div className="bg-hemp-gold/10 border border-hemp-gold/30 rounded-lg p-4 mb-10 text-sm text-hemp-brown/70">
+        <strong className="text-hemp-brown">Disclosure:</strong> Some links on this page are affiliate links. We may earn a small commission at no extra cost to you.
       </div>
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>From Our Farm — iHemp Harvest</h2>
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>From Our Farm</h2>
+        <p className="text-hemp-brown/70 mb-5">Premium hemp products grown and crafted with care.</p>
+        <div className="grid sm:grid-cols-3 gap-4">
+          {ihempHarvestProducts.map((product, i) => (
+            
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>From Our Farm</h2>
         <p className="text-hemp-brown/70 mb-5">Premium hemp products grown and crafted with care.</p>
         <div className="grid sm:grid-cols-3 gap-4">
           {ihempHarvestProducts.map((product, i) => (
@@ -81,67 +133,102 @@ export default function Resources() {
               <div className="w-full h-32 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
               <p className="font-bold text-hemp-green group-hover:text-hemp-leaf transition">{product.title}</p>
               <p className="text-sm text-hemp-brown/70 mt-1">{product.description}</p>
-              <p className="text-sm font-medium text-hemp-leaf mt-3">Shop Now →</p>
+              <p className="text-sm font-medium text-hemp-leaf<a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-leaf/10 border-2 border-hemp-leaf/30 rounded-lg p-5 hover:border-hemp-leaf hover:shadow-md transition group">
+              <div className="w-full h-32 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <p className="font-bold text-hemp-green group-hover:text-hemp-leaf transition">{product.title}</p>
+              <p className="text-sm text-hemp-brown/70 mt-1">{product.description}</p>
+              <p className="text-sm font-medium text-hemp-leaf mt-3">Shop Now</p>
             </a>
           ))}
         </div>
       </section>
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Merch — iHemp International</h2>
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Merch</h2>
+        <p className="text-hemp-brown/70 mb-5">Wear the movement. Support industrial hemp.</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {ihempMerch.map((item, i) => (
+            <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp mt-3">Shop Now</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Merch</h2>
         <p className="text-hemp-brown/70 mb-5">Wear the movement. Support industrial hemp.</p>
         <div className="grid sm:grid-cols-2 gap-4">
           {ihempMerch.map((item, i) => (
             <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-5 hover:border-hemp-gold hover:shadow-md transition group">
               <div className="w-full h-32 bg-white rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
               <p className="font-bold text-hemp-brown group-hover:text-hemp-green transition">{item.title}</p>
+              <p className="text-sm text-hemp-brown/70 mt-1">{item.description-gold/30 rounded-lg p-5 hover:border-hemp-gold hover:shadow-md transition group">
+              <div className="w-full h-32 bg-white rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <p className="font-bold text-hemp-brown group-hover:text-hemp-green transition">{item.title}</p>
               <p className="text-sm text-hemp-brown/70 mt-1">{item.description}</p>
-              <p className="text-sm font-medium text-hemp-green mt-3">Shop Now →</p>
+              <p className="text-sm font-medium text-hemp-green mt-3">Shop Now</p>
             </a>
           ))}
         </div>
       </section>
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Recommended Hemp Products</h2>
-        <p className="text-hemp-brown/70 mb-5">Our top picks for hemp growing, testing, and learning.</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {amazonProducts.map((product, i) => (
-            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
--              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
--              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
--              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
--              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
-+              <img src={product.image} alt={product.alt} className="w-full h-28 object-cover rounded mb-3" />
-+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
-+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
-+              <p className="text-xs font-medium text-hemp-green mt-2">Shop on Amazon →</p>
-             </a>
-           ))}
-        </div>
-      </section>
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-4" style={{ fontFamily: 'var(--font-fredoka)' }}>Hemp Growing Equipment</h2>
-        <p className="text-hemp-brown/70 mb-5">Essential tools and supplies for cultivating hemp.</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {hempGrowingEquipment.map((product, i) => (
-            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
-              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
-              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
-              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
-              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>CBD Salve Ingredients</h2>
+        <p className="text-hemp-brown/70 mb-5">}</p>
+              <p className="text-sm font-medium text-hemp-green mt-3">Shop Now</p>
             </a>
           ))}
         </div>
       </section>
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Testing & Measurement Kits</h2>
-        <p className="text-hemp-brown/70 mb-5">Tools for quality control and compliance testing.</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {testingAndMeasurementKits.map((product, i) => (
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>CBD Salve Ingredients</h2>
+        <p className="text-hemp-brown/70 mb-5">The exact ingredients I use to craft my CBD balm. Tested and trusted through countless batches.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {salveIngredients.map((product, i) => (
             <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
-              <div className="w-full h-28 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <img src={product.image} alt={product.title} className="w-full h-40 object-contain rounded mb-3" />
+              <p className="font-semibold text-hemp-brown groupThe exact ingredients I use to craft my CBD balm. Tested and trusted through countless batches.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {salveIngredients.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <img src={product.image} alt={product.title} className="w-full h-40 object-contain rounded mb-3" />
               <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
               <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
-              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon →</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>CBD Salve Containers</h2>
+        <p className="text-hemp-brown/70 mb-5">From sample sizes to full 2oz tins and portable sticks.-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>CBD Salve Containers</h2>
+        <p className="text-hemp-brown/70 mb-5">From sample sizes to full 2oz tins and portable sticks.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {salveContainers.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <img src={product.image} alt={product.title} className="w-full h-40 object-contain rounded mb-3" />
+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {salveContainers.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <img src={product.image} alt={product.title} className="w-full h-40 object-contain rounded mb-3" />
+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon</p>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>Official and Educational Links</h2>
+        -brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon</p>
             </a>
           ))}
         </div>
@@ -152,16 +239,22 @@ export default function Resources() {
           {(stateData.resources ?? []).filter((r: any) => r.url).map((resource: any, i: number) => (
             <a key={i} href={resource.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
               <p className="font-semibold text-hemp-green group-hover:text-hemp-leaf transition">{resource.label}</p>
-              <p className="text-sm text-hemp-brown/60 mt-1">Visit →</p>
+              <p className="text-sm text-hemp-brown/60 mt-1">Visit</p>
+            </a>
+          ))}
+        </div>
+      <div className="grid sm:grid-cols-2 gap-3">
+          {(stateData.resources ?? []).filter((r: any) => r.url).map((resource: any, i: number) => (
+            <a key={i} href={resource.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <p className="font-semibold text-hemp-green group-hover:text-hemp-leaf transition">{resource.label}</p>
+              <p className="text-sm text-hemp-brown/60 mt-1">Visit</p>
             </a>
           ))}
         </div>
       </section>
       <div className="text-center pt-4">
-        <Link href="/" className="text-hemp-green hover:text-hemp-leaf font-medium">← Back to Home</Link>
+        <Link href="/" className="text-hemp-green hover:text-hemp-leaf font-medium">Back to Home</Link>
       </div>
     </div>
   )
 }
-*** End Patch
-}'} 
