@@ -1,8 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+import type { Metadata } from 'next'
 import { stateConfig } from '@/config/state'
 import { getStateBySlug } from '@/data/states'
 import Link from 'next/link'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: `${stateConfig.pages.resources.title} | ${stateConfig.siteName}`,
   description: stateConfig.pages.resources.description,
 }
@@ -15,7 +17,9 @@ export default function Resources() {
       <div className="max-w-5xl mx-auto px-4 py-12">
         <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-red-700 mb-3">State Data Not Found</h2>
-          <p className="text-red-600">Unable to load state data for &quot;{stateConfig.slug}&quot;. Please check your configuration.</p>
+          <p className="text-red-600">
+            Unable to load state data for &quot;{stateConfig.slug}&quot;. Please check your configuration.
+          </p>
         </div>
       </div>
     )
@@ -51,19 +55,114 @@ export default function Resources() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>{stateData.name} Hemp Resources</h1>
-        <p className="text-sm text-hemp-brown/70">Tools, products, and links to support your hemp journey.</p>
+        <h1 className="text-3xl sm:text-4xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          {stateData.name} Hemp Resources
+        </h1>
+        <p className="text-sm text-hemp-brown/70">
+          Tools, products, and links to support your hemp journey.
+        </p>
       </div>
+
       <div className="bg-hemp-gold/10 border border-hemp-gold/30 rounded-lg p-4 mb-10 text-sm text-hemp-brown/70">
         <strong className="text-hemp-brown">Disclosure:</strong> Some links on this page are affiliate links. We may earn a small commission at no extra cost to you.
       </div>
+
+      {/* ───── From Our Farm ───── */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>From Our Farm</h2>
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          From Our Farm
+        </h2>
         <p className="text-hemp-brown/70 mb-5">Premium hemp products grown and crafted with care.</p>
         <div className="grid sm:grid-cols-3 gap-4">
           {ihempHarvestProducts.map((product, i) => (
             <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-leaf/10 border-2 border-hemp-leaf/30 rounded-lg p-5 hover:border-hemp-leaf hover:shadow-md transition group">
-              <div className="w-full h-32 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">Image</div>
+              <div className="w-full h-32 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">
+                Image
+              </div>
               <p className="font-bold text-hemp-green group-hover:text-hemp-leaf transition">{product.title}</p>
               <p className="text-sm text-hemp-brown/70 mt-1">{product.description}</p>
               <p className="text-sm font-medium text-hemp-leaf mt-3">Shop Now</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ───── Hemp Merch ───── */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          Hemp Merch
+        </h2>
+        <p className="text-hemp-brown/70 mb-5">Wear the movement. Support industrial hemp.</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {ihempMerch.map((item, i) => (
+            <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-5 hover:border-hemp-gold hover:shadow-md transition group">
+              <div className="w-full h-32 bg-white rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">
+                Image
+              </div>
+              <p className="font-bold text-hemp-brown group-hover:text-hemp-green transition">{item.title}</p>
+              <p className="text-sm text-hemp-brown/70 mt-1">{item.description}</p>
+              <p className="text-sm font-medium text-hemp-green mt-3">Shop Now</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ───── CBD Salve Ingredients ───── */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          CBD Salve Ingredients
+        </h2>
+        <p className="text-hemp-brown/70 mb-5">The exact ingredients I use to craft my CBD balm. Tested and trusted through countless batches.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {salveIngredients.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <img src={product.image} alt={product.title} className="w-full h-40 object-contain rounded mb-3" />
+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ───── CBD Salve Containers ───── */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          CBD Salve Containers
+        </h2>
+        <p className="text-hemp-brown/70 mb-5">From sample sizes to full 2oz tins and portable sticks.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {salveContainers.map((product, i) => (
+            <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-hemp-gold/20 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <img src={product.image} alt={product.title} className="w-full h-40 object-contain rounded mb-3" />
+              <p className="font-semibold text-hemp-brown group-hover:text-hemp-green transition text-sm">{product.title}</p>
+              <p className="text-xs text-hemp-brown/60 mt-1">{product.description}</p>
+              <p className="text-xs font-medium text-hemp-leaf mt-2">Shop on Amazon</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ───── Official & Educational Links ───── */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          Official and Educational Links
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {(stateData.resources ?? []).filter((r: any) => r.url).map((resource: any, i: number) => (
+            <a key={i} href={resource.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-4 hover:border-hemp-leaf hover:shadow-sm transition group">
+              <p className="font-semibold text-hemp-green group-hover:text-hemp-leaf transition">{resource.label}</p>
+              <p className="text-sm text-hemp-brown/60 mt-1">Visit</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <div className="text-center pt-4">
+        <Link href="/" className="text-hemp-green hover:text-hemp-leaf font-medium">
+          Back to Home
+        </Link>
+      </div>
+    </div>
+  )
+}
