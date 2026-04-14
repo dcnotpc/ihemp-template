@@ -1,59 +1,284 @@
-@import "tailwindcss";
+/* Brand Guidelines Colors */
+:root {
+  --color-hemp-green: #2D5A27; /* Primary - headings, links, CTAs */
+  --color-hemp-sage: #87A96B;  /* Secondary - accents, softer green */
+  --color-hemp-gold: #C9A227;  /* Accent - highlights, borders, badges */
+  --color-hemp-brown: #5C4033; /* Body text, descriptions */
+  --color-hemp-cream: #FAF3E0; /* Backgrounds, cards */
+  --color-hemp-leaf: #4CAF50;  /* Hover states, active elements (inferred from component styling) */
+  --color-white: #FFFFFF;     /* Pure white */
+  --color-off-white: #F5E6C8; /* Warm cream, used for hero accents */
 
-@theme {
-  --color-hemp-green: #2d5016;
-  --color-hemp-sage: #87a96b;
-  --color-hemp-gold: #c9a227;
-  --color-hemp-brown: #5c4033;
-  --color-hemp-cream: #faf3e0;
-  --font-sans: "Inter", sans-serif;
+  /* Font families */
+  --font-fredoka: 'Fredoka', sans-serif; /* Headings */
+  --font-inter: 'Inter', sans-serif;     /* Body text */
+
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-regular: 1rem; /* 16px */
+  --spacing-medium: 1.5rem; /* 24px */
+  --spacing-fluid: 2rem; /* 32px (example, adjust as needed) */
+  --spacing-small: 0.5rem; /* 8px */
+  --spacing-none: 0px;
+
+  /* Line Heights */
+  --line-height-h1: 1.2;
+  --line-height-h2: 1.2;
+  --line-height-h3: 1.2;
+  --line-height-body: 1.6;
+  --line-height-body-small: 1.5;
 }
 
+/* Derived from PDF, apply to global styles */
 body {
-  background: #ffffff;
-  color: #171717;
+  font-family: var(--font-inter);
+  background-color: var(--color-white);
+  color: var(--color-hemp-brown);
+  line-height: var(--line-height-body);
 }
 
-/* Blog Content Styles */
-.blog-content {
-  @apply text-gray-700 text-lg leading-relaxed;
+/* General Text Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-fredoka);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-hemp-green);
+  line-height: var(--line-height-h1);
 }
-.blog-content h1 {
-  @apply text-3xl font-bold text-hemp-green mt-10 mb-4;
+
+h1 { font-size: 3rem; /* Large H1 */ } /* Corresponds to CSS Group H1 Large Size */
+h2 { font-size: 2.5rem; } /* Corresponds to CSS Group H1 */
+h3 { font-size: 2rem; } /* Corresponds to CSS Group H2 */
+h4 { font-size: 1.5rem; } /* Corresponds to CSS Group H3 */
+h5 { font-size: 1.25rem; } /* Corresponds to CSS Group H4 */
+h6 { font-size: 1rem; } /* Corresponds to CSS Group H5 */
+
+p { 
+  font-size: 1rem; /* Body Text */
+  line-height: var(--line-height-body); 
 }
-.blog-content h2 {
-  @apply text-2xl font-bold text-hemp-green mt-10 mb-3 pb-2 border-b border-gray-200;
+p.text-sm { font-size: 0.875rem; } /* Body Text Small */
+
+/* Link Styles */
+a {
+  color: var(--color-hemp-green);
+  font-weight: var(--font-weight-semibold);
+  transition: color 0.2s ease-in-out;
 }
-.blog-content h3 {
-  @apply text-xl font-semibold text-hemp-green mt-6 mb-2;
+a:hover {
+  color: var(--color-hemp-leaf);
+  text-decoration: none;
 }
-.blog-content p {
-  @apply mb-6 leading-relaxed;
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  padding: var(--spacing-small) var(--spacing-regular); /* Button Vertical Padding Small, Button Horizontal Padding */
+  font-size: 0.875rem; /* Button Text Size Small */
+  font-weight: var(--font-weight-semibold);
+  border-radius: 4px; /* Button Border Radius (using a default, adjust if PDF gives specific value) */
+  text-align: center;
+  text-transform: capitalize; /* CSS Text Transform Capitalize */
+  white-space: normal; /* Text Wrap Balance */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
-.blog-content ul {
-  @apply list-disc pl-6 mb-6 space-y-2;
+
+.btn-primary {
+  background-color: var(--color-hemp-green);
+  color: var(--color-off-white); /* Button Text Color Off-White */
+  border: 1px solid var(--color-hemp-green);
 }
-.blog-content ol {
-  @apply list-decimal pl-6 mb-6 space-y-2;
+.btn-primary:hover {
+  background-color: var(--color-hemp-leaf); /* A slightly lighter green for hover */
+  border-color: var(--color-hemp-leaf);
 }
-.blog-content li {
-  @apply text-gray-700;
+
+.btn-secondary {
+  background-color: var(--color-hemp-sage); /* Using hemp-sage as secondary */
+  color: var(--color-white); /* Button Text Color White */
+  border: 1px solid var(--color-hemp-sage);
 }
-.blog-content strong {
-  @apply font-bold text-gray-900;
+.btn-secondary:hover {
+  background-color: var(--color-hemp-green); /* Darker green for hover */
+  border-color: var(--color-hemp-green);
 }
-.blog-content em {
-  @apply italic;
+
+.btn-off-white {
+  background-color: var(--color-off-white);
+  color: var(--color-hemp-brown); 
+  border: 1px solid var(--color-off-white);
 }
-.blog-content a {
-  @apply text-hemp-green underline hover:text-hemp-green/70 transition-colors;
+.btn-off-white:hover {
+  background-color: var(--color-hemp-cream);
+  border-color: var(--color-hemp-cream);
 }
-.blog-content blockquote {
-  @apply border-l-4 border-hemp-green bg-white pl-6 py-4 my-6 italic text-gray-600 rounded-r-lg;
+
+.btn-secondary-dark {
+  background-color: var(--color-hemp-brown); /* Using hemp-brown as secondary dark */
+  color: var(--color-off-white);
+  border: 1px solid var(--color-hemp-brown);
 }
-.blog-content hr {
-  @apply my-8 border-gray-300;
+.btn-secondary-dark:hover {
+  background-color: var(--color-hemp-gold);
+  border-color: var(--color-hemp-gold);
 }
-.blog-content img {
-  @apply rounded-xl my-6 shadow-md;
+
+/* Spacing and Layout */
+.container-padding {
+  padding: var(--spacing-regular) var(--spacing-fluid); /* Container Padding, Gutter Padding (L+R) */
+}
+.container-padding-lg {
+  padding: var(--spacing-medium) var(--spacing-fluid); /* Container Padding Large */
+}
+.gutter-padding{
+  padding-left: var(--spacing-fluid);
+  padding-right: var(--spacing-fluid);
+}
+
+/* Section Styles */
+.section-dark {
+  background-color: var(--color-hemp-brown); /* BG - Dark */
+  color: var(--color-off-white); /* Text Heading Light */
+  padding: var(--spacing-fluid) 0; /* Gutter Padding (L+R) applied via container */
+}
+.section-dark h1, .section-dark h2, .section-dark h3, .section-dark h4, .section-dark h5, .section-dark h6 {
+  color: var(--color-hemp-green); /* Heading Text Color */
+}
+.section-dark a {
+  color: var(--color-hemp-leaf); /* Link Color */
+}
+.section-dark a:hover {
+  color: var(--color-hemp-cream);
+}
+
+.section-light {
+  background-color: var(--color-hemp-cream); /* BG - Light */
+  color: var(--color-hemp-brown); /* Text Normal */
+  padding: var(--spacing-fluid) 0;
+}
+.section-light h1, .section-light h2, .section-light h3, .section-light h4, .section-light h5, .section-light h6 {
+  color: var(--color-hemp-green);
+}
+.section-light a {
+  color: var(--color-hemp-green);
+}
+.section-light a:hover {
+  color: var(--color-hemp-leaf);
+}
+
+.section-neutral {
+  background-color: var(--color-off-white); /* BG - Off-White */
+  color: var(--color-hemp-brown);
+  padding: var(--spacing-fluid) 0;
+}
+.section-neutral h1, .section-neutral h2, .section-neutral h3, .section-neutral h4, .section-neutral h5, .section-neutral h6 {
+  color: var(--color-hemp-green);
+}
+.section-neutral a {
+  color: var(--color-hemp-green);
+}
+.section-neutral a:hover {
+  color: var(--color-hemp-leaf);
+}
+
+.section-full-bleed {
+  background-color: var(--color-hemp-gold); /* Example: Using gold for full bleed */
+  color: var(--color-white);
+  padding: var(--spacing-fluid) 0;
+}
+.section-full-bleed h1, .section-full-bleed h2, .section-full-bleed h3, .section-full-bleed h4, .section-full-bleed h5, .section-full-bleed h6 {
+  color: var(--color-white);
+}
+.section-full-bleed p {
+  color: var(--color-white);
+}
+.section-full-bleed a {
+  color: var(--color-hemp-cream); /* Lighter accent for links */
+}
+.section-full-bleed a:hover {
+  color: var(--color-hemp-green);
+}
+
+/* Text Element Styles */
+.text-dark {
+  color: var(--color-hemp-brown); /* Dark Text */
+}
+.text-light {
+  color: var(--color-hemp-cream); /* Light Text */
+}
+.text-normal {
+  font-weight: var(--font-weight-normal);
+}
+.text-light-font {
+  font-weight: var(--font-weight-light);
+}
+
+/* Heading Text Styles */
+.heading-light {
+  color: var(--color-off-white); /* Heading Light */
+}
+.heading-dark {
+  color: var(--color-hemp-green); /* Heading Text Color */
+}
+.heading-light-color {
+  color: var(--color-hemp-cream); /* Heading Color Light */
+}
+
+/* Heading Sizes */
+.h1-large { font-size: 3rem; }
+.h1-size { font-size: 3rem; }
+.h1-size-h6 { /* This implies a range, so H6 size */ font-size: 1.25rem; } 
+.h2-size { font-size: 2.5rem; }
+.h3-size { font-size: 2rem; }
+.h4-size { font-size: 1.5rem; }
+.h5-size { font-size: 1.25rem; }
+.h6-size { font-size: 1rem; }
+
+/* Image Styles */
+.image-rounded {
+  border-radius: 8px; /* Image Border Radius */
+}
+
+/* Row Element Styles */
+.row-standard {
+  width: 100%;
+  max-width: 1440px; /* Content Max Width */
+}
+.row-fullwidth {
+  width: 100%;
+  max-width: none; /* Content Max Width - Narrow none */
+}
+.row-narrow {
+  width: 100%;
+  max-width: 900px; /* Content Max Width - Narrow */
+}
+
+/* Section Element Styles */
+/* Specific background/layout classes are handled in section styles above */
+
+/* Utility Spacing classes (examples based on variables) */
+.space-top-reg { margin-top: var(--spacing-regular); }
+.space-top-med { margin-top: var(--spacing-medium); }
+.space-top-fluid { margin-top: var(--spacing-fluid); }
+.space-bottom-reg { margin-bottom: var(--spacing-regular); }
+.space-bottom-med { margin-bottom: var(--spacing-medium); }
+.space-bottom-fluid { margin-bottom: var(--spacing-fluid); }
+
+/* Responsive adjustments (examples) */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  .btn {
+    padding: var(--spacing-small) var(--spacing-small); /* Button Padding Small */
+  }
 }
