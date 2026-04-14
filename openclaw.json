@@ -1,0 +1,12 @@
+{
+  "Telegram": {
+    "token": "REDACTED" ,
+    "enabled": true
+  },
+  "BraveSearch": {
+    "apiKey": "BSAQf594-dKGur2KmNnhzhJHn5RTqWM"
+  },
+  "GatewayAuth": {
+    "secret": "22ef423b5e74d10d845d21349d5676bcc0f8d6c40d09ccca6475d1f6bea557d6"
+  }
+}
