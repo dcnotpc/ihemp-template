@@ -14,7 +14,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           <Link href="/" className="hover:opacity-80 transition-opacity">
-            <img src={stateConfig.logo} alt={stateConfig.siteName} className="h-10 w-auto max-w-full object-contain" />
+            <img src={stateConfig.logo} alt={stateConfig.siteName} className="h-9 md:h-10 w-auto max-w-full object-contain" />
           </Link>
           <div className="flex gap-6">
             {navItems.map((item) => (
