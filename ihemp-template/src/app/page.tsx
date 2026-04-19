@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import HeroTitle from '@/components/HeroTitle'
 import Countdown from '@/components/Countdown'
+import HempBanExplainer from '@/components/HempBanExplainer'
 import { stateConfig } from '@/config/state'
 
 export default function Home() {
@@ -22,12 +23,13 @@ export default function Home() {
       <section className="bg-stone-50 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h3 className="text-2xl sm:text-3xl font-bold text-green-800 mb-6">The Industrial Hemp Revolution</h3>
-          <p className="text-lg text-stone-700 leading-relaxed mb-6">For thousands of years, hemp has been one of humanitys most versatile crops used for fiber, food, fuel, and building materials. Today, a new generation is bringing hemp back.</p>
-          <p className="text-lg text-stone-700 leading-relaxed mb-8">Whether youre a grower, a business owner, or someone who believes in a sustainable future, your support for industrial hemp helps build stronger communities.</p>
+          <p className="text-lg text-stone-700 leading-relaxed mb-6">For thousands of years, hemp has been one of humanity's most versatile crops used for fiber, food, fuel, and building materials. Today, a new generation is bringing hemp back.</p>
+          <p className="text-lg text-stone-700 leading-relaxed mb-8">Whether you're a grower, a business owner, or someone who believes in a sustainable future, your support for industrial hemp helps build stronger communities.</p>
           <Link href="/laws" className="inline-block bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-8 rounded-full transition text-lg">Explore State Laws</Link>
         </div>
       </section>
-               <Countdown />
+      <HempBanExplainer />
+      <Countdown />
       <section className="bg-white py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <h3 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-10">From the Blog</h3>
