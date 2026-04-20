@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { validateFrontmatter } from "@/lib/content-validator";
 
 const postsDirectory = path.join(process.cwd(), "content/blog");
 
@@ -47,7 +48,7 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
     }
   }
 
-  const posts: PostMeta[] = Array.from(slugMap.entries()).map(([slug, filename]) => {
+  const posts: (PostMeta | null)[] = Array.from(slugMap.entries()).map(([slug, filename]) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, "utf8");
     const { data } = matter(fileContents);
@@ -63,7 +64,7 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
       states = [String(stateField).toLowerCase()];
     }
 
-    return {
+    const meta: PostMeta = {
       slug,
       title: data.title || slug,
       date: data.date || "",
@@ -71,17 +72,31 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
       tags: data.tags || [],
       states,
     };
+
+    // Validate frontmatter — log and skip invalid posts (build never crashes)
+    const validation = validateFrontmatter(data, filePath);
+    if (!validation.valid) {
+      console.warn(
+        `[blog] Skipping invalid post '${filePath}':\n` +
+          validation.errors.map((e) => `  - ${e}`).join("\n")
+      );
+      return null;
+    }
+
+    return meta;
   });
 
-  const filtered = stateSlug
-    ? posts.filter((post) => {
-        const target = stateSlug.toLowerCase();
-        const hasAll = post.states.includes("all") || post.states.length === 0;
-        return hasAll || post.states.includes(target);
-      })
-    : posts;
+  // Filter nulls (invalid posts skipped)
+  const validPosts = posts.filter((p): p is PostMeta => p !== null);
 
-  return filtered.sort((a, b) => (a.date > b.date ? -1 : 1));
+  return validPosts
+    .filter((post) => {
+      if (!stateSlug) return true;
+      const target = stateSlug.toLowerCase();
+      const hasAll = post.states.includes("all") || post.states.length === 0;
+      return hasAll || post.states.includes(target);
+    })
+    .sort((a, b) => (a.date > b.date ? -1 : 1));
 }
 
 export function getPostBySlug(slug: string): Post | null {

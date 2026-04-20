@@ -187,6 +187,38 @@ Body content here.
 
 ---
 
+## Fully-Conforming Example — Every Required Field (status: published)
+
+```mdx
+---
+title: "How the Mary Miller Amendment Would End Legal Hemp in America"
+slug: "mary-miller-amendment-hemp-ban-explainer"
+date: "2026-04-20"
+status: published
+type: advocacy
+states: ["all"]
+excerpt: "A federal Farm Bill amendment would redefine hemp to effectively ban CBD, smokable flower, and most hemp-derived products sold today — here's what it means and how to stop it."
+tags:
+  - mary-miller-amendment
+  - farm-bill
+  - call-to-action
+  - beginner
+seo_title: "Mary Miller Amendment: What It Means for Hemp"
+seo_description: "The Mary Miller amendment would ban most legal hemp products. Learn what's at stake and how to contact your representatives before November 2026."
+affiliate_disclosure: false
+health_claims_reviewed: true
+agent: content
+author: "Content Agent"
+reviewed_by: "David Crabill"
+created: "2026-04-20T09:00:00-04:00"
+updated: "2026-04-20T10:30:00-04:00"
+---
+
+Body content here.
+```
+
+---
+
 ## Change Log
 
 | Version | Date | Author | Notes |
