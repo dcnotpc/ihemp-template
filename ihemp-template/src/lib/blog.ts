@@ -15,6 +15,7 @@ export type PostMeta = {
   excerpt: string;
   tags: string[];
   states: string[];
+  status: string;
 };
 
 export type Post = PostMeta & {
@@ -71,6 +72,7 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
       excerpt: data.excerpt || data.description || "",
       tags: data.tags || [],
       states,
+      status: data.status || "draft",
     };
 
     // Validate frontmatter + body — log and skip invalid posts (build never crashes)
@@ -86,10 +88,11 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
     return meta;
   });
 
-  // Filter nulls (invalid posts skipped)
+  // Filter nulls (invalid posts skipped) and non-published posts
   const validPosts = posts.filter((p): p is PostMeta => p !== null);
+  const publishedPosts = validPosts.filter((p) => p.status === "published");
 
-  return validPosts
+  return publishedPosts
     .filter((post) => {
       if (!stateSlug) return true;
       const target = stateSlug.toLowerCase();
@@ -105,6 +108,9 @@ export function getPostBySlug(slug: string): Post | null {
 
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
+
+  // Draft posts are not publicly accessible
+  if ((data.status || "draft") !== "published") return null;
 
   const stateField = data.state || data.states;
   let states: string[] = [];
@@ -125,5 +131,6 @@ export function getPostBySlug(slug: string): Post | null {
     states,
     // Return raw source — page renders via <MDXRemote source={post.content} />
     content,
+    status: data.status || "draft",
   };
 }
