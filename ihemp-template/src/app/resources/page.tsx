@@ -47,9 +47,27 @@ export default function Resources() {
   ]
 
   const ihempHarvestProducts = [
-    { title: 'Premium Hemp Flower', description: 'Farm-fresh, lab-tested hemp flower grown with care.', url: 'https://ihempharvest.com' },
-    { title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
-    { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biomass for processors and manufacturers.', url: 'https://ihempharvest.com' },
+    {
+      title: 'BlueLine CBD Balm',
+      description: '3,000 mg CBD per ounce in a portable twist-up stick. Michigan-grown CBD distillate with beeswax, coconut oil, shea butter, and essential oils.',
+      url: 'https://ihempharvest.com/product/blueline-cbd-balm/',
+      image: '/images/products/blueline-cbd-balm.webp',
+      alt: 'BlueLine CBD Balm 1 oz twist-up stick',
+    },
+    {
+      title: 'RedLine CBD Balm',
+      description: '3,000 mg CBD twist-up stick with menthol and cayenne for a cooling-plus-heating sensation. Formulated for post-activity use.',
+      url: 'https://ihempharvest.com/product/redline-cbd-balm/',
+      image: '/images/products/redline-cbd-balm.webp',
+      alt: 'RedLine CBD Balm 1 oz twist-up stick',
+    },
+    {
+      title: "Dave's Best CBD Salve",
+      description: '2 oz salve tin with CBD distillate, coconut oil, shea butter, beeswax, and essential oils. The classic tin format.',
+      url: 'https://ihempharvest.com/product/daves-cbd-salve/',
+      image: '/images/products/daves-best-cbd-salve.png',
+      alt: "Dave's Best CBD Salve 2 oz tin",
+    },
   ]
 
   return (
@@ -76,9 +94,7 @@ export default function Resources() {
         <div className="grid sm:grid-cols-3 gap-4">
           {ihempHarvestProducts.map((product, i) => (
             <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-leaf/10 border-2 border-hemp-leaf/30 rounded-lg p-5 hover:border-hemp-leaf hover:shadow-md transition group">
-              <div className="w-full h-32 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">
-                Image
-              </div>
+              <img src={product.image} alt={product.alt} className="w-full h-48 object-cover rounded mb-3" />
               <p className="font-bold text-hemp-green group-hover:text-hemp-leaf transition">{product.title}</p>
               <p className="text-sm text-hemp-brown/70 mt-1">{product.description}</p>
               <p className="text-sm font-medium text-hemp-leaf mt-3">Shop Now</p>
