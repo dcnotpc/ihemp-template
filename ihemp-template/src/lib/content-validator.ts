@@ -1,0 +1,247 @@
+/**
+ * iHemp Frontmatter Validator
+ * Enforces CONTENT_SCHEMA.md rules at read time and submission time.
+ * Invalid posts are logged and skipped — the build never crashes on bad content.
+ */
+
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export type ValidationResult = {
+  valid: boolean;
+  errors: string[];
+};
+
+type TagCategory = { [category: string]: string[] };
+
+// ─── Tag cache ───────────────────────────────────────────────────────────────
+
+let _tagCache: Set<string> | null = null;
+let _educationalTags: Set<string> | null = null;
+let _productTypeTags: Set<string> | null = null;
+let _advocacyLegalTags: Set<string> | null = null;
+
+function loadTagCache(): void {
+  if (_tagCache !== null) return;
+
+  const tagsPath = path.join(process.cwd(), "content", "TAGS.yml");
+
+  if (!fs.existsSync(tagsPath)) {
+    console.warn("[content-validator] TAGS.yml not found at", tagsPath, "— tag validation disabled");
+    _tagCache = new Set();
+    _educationalTags = new Set();
+    _productTypeTags = new Set();
+    _advocacyLegalTags = new Set();
+    return;
+  }
+
+  const raw = fs.readFileSync(tagsPath, "utf8");
+  const parsed = yaml.load(raw) as TagCategory;
+
+  _tagCache = new Set();
+  _educationalTags = new Set(parsed["educational"] ?? []);
+  _productTypeTags = new Set(parsed["product_types"] ?? []);
+  _advocacyLegalTags = new Set([
+    ...(parsed["legal_regulatory"] ?? []),
+    ...(parsed["advocacy"] ?? []),
+  ]);
+
+  for (const tags of Object.values(parsed)) {
+    for (const tag of tags) {
+      _tagCache.add(tag);
+    }
+  }
+}
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const VALID_STATUSES = ["draft", "review", "approved", "published", "archived"] as const;
+const VALID_TYPES = ["blog", "law-update", "advocacy"] as const;
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function isISODate(value: unknown): boolean {
+  if (typeof value !== "string") return false;
+  return /^\d{4}-\d{2}-\d{2}(T[\d:.+-Z]+)?$/.test(value);
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((v) => typeof v === "string");
+}
+
+// ─── Main validator ───────────────────────────────────────────────────────────
+
+export function validateFrontmatter(
+  fm: Record<string, unknown>,
+  filePath: string
+): ValidationResult {
+  loadTagCache();
+
+  const errors: string[] = [];
+
+  // ── Required fields ────────────────────────────────────────────────────────
+
+  // title
+  if (!fm.title || typeof fm.title !== "string" || fm.title.trim() === "") {
+    errors.push("Missing required field: 'title'");
+  }
+
+  // slug
+  if (!fm.slug || typeof fm.slug !== "string" || fm.slug.trim() === "") {
+    errors.push("Missing required field: 'slug'");
+  } else if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(fm.slug as string)) {
+    errors.push(`Invalid 'slug': must be kebab-case (got '${fm.slug}')`);
+  }
+
+  // date
+  if (!fm.date) {
+    errors.push("Missing required field: 'date'");
+  } else if (!isISODate(fm.date)) {
+    errors.push(`Invalid 'date': must be ISO 8601 format (got '${fm.date}')`);
+  }
+
+  // status
+  if (!fm.status) {
+    errors.push("Missing required field: 'status'");
+  } else if (!VALID_STATUSES.includes(fm.status as typeof VALID_STATUSES[number])) {
+    errors.push(
+      `Invalid 'status': '${fm.status}' — must be one of: ${VALID_STATUSES.join(", ")}`
+    );
+  }
+
+  // type
+  if (!fm.type) {
+    errors.push("Missing required field: 'type'");
+  } else if (!VALID_TYPES.includes(fm.type as typeof VALID_TYPES[number])) {
+    errors.push(
+      `Invalid 'type': '${fm.type}' — must be one of: ${VALID_TYPES.join(", ")}`
+    );
+  }
+
+  // states
+  if (!fm.states) {
+    errors.push("Missing required field: 'states' (must be an array, e.g. [\"all\"] or [\"colorado\"])");
+  } else if (!isStringArray(fm.states) || (fm.states as string[]).length === 0) {
+    errors.push("Invalid 'states': must be a non-empty array of strings");
+  }
+
+  // excerpt
+  if (!fm.excerpt || typeof fm.excerpt !== "string" || fm.excerpt.trim() === "") {
+    errors.push("Missing required field: 'excerpt'");
+  }
+
+  // agent
+  if (!fm.agent || typeof fm.agent !== "string" || fm.agent.trim() === "") {
+    errors.push("Missing required field: 'agent' (use 'human' for manual authorship, 'legacy' for pre-Phase-1.5 posts)");
+  }
+
+  // created
+  if (!fm.created) {
+    errors.push("Missing required field: 'created'");
+  } else if (!isISODate(fm.created)) {
+    errors.push(`Invalid 'created': must be ISO 8601 datetime (got '${fm.created}')`);
+  }
+
+  // updated
+  if (!fm.updated) {
+    errors.push("Missing required field: 'updated'");
+  } else if (!isISODate(fm.updated)) {
+    errors.push(`Invalid 'updated': must be ISO 8601 datetime (got '${fm.updated}')`);
+  }
+
+  // ── Tags validation ────────────────────────────────────────────────────────
+
+  if (!fm.tags) {
+    errors.push("Missing required field: 'tags'");
+  } else if (!isStringArray(fm.tags)) {
+    errors.push("Invalid 'tags': must be an array of strings");
+  } else {
+    const tags = fm.tags as string[];
+
+    // Count
+    if (tags.length < 2 || tags.length > 6) {
+      errors.push(
+        `Tag count out of range: found ${tags.length}, expected 2–6`
+      );
+    }
+
+    // Unknown tags
+    for (const tag of tags) {
+      if (_tagCache!.size > 0 && !_tagCache!.has(tag)) {
+        errors.push(
+          `Unknown tag '${tag}' — not found in TAGS.yml`
+        );
+      }
+    }
+
+    // At least 1 from legal_regulatory or advocacy
+    const hasAdvocacyOrLegal = tags.some((t) => _advocacyLegalTags!.has(t));
+    if (_advocacyLegalTags!.size > 0 && !hasAdvocacyOrLegal) {
+      errors.push(
+        "Tags must include at least 1 tag from 'legal_regulatory' or 'advocacy'"
+      );
+    }
+
+    // Exactly 1 from educational
+    const educationalCount = tags.filter((t) => _educationalTags!.has(t)).length;
+    if (_educationalTags!.size > 0) {
+      if (educationalCount === 0) {
+        errors.push(
+          "Missing required 'educational' tier tag (must include exactly one of: beginner, intermediate, deep-dive, myths, history)"
+        );
+      } else if (educationalCount > 1) {
+        errors.push(
+          `Too many 'educational' tier tags: found ${educationalCount}, expected exactly 1`
+        );
+      }
+    }
+  }
+
+  // ── Published-only fields ──────────────────────────────────────────────────
+
+  if (fm.status === "published") {
+    if (!fm.seo_title || typeof fm.seo_title !== "string" || fm.seo_title.trim() === "") {
+      errors.push("Missing required field: 'seo_title' (required when status is 'published')");
+    } else if ((fm.seo_title as string).length > 60) {
+      errors.push(
+        `'seo_title' exceeds 60 characters (${(fm.seo_title as string).length} chars) — recommended ≤60`
+      );
+    }
+
+    if (!fm.seo_description || typeof fm.seo_description !== "string" || fm.seo_description.trim() === "") {
+      errors.push("Missing required field: 'seo_description' (required when status is 'published')");
+    } else if ((fm.seo_description as string).length > 160) {
+      errors.push(
+        `'seo_description' exceeds 160 characters (${(fm.seo_description as string).length} chars) — recommended ≤160`
+      );
+    }
+
+    if (fm.affiliate_disclosure === undefined || fm.affiliate_disclosure === null) {
+      errors.push("Missing required field: 'affiliate_disclosure' (required when status is 'published')");
+    } else if (typeof fm.affiliate_disclosure !== "boolean") {
+      errors.push("Invalid 'affiliate_disclosure': must be a boolean (true or false)");
+    }
+
+    if (fm.health_claims_reviewed === undefined || fm.health_claims_reviewed === null) {
+      errors.push("Missing required field: 'health_claims_reviewed' (required when status is 'published')");
+    } else if (typeof fm.health_claims_reviewed !== "boolean") {
+      errors.push("Invalid 'health_claims_reviewed': must be a boolean (true or false)");
+    }
+  }
+
+  // ── Legacy field warning ───────────────────────────────────────────────────
+
+  if ("state" in fm && fm.state) {
+    errors.push(
+      "Deprecated field 'state' (singular) found — migrate to 'states' (array) per Phase 1.5 schema"
+    );
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+  };
+}
