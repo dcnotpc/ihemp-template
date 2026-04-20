@@ -17,6 +17,18 @@ export type ValidationResult = {
 
 type TagCategory = { [category: string]: string[] };
 
+// ─── MDX component whitelist (mirrors src/lib/mdx-components.tsx) ───────────
+// These are the HTML overrides and approved custom components.
+// Keep this in sync with mdx-components.tsx — both lists must match.
+// Lowercase HTML overrides are safe; only uppercase custom components need whitelisting.
+const ALLOWED_UPPERCASE_COMPONENTS = new Set<string>([
+  // No custom components approved yet — whitelist is empty until Phase 2.
+  // Future: "HempBanExplainer", "CallToAction", etc.
+]);
+
+// Unconditionally unsafe HTML tags in MDX bodies
+const UNSAFE_HTML_TAGS = ["script", "iframe", "style"];
+
 // ─── Tag cache ───────────────────────────────────────────────────────────────
 
 let _tagCache: Set<string> | null = null;
@@ -72,11 +84,55 @@ function isStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every((v) => typeof v === "string");
 }
 
+// ─── Body scanner ─────────────────────────────────────────────────────────────
+
+/**
+ * Scans an MDX body string for:
+ * 1. Unknown uppercase JSX components not in the whitelist
+ * 2. Unconditionally unsafe HTML tags: <script>, <iframe>, <style>
+ *
+ * Returns an array of error strings (empty = clean).
+ */
+export function validateBody(body: string, filePath: string): string[] {
+  const errors: string[] = [];
+  const lines = body.split("\n");
+
+  // ── Unsafe HTML tags (unconditional) ──────────────────────────────────────
+  for (const tag of UNSAFE_HTML_TAGS) {
+    for (let i = 0; i < lines.length; i++) {
+      const unsafePattern = new RegExp(`<${tag}[\\s>/]`, "i");
+      if (unsafePattern.test(lines[i])) {
+        errors.push(
+          `Unsafe HTML tag <${tag}> found at line ${i + 1} in '${filePath}' — unconditionally rejected`
+        );
+      }
+    }
+  }
+
+  // ── Unknown uppercase JSX components ──────────────────────────────────────
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const linePattern = /<([A-Z][A-Za-z0-9.]*)/g;
+    let match: RegExpExecArray | null;
+    while ((match = linePattern.exec(line)) !== null) {
+      const componentName = match[1];
+      if (!ALLOWED_UPPERCASE_COMPONENTS.has(componentName)) {
+        errors.push(
+          `Unknown component <${componentName}> at line ${i + 1} in '${filePath}' — not in mdx-components whitelist`
+        );
+      }
+    }
+  }
+
+  return errors;
+}
+
 // ─── Main validator ───────────────────────────────────────────────────────────
 
 export function validateFrontmatter(
   fm: Record<string, unknown>,
-  filePath: string
+  filePath: string,
+  body?: string
 ): ValidationResult {
   loadTagCache();
 
@@ -238,6 +294,13 @@ export function validateFrontmatter(
     errors.push(
       "Deprecated field 'state' (singular) found — migrate to 'states' (array) per Phase 1.5 schema"
     );
+  }
+
+  // ── MDX body scan ────────────────────────────────────────────────────────
+
+  if (body !== undefined && body.trim().length > 0) {
+    const bodyErrors = validateBody(body, filePath);
+    errors.push(...bodyErrors);
   }
 
   return {

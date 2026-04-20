@@ -51,7 +51,7 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
   const posts: (PostMeta | null)[] = Array.from(slugMap.entries()).map(([slug, filename]) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, "utf8");
-    const { data } = matter(fileContents);
+    const { data, content: body } = matter(fileContents);
 
     // Handle both "state" (string) and "states" (array) frontmatter fields
     const stateField = data.state || data.states;
@@ -73,8 +73,8 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
       states,
     };
 
-    // Validate frontmatter — log and skip invalid posts (build never crashes)
-    const validation = validateFrontmatter(data, filePath);
+    // Validate frontmatter + body — log and skip invalid posts (build never crashes)
+    const validation = validateFrontmatter(data, filePath, body);
     if (!validation.valid) {
       console.warn(
         `[blog] Skipping invalid post '${filePath}':\n` +

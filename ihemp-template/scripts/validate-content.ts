@@ -109,8 +109,8 @@ async function main() {
   for (const filename of files.sort()) {
     const filePath = path.join(BLOG_DIR, filename);
     const raw = fs.readFileSync(filePath, "utf8");
-    const { data } = matter(raw);
-    const result = validateFrontmatter(data, filePath);
+    const { data, content: body } = matter(raw);
+    const result = validateFrontmatter(data, filePath, body);
 
     report.push(`## \`${filename}\``);
     report.push("");
