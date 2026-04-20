@@ -65,12 +65,11 @@ Returns real-time system metrics for:
 - Agent activity
 - Revenue data
 
-### 2. Content Management API (Existing)
-```http
-POST /api/posts
-DELETE /api/posts
-```
-Blog post creation and management via OpenClaw agents
+### 2. Content Management API
+
+> **Note:** The `/api/posts` route was removed in Phase 1.5. A new `/api/drafts` endpoint will be introduced in a later chunk to handle agent-submitted draft content with schema validation.
+
+Blog post creation and management via OpenClaw agents (endpoint pending)
 
 ---
 
@@ -128,7 +127,7 @@ Blog post creation and management via OpenClaw agents
 ### With Existing Project
 1. **Amazon Associates Integration** - Uses existing `src/lib/amazon.ts`
 2. **API Authentication** - Leverages existing API secret system
-3. **Content Management** - Extends existing `/api/posts` endpoint
+3. **Content Management** - `/api/posts` removed in Phase 1.5; `/api/drafts` coming in a later chunk
 4. **State Content** - Can integrate state-specific data from `src/data/states/`
 
 ### Future Integrations
