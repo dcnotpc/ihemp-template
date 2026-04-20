@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { stateConfig } from '@/config/state'
 import { getStateBySlug } from '@/data/states'
 import Link from 'next/link'
+import CbdSampleOffer from '@/components/CbdSampleOffer'
 
 export const metadata: Metadata = {
   title: `${stateConfig.pages.resources.title} | ${stateConfig.siteName}`,
@@ -42,14 +43,44 @@ export default function Resources() {
   ]
 
   const ihempMerch = [
-    { title: 'iHemp International Tee', description: 'Rep the hemp movement. Premium organic cotton.', url: 'https://ihempinternational.com' },
-    { title: 'Hemp Advocate Cap', description: 'Show your support for industrial hemp.', url: 'https://ihempinternational.com' },
+    {
+      title: 'Hemp T-Shirt',
+      description: `55% hemp, 45% organic cotton midweight tee. Warm, tough, and softer with time. Custom printed with your iHemp ${stateData.name} logo on the left chest.`,
+      url: 'https://ihempharvest.com/product/hemp-t-shirt-ihemp-mi/',
+      image: '/images/products/hemp-tshirt.jpg',
+      alt: 'iHemp hemp t-shirt in sand color',
+    },
+    {
+      title: 'Heavy T-Shirt',
+      description: `6.1 oz ring-spun USA cotton, garment-dyed with a relaxed fit and DIGISOFT printing. Custom printed with your iHemp ${stateData.name} logo on the left chest.`,
+      url: 'https://ihempharvest.com/product/ihemp-harvest-heavy-t-shirt/',
+      image: '/images/products/heavy-tshirt.png',
+      alt: 'Heavyweight garment-dyed cotton t-shirt',
+    },
   ]
 
   const ihempHarvestProducts = [
-    { title: 'Premium Hemp Flower', description: 'Farm-fresh, lab-tested hemp flower grown with care.', url: 'https://ihempharvest.com' },
-    { title: 'Hemp Seed Oil', description: 'Cold-pressed, nutrient-rich hemp seed oil.', url: 'https://ihempharvest.com' },
-    { title: 'Bulk Hemp Biomass', description: 'Wholesale hemp biomass for processors and manufacturers.', url: 'https://ihempharvest.com' },
+    {
+      title: 'BlueLine CBD Balm',
+      description: '3,000 mg CBD per ounce in a portable twist-up stick. Michigan-grown CBD distillate with beeswax, coconut oil, shea butter, and essential oils.',
+      url: 'https://ihempharvest.com/product/blueline-cbd-balm/',
+      image: '/images/products/blueline-cbd-balm.webp',
+      alt: 'BlueLine CBD Balm 1 oz twist-up stick',
+    },
+    {
+      title: 'RedLine CBD Balm',
+      description: '3,000 mg CBD twist-up stick with menthol and cayenne for a cooling-plus-heating sensation. Formulated for post-activity use.',
+      url: 'https://ihempharvest.com/product/redline-cbd-balm/',
+      image: '/images/products/redline-cbd-balm.webp',
+      alt: 'RedLine CBD Balm 1 oz twist-up stick',
+    },
+    {
+      title: "Dave's Best CBD Salve",
+      description: '2 oz salve tin with CBD distillate, coconut oil, shea butter, beeswax, and essential oils. The classic tin format.',
+      url: 'https://ihempharvest.com/product/daves-cbd-salve/',
+      image: '/images/products/daves-best-cbd-salve.png',
+      alt: "Dave's Best CBD Salve 2 oz tin",
+    },
   ]
 
   return (
@@ -76,9 +107,7 @@ export default function Resources() {
         <div className="grid sm:grid-cols-3 gap-4">
           {ihempHarvestProducts.map((product, i) => (
             <a key={i} href={product.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-leaf/10 border-2 border-hemp-leaf/30 rounded-lg p-5 hover:border-hemp-leaf hover:shadow-md transition group">
-              <div className="w-full h-32 bg-hemp-cream rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">
-                Image
-              </div>
+              <img src={product.image} alt={product.alt} className="w-full h-48 object-cover rounded mb-3" />
               <p className="font-bold text-hemp-green group-hover:text-hemp-leaf transition">{product.title}</p>
               <p className="text-sm text-hemp-brown/70 mt-1">{product.description}</p>
               <p className="text-sm font-medium text-hemp-leaf mt-3">Shop Now</p>
@@ -87,18 +116,19 @@ export default function Resources() {
         </div>
       </section>
 
+      {/* ───── CBD Sample Offer Banner ───── */}
+      <CbdSampleOffer />
+
       {/* ───── Hemp Merch ───── */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-hemp-green mb-2" style={{ fontFamily: 'var(--font-fredoka)' }}>
           Hemp Merch
         </h2>
-        <p className="text-hemp-brown/70 mb-5">Wear the movement. Support industrial hemp.</p>
-        <div className="grid sm:grid-cols-2 gap-4">
+        <p className="text-hemp-brown/70 mb-5">iHemp apparel, custom printed on demand.</p>
+        <div className="grid sm:grid-cols-2 gap-4 sm:max-w-2xl">
           {ihempMerch.map((item, i) => (
             <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="bg-hemp-cream border border-hemp-gold/30 rounded-lg p-5 hover:border-hemp-gold hover:shadow-md transition group">
-              <div className="w-full h-32 bg-white rounded mb-3 flex items-center justify-center text-hemp-brown/30 text-sm">
-                Image
-              </div>
+              <img src={item.image} alt={item.alt} className="w-full h-48 object-cover rounded mb-3" />
               <p className="font-bold text-hemp-brown group-hover:text-hemp-green transition">{item.title}</p>
               <p className="text-sm text-hemp-brown/70 mt-1">{item.description}</p>
               <p className="text-sm font-medium text-hemp-green mt-3">Shop Now</p>
