@@ -1,0 +1,155 @@
+# Phase 1.5 Summary — Content Foundation
+Branch: phase-1.5-content-foundation
+Date: 2026-04-20
+Author: OpenClaw (CEO: David Alan Crabill)
+
+---
+
+## What Changed
+
+### 1. Dead code removed (Chunk A.5)
+- Deleted `src/lib/posts.ts` — zero importers, duplicated blog reader functionality
+- Deleted `src/app/api/posts/route.ts` — zero callers, no client code referenced it
+- Removed `src/app/api/posts/` directory
+- Updated `DASHBOARD-README.md` to note removal and plan for future `/api/drafts` endpoint
+
+### 2. MDX renderer (Chunk B1–B2)
+- Replaced hand-rolled `simpleMarkdown()` regex renderer in `blog.ts` with `next-mdx-remote/rsc`
+- Pattern A: `post.content` is raw MDX source; page renders via `<MDXRemote source={post.content} components={mdxComponents} />`
+- `blog.ts` reads both `.md` (transition) and `.mdx` (forward); deduplicates slugs, prefers `.mdx`
+- `excerpt` now aliases `description` field — resolves the pre-existing frontmatter inconsistency
+- Created `src/lib/mdx-components.tsx` — MDX component whitelist
+  - HTML overrides: `h1`–`h3`, `p`, `strong`, `em`, `ul`, `ol`, `li`, `a`, `blockquote`, `hr`, `img`
+  - Styled to match existing `blog-content` CSS classes in `globals.css`
+  - Custom component section empty — new components require CEO approval
+
+### 3. Schema validator (Chunk B6)
+- Created `src/lib/content-validator.ts`
+  - Validates all 12 required frontmatter fields per `CONTENT_SCHEMA.md`
+  - Validates publish-gate fields when `status: published`
+  - Detects deprecated `state` (singular) field
+  - `validateBody()` scans MDX body for:
+    - Unknown uppercase JSX components not in `mdxComponents` whitelist (with line number)
+    - Unconditionally unsafe HTML tags: `<script>`, `<iframe>`, `<style>` (with line number)
+  - Invalid posts are logged via `console.warn` and skipped — build never crashes
+- `blog.ts` calls validator on every post read (frontmatter + body)
+- Created `scripts/validate-content.ts` — runnable via `npm run validate:content`
+- Created `scripts/sanity-check.ts` — confirmed `<FakeComponent />` and `<script>` each produce errors
+
+### 4. `blog.ts` status filter (Chunk C prerequisite)
+Three targeted additions to make draft suppression work. Full change shown:
+
+```ts
+// 1. PostMeta type — status field added
+export type PostMeta = {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  tags: string[];
+  states: string[];
+  status: string;   // ← added
+};
+
+// 2. getAllPosts — status populated and published-only filter added
+const meta: PostMeta = {
+  ...
+  status: data.status || "draft",   // ← added; defaults to "draft" if missing
+};
+// ...
+const validPosts = posts.filter((p): p is PostMeta => p !== null);
+const publishedPosts = validPosts.filter((p) => p.status === "published");  // ← added
+return publishedPosts.filter(...).sort(...);
+
+// 3. getPostBySlug — null-gate for non-published posts
+const { data, content } = matter(fileContents);
+// Draft posts are not publicly accessible
+if ((data.status || "draft") !== "published") return null;  // ← added
+```
+
+One file changed (`src/lib/blog.ts`), 9 insertions, 2 deletions. No RSS, sitemap, component props, or other files touched.
+
+### 5. Tag vocabulary (Chunk B4–B5)
+- Created `content/TAGS.yml` — controlled tag vocabulary, source of truth for reader and future approval UI
+  - 5 categories: `legal_regulatory`, `industry`, `product_types`, `advocacy`, `educational`
+  - 27 tags total
+  - New tags require CEO sign-off before addition
+- Tagging rules enforced by validator:
+  - 2–6 tags per post
+  - At least 1 from `legal_regulatory` or `advocacy`
+  - Exactly 1 from `educational`
+  - At least 1 from `product_types` for goods/growing content
+
+### 6. Content schema (Chunk B5)
+- Created `CONTENT_SCHEMA.md` at repo root — single source of truth for all content frontmatter
+- Defines: 12 required fields, 4 publish-gate fields, 2 optional fields
+- Status lifecycle: `draft → review → approved → published → archived`
+- File convention: `{slug}.mdx`, no date prefix, date in frontmatter only
+- Folder structure: `content/blog/`, `content/drafts/` (excluded from reader), future `law-updates/`, `advocacy/`
+- Created `content/drafts/.gitkeep` — staging area for agent output
+
+### 7. Post migration (Chunk C)
+All 4 pre-existing posts migrated to schema v1:
+
+| Post | Status | Notes |
+|------|--------|-------|
+| `colorado-hemp-introduction.mdx` | published | State-specific, Colorado |
+| `hemp-fiber-vs-cotton.mdx` | published | Network-wide |
+| `ihemp-network-introduction.mdx` | published | Renamed from `test-post.md` |
+| `understanding-hemp-farm-bill.mdx` | **draft** | Body is placeholder-level; demoted pending rewrite |
+
+`blog.ts` updated to filter `getAllPosts` to `status: published` only. Draft posts return `null` from `getPostBySlug` (404 on direct URL access).
+
+### 8. `MIGRATION_REPORT.md`
+Generated by `npm run validate:content` after migration. Confirms 4/4 pass. Retained at repo root as audit record.
+
+---
+
+## Changelog (11 commits)
+
+| Commit | Message |
+|--------|---------|
+| `4db0dd7` | chore: remove dead posts.ts and /api/posts route (Phase 1.5 A.5) |
+| `a31022f` | feat: replace simpleMarkdown with next-mdx-remote + MDX component whitelist (Phase 1.5 B1+B2) |
+| `959aebf` | feat: add controlled tag vocabulary TAGS.yml (Phase 1.5 B4) |
+| `ffc34ed` | docs: add CONTENT_SCHEMA.md and educational tag category to TAGS.yml (Phase 1.5 B5) |
+| `8e28cbb` | feat: schema validator, migration script, content/drafts/, CONTENT_SCHEMA example (Phase 1.5 B5+B6) |
+| `b7671a3` | feat: validator scans MDX body for unknown components and unsafe HTML (Phase 1.5 B6) |
+| `910c7d9` | fix: add status field to PostMeta and filter getAllPosts to published only (C3 prerequisite) |
+| `939d61c` | content: migrate colorado-hemp-introduction to schema v1 |
+| `c322524` | content: migrate hemp-fiber-vs-cotton to schema v1 |
+| `0a8158a` | content: migrate understanding-hemp-farm-bill to schema v1 |
+| `cdcac9c` | content: migrate test-post to ihemp-network-introduction schema v1 |
+
+---
+
+## Known Debts
+
+### 1. Farm Bill body rewrite
+**HIGH priority — does not block Phase 1.5 merge. Blocks promoting `understanding-hemp-farm-bill` from `draft` to `published`.** The post stays in the repo under `content/blog/` with `status: draft` and is not publicly reachable. Needs a full rewrite with actual 2025 Farm Bill provisions (USDA funding extension, THC testing protocol changes, interstate commerce provisions) before it can be promoted. Rewrite is a content task, not a code task.
+
+### 2. Schema tension — industry comparison tags (MEDIUM)
+The `legal_regulatory`/`advocacy` tag requirement doesn't cleanly fit industry/product comparison content. `hemp-fiber-vs-cotton.mdx` uses `success-stories` as the nearest fit, which is a mild stretch. Revisit by adding an `industry_comparison` tag under `industry`, or by relaxing the "at least 1 advocacy/legal tag" requirement for posts where `type: blog` and `product_types` tags are present.
+
+### 3. SEO hallucination guardrail (MEDIUM — technical enforcement)
+The validator checks `seo_title` ≤60 chars and `seo_description` ≤160 chars, but does not verify that SEO fields are grounded in body content. In Phase 1.5, `understanding-hemp-farm-bill` had a speculative `seo_description` referencing content not in the body — caught in review. Consider adding a future validator step that cross-checks key phrases in `seo_description` against post body content. Distinct from Debt 5 (prompt-level prevention); this is technical enforcement.
+
+### 4. `/blog/test-post` redirect (LOW — deferred)
+`test-post.md` was renamed to `ihemp-network-introduction.mdx`. If the old URL `/blog/test-post` has any inbound links or indexed traffic, it currently returns 404. A redirect (`/blog/test-post` → `/blog/ihemp-network-introduction`) was deferred to avoid touching `next.config.ts` in this phase. Revisit if analytics show traffic to the old URL.
+
+### 5. Agent prompt — SEO metadata grounding (LOW — preventive)
+During Chunk C, a speculative `seo_description` was generated for `understanding-hemp-farm-bill` referencing specifics not in the body. Caught in review. Generalizable pattern: agents writing SEO metadata for thin content default to imagined content. Consider adding to the content-agent system prompt:
+
+> *"When generating SEO metadata for existing content, constrain output to claims and topics present in the body. If the body is thin, metadata should reflect that. Do not invent specifics."*
+
+Distinct from Debt 3 (validator soft-check); this is prompt-level prevention, that is technical enforcement. Both recommended.
+
+---
+
+## Build Verification
+
+- `npm run validate:content`: 4 pass / 0 fail
+- `npm run build`: exit 0, 12 static pages
+- Route manifest: 3 published slugs (`colorado-hemp-introduction`, `hemp-fiber-vs-cotton`, `ihemp-network-introduction`)
+- `/blog/understanding-hemp-farm-bill`: 404 (draft excluded from static generation)
+- No layout regressions (MDX component overrides match pre-migration `blog-content` CSS)
