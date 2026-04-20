@@ -1,0 +1,42 @@
+# iHemp Controlled Tag Vocabulary
+# Source of truth — reader and approval UI both import from this file.
+# New tags require human approval. Do not add tags without CEO sign-off.
+
+legal_regulatory:
+  - farm-bill
+  - mary-miller-amendment
+  - state-law
+  - thc-limits
+  - licensing
+  - compliance
+  - enforcement
+
+industry:
+  - farming
+  - processing
+  - research
+  - market-trends
+  - sustainability
+
+product_types:
+  - grain
+  - fiber
+  - flower
+  - biomass
+  - seed-genetics
+  - dual-purpose
+
+advocacy:
+  - call-to-action
+  - legislator-contact
+  - hemp-ban-explainer
+  - success-stories
+  - opposition
+  - coalition
+
+educational:
+  - beginner
+  - intermediate
+  - deep-dive
+  - myths
+  - history
