@@ -5,6 +5,22 @@ Branch: phase-1.5-content-foundation
 
 ---
 
+## ⚠️ AGENT STAGING RULE — READ THIS FIRST
+
+**All agents MUST write new content to `content/drafts/` — NOT to `content/blog/`.**
+
+```
+content/drafts/{agent-id}-{slug}-{YYYY-MM-DD}.mdx   ← CORRECT
+content/blog/{slug}.mdx                              ← WRONG — do not write here
+```
+
+- `content/drafts/` is committed to Git and preserved for audit, but **never deployed to any live site**.
+- Content only moves from `drafts/` to `blog/` after CEO approval with `status: published`.
+- Any agent that writes directly to `content/blog/` is bypassing the review pipeline. This is a violation of the content assembly line (AGENTS.md).
+- Set `status: draft` on all new content. Never set `status: approved` or `status: published` autonomously.
+
+---
+
 ## Purpose
 
 This document is the single source of truth for all content frontmatter in the iHemp network. It defines the required fields, optional fields, status lifecycle, tagging rules, filename conventions, and folder structure for every piece of content stored in this repository. The schema is enforced by the frontmatter validator (introduced in Phase 1.5 Chunk B6) at submission time — no content enters the pipeline without passing validation. The same schema is consumed by `src/lib/blog.ts` (reader), and will be consumed by the approval UI in Phase 2. Any change to this schema requires CEO approval and a corresponding validator update.
@@ -48,6 +64,10 @@ These fields are optional for drafts and review, but **required before a post ma
 |-------|------|-------------|
 | `author` | `string` | Human author byline (displayed on post if present) |
 | `reviewed_by` | `string` | Reviewer name or handle — approval audit trail |
+| `reviewer_id` | `string` | Agent ID or handle of the reviewer (e.g., `compliance`, `qa`, `David Crabill`) |
+| `review_notes` | `string` | Free-text notes from the reviewer |
+| `suggested_edits` | `string` | Suggested changes from the reviewer — agent should address before re-submitting |
+| `reviewed_at` | `string` | ISO 8601 datetime of the last review action |
 
 ---
 
@@ -74,7 +94,7 @@ Agents write to `draft`. Humans advance through the lifecycle via the approval U
 ## Tagging Rules
 
 1. **2–6 tags** per post
-2. **At least 1 tag** from `legal_regulatory` or `advocacy`
+2. **At least 1 tag** from `legal_regulatory`, `advocacy`, **or `educational`** — since `educational` is already required (rule 3), this passes automatically for any post with an educational tag. The rule exists to prevent posts with zero topic anchors.
 3. **Exactly 1 tag** from `educational` (`beginner` / `intermediate` / `deep-dive` / `myths` / `history`)
 4. **At least 1 tag** from `product_types` on content about growing, processing, or physical goods — pure policy/advocacy posts are exempt
 5. **All tags must exist** in `content/TAGS.yml` — unknown tags fail validation
@@ -224,3 +244,4 @@ Body content here.
 | Version | Date | Author | Notes |
 |---------|------|--------|-------|
 | 1.0 | 2026-04-20 | OpenClaw | Initial schema — Phase 1.5 Chunk B5 |
+| 1.1 | 2026-04-21 | OpenClaw | Phase 1.5.1 — Added 4 optional review workflow fields (`reviewer_id`, `review_notes`, `suggested_edits`, `reviewed_at`). Loosened tag rule 2 to include `educational` category. Build-time validator + CI workflow added. Agent staging instructions added. |
