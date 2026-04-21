@@ -12,6 +12,7 @@ on:
       - "feat/*"
       - "fix/*"
       - "hotfix/*"
+      - "ci-self-test"  # temporary — self-test only, remove after verification
   pull_request:
     branches:
       - main
