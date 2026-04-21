@@ -233,11 +233,17 @@ export function validateFrontmatter(
       }
     }
 
-    // At least 1 from legal_regulatory or advocacy
-    const hasAdvocacyOrLegal = tags.some((t) => _advocacyLegalTags!.has(t));
-    if (_advocacyLegalTags!.size > 0 && !hasAdvocacyOrLegal) {
+    // At least 1 from legal_regulatory, advocacy, OR educational
+    // (educational is already required exactly once, so purely educational posts pass automatically)
+    const hasAdvocacyLegalOrEducational =
+      tags.some((t) => _advocacyLegalTags!.has(t)) ||
+      tags.some((t) => _educationalTags!.has(t));
+    if (
+      (_advocacyLegalTags!.size > 0 || _educationalTags!.size > 0) &&
+      !hasAdvocacyLegalOrEducational
+    ) {
       errors.push(
-        "Tags must include at least 1 tag from 'legal_regulatory' or 'advocacy'"
+        "Tags must include at least 1 tag from 'legal_regulatory', 'advocacy', or 'educational'"
       );
     }
 
@@ -285,6 +291,37 @@ export function validateFrontmatter(
       errors.push("Missing required field: 'health_claims_reviewed' (required when status is 'published')");
     } else if (typeof fm.health_claims_reviewed !== "boolean") {
       errors.push("Invalid 'health_claims_reviewed': must be a boolean (true or false)");
+    }
+  }
+
+  // ── Optional review workflow fields (Phase 1.5.1) ────────────────────────
+  // All optional — validated only when present.
+
+  // reviewer_id — string
+  if (fm.reviewer_id !== undefined && fm.reviewer_id !== null) {
+    if (typeof fm.reviewer_id !== "string" || fm.reviewer_id.trim() === "") {
+      errors.push("Invalid 'reviewer_id': must be a non-empty string (agent ID or handle)");
+    }
+  }
+
+  // review_notes — string
+  if (fm.review_notes !== undefined && fm.review_notes !== null) {
+    if (typeof fm.review_notes !== "string") {
+      errors.push("Invalid 'review_notes': must be a string");
+    }
+  }
+
+  // suggested_edits — string
+  if (fm.suggested_edits !== undefined && fm.suggested_edits !== null) {
+    if (typeof fm.suggested_edits !== "string") {
+      errors.push("Invalid 'suggested_edits': must be a string");
+    }
+  }
+
+  // reviewed_at — ISO 8601 datetime
+  if (fm.reviewed_at !== undefined && fm.reviewed_at !== null) {
+    if (!isISODate(fm.reviewed_at)) {
+      errors.push(`Invalid 'reviewed_at': must be ISO 8601 datetime (got '${fm.reviewed_at}')`);
     }
   }
 
