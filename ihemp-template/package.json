@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint",
     "vercel-build": "next build",
+    "validate": "tsx scripts/validate-content.ts",
     "validate:content": "tsx scripts/validate-content.ts"
   },
   "dependencies": {
