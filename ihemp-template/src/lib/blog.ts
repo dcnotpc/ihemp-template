@@ -16,6 +16,11 @@ export type PostMeta = {
   tags: string[];
   states: string[];
   status: string;
+  // Optional review workflow fields (Phase 1.5.1)
+  reviewer_id?: string;
+  review_notes?: string;
+  suggested_edits?: string;
+  reviewed_at?: string;
 };
 
 export type Post = PostMeta & {
@@ -73,6 +78,11 @@ export function getAllPosts(stateSlug?: string): PostMeta[] {
       tags: data.tags || [],
       states,
       status: data.status || "draft",
+      // Optional review workflow fields
+      ...(data.reviewer_id ? { reviewer_id: data.reviewer_id } : {}),
+      ...(data.review_notes ? { review_notes: data.review_notes } : {}),
+      ...(data.suggested_edits ? { suggested_edits: data.suggested_edits } : {}),
+      ...(data.reviewed_at ? { reviewed_at: data.reviewed_at } : {}),
     };
 
     // Validate frontmatter + body — log and skip invalid posts (build never crashes)
@@ -129,8 +139,12 @@ export function getPostBySlug(slug: string): Post | null {
     excerpt: data.excerpt || data.description || "",
     tags: data.tags || [],
     states,
-    // Return raw source — page renders via <MDXRemote source={post.content} />
     content,
     status: data.status || "draft",
+    // Optional review workflow fields
+    ...(data.reviewer_id ? { reviewer_id: data.reviewer_id } : {}),
+    ...(data.review_notes ? { review_notes: data.review_notes } : {}),
+    ...(data.suggested_edits ? { suggested_edits: data.suggested_edits } : {}),
+    ...(data.reviewed_at ? { reviewed_at: data.reviewed_at } : {}),
   };
 }
