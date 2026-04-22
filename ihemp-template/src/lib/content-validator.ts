@@ -2,6 +2,12 @@
  * iHemp Frontmatter Validator
  * Enforces CONTENT_SCHEMA.md rules at read time and submission time.
  * Invalid posts are logged and skipped — the build never crashes on bad content.
+ *
+ * Two validation layers:
+ *   1. validateFrontmatter() — sync, checks YAML fields and body tag safety
+ *   2. validateMdxCompile() — async, compiles the full MDX body via @mdx-js/mdx
+ *      so "npm run validate" green means "this will actually build," not just
+ *      "the frontmatter is shaped correctly."
  */
 
 import fs from "fs";
@@ -22,8 +28,10 @@ type TagCategory = { [category: string]: string[] };
 // Keep this in sync with mdx-components.tsx — both lists must match.
 // Lowercase HTML overrides are safe; only uppercase custom components need whitelisting.
 const ALLOWED_UPPERCASE_COMPONENTS = new Set<string>([
-  // No custom components approved yet — whitelist is empty until Phase 2.
+  // Phase 1.5.2: DraftBanner is injected by the post page, not authored in MDX bodies.
+  // It is listed here to satisfy the validator if ever referenced in a test fixture.
   // Future: "HempBanExplainer", "CallToAction", etc.
+  "DraftBanner",
 ]);
 
 // Unconditionally unsafe HTML tags in MDX bodies
@@ -159,9 +167,9 @@ export function validateFrontmatter(
     errors.push(`Invalid 'date': must be ISO 8601 format (got '${fm.date}')`);
   }
 
-  // status
+  // status — required, no default (Phase 1.5.2: explicit value enforced)
   if (!fm.status) {
-    errors.push("Missing required field: 'status'");
+    errors.push("Missing required field: 'status' (must be one of: draft, review, published — no default)");
   } else if (!VALID_STATUSES.includes(fm.status as typeof VALID_STATUSES[number])) {
     errors.push(
       `Invalid 'status': '${fm.status}' — must be one of: ${VALID_STATUSES.join(", ")}`
@@ -294,34 +302,50 @@ export function validateFrontmatter(
     }
   }
 
-  // ── Optional review workflow fields (Phase 1.5.1) ────────────────────────
-  // All optional — validated only when present.
+  // ── Review workflow fields (Phase 1.5.2) ────────────────────────────────
+  //
+  // Field names match CONTENT_SCHEMA.md spec:
+  //   reviewer   (string)          — camelCase-free, matches spec
+  //   reviewedAt (ISO 8601 string) — camelCase, matches spec
+  //
+  // Rules by status:
+  //   published  → reviewer required, reviewedAt required
+  //   review     → reviewer required, reviewedAt optional
+  //   draft      → reviewer optional, reviewedAt optional
+  //
+  // When present, all fields are type-validated regardless of status.
 
-  // reviewer_id — string
-  if (fm.reviewer_id !== undefined && fm.reviewer_id !== null) {
-    if (typeof fm.reviewer_id !== "string" || fm.reviewer_id.trim() === "") {
-      errors.push("Invalid 'reviewer_id': must be a non-empty string (agent ID or handle)");
+  // reviewer — string
+  if (fm.reviewer !== undefined && fm.reviewer !== null) {
+    if (typeof fm.reviewer !== "string" || (fm.reviewer as string).trim() === "") {
+      errors.push(`Invalid 'reviewer' in '${filePath}': must be a non-empty string`);
     }
+  } else if (fm.status === "published") {
+    errors.push(`Missing required field: 'reviewer' in '${filePath}' (required when status is 'published')`);
+  } else if (fm.status === "review") {
+    errors.push(`Missing required field: 'reviewer' in '${filePath}' (required when status is 'review')`);
   }
 
-  // review_notes — string
+  // reviewedAt — ISO 8601 datetime
+  if (fm.reviewedAt !== undefined && fm.reviewedAt !== null) {
+    if (!isISODate(fm.reviewedAt)) {
+      errors.push(`Invalid 'reviewedAt' in '${filePath}': must be ISO 8601 datetime (got '${fm.reviewedAt}')`);
+    }
+  } else if (fm.status === "published") {
+    errors.push(`Missing required field: 'reviewedAt' in '${filePath}' (required when status is 'published')`);
+  }
+
+  // review_notes — optional string
   if (fm.review_notes !== undefined && fm.review_notes !== null) {
     if (typeof fm.review_notes !== "string") {
-      errors.push("Invalid 'review_notes': must be a string");
+      errors.push(`Invalid 'review_notes' in '${filePath}': must be a string`);
     }
   }
 
-  // suggested_edits — string
+  // suggested_edits — optional string
   if (fm.suggested_edits !== undefined && fm.suggested_edits !== null) {
     if (typeof fm.suggested_edits !== "string") {
-      errors.push("Invalid 'suggested_edits': must be a string");
-    }
-  }
-
-  // reviewed_at — ISO 8601 datetime
-  if (fm.reviewed_at !== undefined && fm.reviewed_at !== null) {
-    if (!isISODate(fm.reviewed_at)) {
-      errors.push(`Invalid 'reviewed_at': must be ISO 8601 datetime (got '${fm.reviewed_at}')`);
+      errors.push(`Invalid 'suggested_edits' in '${filePath}': must be a string`);
     }
   }
 
@@ -344,4 +368,47 @@ export function validateFrontmatter(
     valid: errors.length === 0,
     errors,
   };
+}
+
+// ── MDX compilation validator ─────────────────────────────────────────────────
+//
+// Compiles the MDX body with @mdx-js/mdx — the same compiler Next.js uses at
+// build time. Catches HTML comments, bad JSX, invalid syntax, etc. that the
+// regex-based validateBody() above cannot detect.
+//
+// Kept async and separate from validateFrontmatter() so call sites that only
+// need frontmatter checks (e.g. blog.ts at read time) stay synchronous.
+//
+// Used by: scripts/validate-content.ts (npm run validate)
+// NOT used by: the build-time hook in next.config.ts (that runs validateFrontmatter
+// only — full MDX compilation is handled by Next.js itself during build).
+
+/**
+ * Compiles an MDX body string using @mdx-js/mdx.
+ * Returns a ValidationResult for consistency with validateFrontmatter().
+ */
+export async function validateMdxCompile(
+  body: string,
+  filePath: string
+): Promise<ValidationResult> {
+  if (!body || body.trim().length === 0) {
+    return { valid: true, errors: [] };
+  }
+
+  try {
+    // Dynamic import: @mdx-js/mdx is ESM-only. tsx handles this fine in Node.
+    const { compile } = await import("@mdx-js/mdx");
+    await compile(body, {
+      // Match the options next-mdx-remote uses (no remark/rehype plugins for
+      // basic compilation check — we just want parse + transform errors)
+      outputFormat: "function-body",
+    });
+    return { valid: true, errors: [] };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return {
+      valid: false,
+      errors: [`${filePath}: MDX compilation failed — ${msg}`],
+    };
+  }
 }
