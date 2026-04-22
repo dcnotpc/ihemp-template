@@ -64,10 +64,10 @@ These fields are optional for drafts and review, but **required before a post ma
 |-------|------|-------------|
 | `author` | `string` | Human author byline (displayed on post if present) |
 | `reviewed_by` | `string` | Reviewer name or handle — approval audit trail |
-| `reviewer_id` | `string` | Agent ID or handle of the reviewer (e.g., `compliance`, `qa`, `David Crabill`) |
+| `reviewer` | `string` | Name or handle of the reviewer (e.g., `"David Crabill"`, `"compliance"`) — required on `published` and `review` |
+| `reviewedAt` | `string` | ISO 8601 datetime of last review action — required on `published`, optional on `review` |
 | `review_notes` | `string` | Free-text notes from the reviewer |
 | `suggested_edits` | `string` | Suggested changes from the reviewer — agent should address before re-submitting |
-| `reviewed_at` | `string` | ISO 8601 datetime of the last review action |
 
 ---
 
@@ -244,4 +244,5 @@ Body content here.
 | Version | Date | Author | Notes |
 |---------|------|--------|-------|
 | 1.0 | 2026-04-20 | OpenClaw | Initial schema — Phase 1.5 Chunk B5 |
-| 1.1 | 2026-04-21 | OpenClaw | Phase 1.5.1 — Added 4 optional review workflow fields (`reviewer_id`, `review_notes`, `suggested_edits`, `reviewed_at`). Loosened tag rule 2 to include `educational` category. Build-time validator + CI workflow added. Agent staging instructions added. |
+| 1.1 | 2026-04-21 | OpenClaw | Phase 1.5.1 — Added 4 optional review workflow fields (`reviewer`, `reviewedAt`, `review_notes`, `suggested_edits`). Loosened tag rule 2 to include `educational` category. Build-time validator + CI workflow added. Agent staging instructions added. |
+| 1.2 | 2026-04-21 | OpenClaw | Phase 1.5.2 — `reviewer` and `reviewedAt` now conditionally required (required on `published`, `reviewer` required on `review`). Env-aware visibility. `/drafts` page added. |
