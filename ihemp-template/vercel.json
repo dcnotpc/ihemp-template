@@ -7,7 +7,7 @@
     }
   ],
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
+  "installCommand": "git submodule update --init --recursive && npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
   "env": {
