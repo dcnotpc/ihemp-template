@@ -2,6 +2,12 @@
  * iHemp Frontmatter Validator
  * Enforces CONTENT_SCHEMA.md rules at read time and submission time.
  * Invalid posts are logged and skipped — the build never crashes on bad content.
+ *
+ * Two validation layers:
+ *   1. validateFrontmatter() — sync, checks YAML fields and body tag safety
+ *   2. validateMdxCompile() — async, compiles the full MDX body via @mdx-js/mdx
+ *      so "npm run validate" green means "this will actually build," not just
+ *      "the frontmatter is shaped correctly."
  */
 
 import fs from "fs";
@@ -362,4 +368,47 @@ export function validateFrontmatter(
     valid: errors.length === 0,
     errors,
   };
+}
+
+// ── MDX compilation validator ─────────────────────────────────────────────────
+//
+// Compiles the MDX body with @mdx-js/mdx — the same compiler Next.js uses at
+// build time. Catches HTML comments, bad JSX, invalid syntax, etc. that the
+// regex-based validateBody() above cannot detect.
+//
+// Kept async and separate from validateFrontmatter() so call sites that only
+// need frontmatter checks (e.g. blog.ts at read time) stay synchronous.
+//
+// Used by: scripts/validate-content.ts (npm run validate)
+// NOT used by: the build-time hook in next.config.ts (that runs validateFrontmatter
+// only — full MDX compilation is handled by Next.js itself during build).
+
+/**
+ * Compiles an MDX body string using @mdx-js/mdx.
+ * Returns a ValidationResult for consistency with validateFrontmatter().
+ */
+export async function validateMdxCompile(
+  body: string,
+  filePath: string
+): Promise<ValidationResult> {
+  if (!body || body.trim().length === 0) {
+    return { valid: true, errors: [] };
+  }
+
+  try {
+    // Dynamic import: @mdx-js/mdx is ESM-only. tsx handles this fine in Node.
+    const { compile } = await import("@mdx-js/mdx");
+    await compile(body, {
+      // Match the options next-mdx-remote uses (no remark/rehype plugins for
+      // basic compilation check — we just want parse + transform errors)
+      outputFormat: "function-body",
+    });
+    return { valid: true, errors: [] };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return {
+      valid: false,
+      errors: [`${filePath}: MDX compilation failed — ${msg}`],
+    };
+  }
 }
