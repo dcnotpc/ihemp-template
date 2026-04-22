@@ -3,7 +3,11 @@ import { getAllPosts } from "@/lib/blog";
 import { stateConfig } from "@/config/state";
 
 export default function Blog() {
-  const posts = getAllPosts(stateConfig.slug);
+  // Always filter to published-only on the blog index, regardless of environment.
+  // Draft/review posts are accessible at their canonical URL (/blog/[slug]) in
+  // preview with a DraftBanner, but must never appear in the public listing —
+  // the listing has no visual status indicator and would mislead reviewers.
+  const posts = getAllPosts({ stateSlug: stateConfig.slug, includeUnpublished: false });
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-16">

@@ -101,7 +101,7 @@ function buildPostMeta(slug: string, data: Record<string, unknown>): PostMeta {
 // Options:
 //   stateSlug          — filter to posts targeting this state (or "all")
 //   includeUnpublished — override env-aware filtering; true = return all statuses
-//                        Used by: /drafts page (always), preview banner logic
+//                        Used by: preview banner logic, ihemp-ops review surface (future)
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
