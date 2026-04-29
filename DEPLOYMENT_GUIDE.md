@@ -107,7 +107,7 @@ app.prepare().then(() => {
 Create `.env` file in CPanel app root:
 
 ```
-OPENCLAW_API_SECRET=***REDACTED***
+<OPENCLAW_API_SECRET>
 NODE_ENV=production
 NEXT_PUBLIC_STATE=colorado
 ```
