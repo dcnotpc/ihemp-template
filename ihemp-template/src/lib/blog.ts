@@ -41,7 +41,12 @@ export type PostMeta = {
   slug: string;
   title: string;
   date: string;
+  // Frontmatter excerpt (preferred) or empty string; see contentExcerpt for the
+  // body-derived fallback that is always non-empty for published posts.
   excerpt: string;
+  // Safe display excerpt: frontmatter excerpt → frontmatter description → body-derived
+  // Always a non-empty string when content is present. Use this for card display.
+  contentExcerpt: string;
   tags: string[];
   states: string[];
   status: PostStatus;
@@ -58,6 +63,48 @@ export type Post = PostMeta & {
   // Raw MDX/Markdown source — rendered at the page level via <MDXRemote source={post.content} />
   content: string;
 };
+
+// ─── Excerpt helpers ─────────────────────────────────────────────────────────
+
+/**
+ * Derive a plain-text excerpt from MDX/Markdown body content.
+ * Strips frontmatter fences, headings, markdown syntax, HTML tags,
+ * MDX component tags, and whitespace, then trims to maxLength chars.
+ * Never throws — returns empty string on any error.
+ */
+export function deriveExcerptFromBody(body: string, maxLength = 160): string {
+  try {
+    const text = body
+      // Remove frontmatter block if somehow present
+      .replace(/^---[\s\S]*?---\n?/, "")
+      // Remove MDX/JSX component tags
+      .replace(/<[A-Z][\w.]*[^>]*\/?>|<\/[A-Z][\w.]*>/g, " ")
+      // Remove HTML tags
+      .replace(/<[^>]+>/g, " ")
+      // Remove markdown headings (##, ###, etc.)
+      .replace(/^#{1,6}\s+/gm, "")
+      // Remove markdown bold/italic/code
+      .replace(/[*_`]{1,3}([^*_`]+)[*_`]{1,3}/g, "$1")
+      // Remove markdown links, keep text
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      // Remove image syntax
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
+      // Remove blockquote markers
+      .replace(/^>\s+/gm, "")
+      // Collapse whitespace and newlines
+      .replace(/[\r\n\t]+/g, " ")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+
+    if (text.length <= maxLength) return text;
+    // Trim to maxLength at a word boundary
+    const trimmed = text.slice(0, maxLength);
+    const lastSpace = trimmed.lastIndexOf(" ");
+    return (lastSpace > maxLength * 0.7 ? trimmed.slice(0, lastSpace) : trimmed) + "…";
+  } catch {
+    return "";
+  }
+}
 
 // ─── Internal helpers ─────────────────────────────────────────────────────────
 
@@ -77,18 +124,27 @@ function normaliseStates(data: Record<string, unknown>): string[] {
   return [];
 }
 
-function buildPostMeta(slug: string, data: Record<string, unknown>): PostMeta {
+function buildPostMeta(
+  slug: string,
+  data: Record<string, unknown>,
+  body = ""
+): PostMeta {
   // featured_image accepts snake_case (frontmatter convention) or camelCase
   const featuredImage =
     (data.featured_image as string | undefined) ??
     (data.featuredImage  as string | undefined) ??
     undefined;
 
+  const frontmatterExcerpt = (data.excerpt as string) || (data.description as string) || "";
+  // contentExcerpt: frontmatter excerpt takes priority; fall back to body-derived
+  const contentExcerpt = frontmatterExcerpt || deriveExcerptFromBody(body);
+
   return {
     slug,
     title: (data.title as string) || slug,
     date: (data.date as string) || "",
-    excerpt: (data.excerpt as string) || (data.description as string) || "",
+    excerpt: frontmatterExcerpt,
+    contentExcerpt,
     tags: (data.tags as string[]) || [],
     states: normaliseStates(data),
     status: (data.status as PostStatus) || "draft",
@@ -163,7 +219,7 @@ export function getAllPosts(
       return null;
     }
 
-    return buildPostMeta(slug, data);
+    return buildPostMeta(slug, data, body);
   });
 
   const validPosts = posts.filter((p): p is PostMeta => p !== null);
@@ -209,7 +265,7 @@ export function getPostBySlug(
   if (!allowUnpublished && status !== "published") return null;
 
   return {
-    ...buildPostMeta(slug, data),
+    ...buildPostMeta(slug, data, content),
     content,
   };
 }
