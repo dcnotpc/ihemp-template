@@ -45,6 +45,8 @@ export type PostMeta = {
   tags: string[];
   states: string[];
   status: PostStatus;
+  // Optional featured image path or URL (relative to /public or absolute)
+  featuredImage?: string;
   // Review workflow fields (Phase 1.5.2) — field names match CONTENT_SCHEMA.md spec
   reviewer?: string;       // who reviewed; required on published + review
   reviewedAt?: string;     // ISO 8601; required on published
@@ -76,6 +78,12 @@ function normaliseStates(data: Record<string, unknown>): string[] {
 }
 
 function buildPostMeta(slug: string, data: Record<string, unknown>): PostMeta {
+  // featured_image accepts snake_case (frontmatter convention) or camelCase
+  const featuredImage =
+    (data.featured_image as string | undefined) ??
+    (data.featuredImage  as string | undefined) ??
+    undefined;
+
   return {
     slug,
     title: (data.title as string) || slug,
@@ -84,6 +92,7 @@ function buildPostMeta(slug: string, data: Record<string, unknown>): PostMeta {
     tags: (data.tags as string[]) || [],
     states: normaliseStates(data),
     status: (data.status as PostStatus) || "draft",
+    ...(featuredImage ? { featuredImage } : {}),
     ...(data.reviewer ? { reviewer: data.reviewer as string } : {}),
     ...(data.reviewedAt ? { reviewedAt: data.reviewedAt as string } : {}),
     ...(data.review_notes ? { review_notes: data.review_notes as string } : {}),
