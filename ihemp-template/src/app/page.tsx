@@ -1,10 +1,14 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import HeroTitle from '@/components/HeroTitle'
 import Countdown from '@/components/Countdown'
 import HempBanExplainer from '@/components/HempBanExplainer'
 import { stateConfig } from '@/config/state'
+import { getAllPosts } from '@/lib/blog'
 
 export default function Home() {
+  // Latest 3 published posts for this state, sorted date desc (getAllPosts already sorts)
+  const recentPosts = getAllPosts({ stateSlug: stateConfig.slug, includeUnpublished: false }).slice(0, 3);
   return (
     <div>
       <section className="relative w-full h-[40vh] sm:h-[45vh] md:h-[50vh] flex items-center justify-center">
@@ -33,29 +37,58 @@ export default function Home() {
       <section className="bg-white py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <h3 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-10">From the Blog</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-stone-50 rounded-lg overflow-hidden shadow">
-              <div className="h-48 bg-green-200 flex items-center justify-center"><span className="text-green-700 text-sm">Featured Image</span></div>
-              <div className="p-5">
-                <p className="text-sm text-green-600 mb-1">April 2, 2026</p>
-                <h4 className="text-lg font-bold text-stone-800">Understanding the 2025 Hemp Farm Bill Updates</h4>
+
+          {recentPosts.length === 0 ? (
+            // Zero-state: no published posts yet — preserve grid shape with a single placeholder
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-stone-50 rounded-lg overflow-hidden shadow col-span-full text-center py-12">
+                <p className="text-stone-500 text-sm">No posts published yet. Check back soon!</p>
               </div>
             </div>
-            <div className="bg-stone-50 rounded-lg overflow-hidden shadow">
-              <div className="h-48 bg-green-200 flex items-center justify-center"><span className="text-green-700 text-sm">Featured Image</span></div>
-              <div className="p-5">
-                <p className="text-sm text-green-600 mb-1">March 28, 2026</p>
-                <h4 className="text-lg font-bold text-stone-800">Hemp Fiber vs. Cotton: The Sustainability Case</h4>
-              </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {recentPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group bg-stone-50 rounded-lg overflow-hidden shadow hover:shadow-md transition-shadow block"
+                >
+                  {/* Featured image or mint placeholder */}
+                  <div className="relative h-48 overflow-hidden">
+                    {post.featuredImage ? (
+                      <Image
+                        src={post.featuredImage}
+                        alt={post.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="h-full bg-green-200 flex items-center justify-center">
+                        <span className="text-green-700 text-sm">Featured Image</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card body */}
+                  <div className="p-5">
+                    <p className="text-sm text-green-600 mb-1">
+                      {post.date
+                        ? new Date(post.date).toLocaleDateString('en-US', {
+                            year: 'numeric', month: 'long', day: 'numeric',
+                            timeZone: 'UTC', // treat date string as UTC to avoid timezone shift
+                          })
+                        : ''}
+                    </p>
+                    <h4 className="text-lg font-bold text-stone-800 group-hover:text-green-800 transition-colors line-clamp-3">
+                      {post.title}
+                    </h4>
+                  </div>
+                </Link>
+              ))}
             </div>
-            <div className="bg-stone-50 rounded-lg overflow-hidden shadow">
-              <div className="h-48 bg-green-200 flex items-center justify-center"><span className="text-green-700 text-sm">Featured Image</span></div>
-              <div className="p-5">
-                <p className="text-sm text-green-600 mb-1">March 20, 2026</p>
-                <h4 className="text-lg font-bold text-stone-800">{stateConfig.name}'s Hemp Program: A Model for the Nation</h4>
-              </div>
-            </div>
-          </div>
+          )}
+
           <div className="text-center mt-10">
             <Link href="/blog" className="inline-block border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white font-bold py-3 px-8 rounded-full transition text-lg">View All Posts</Link>
           </div>

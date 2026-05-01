@@ -54,7 +54,7 @@ chmod +x start-dashboard.sh
 The dashboard uses the same `OPENCLAW_API_SECRET` as your content API:
 ```bash
 # In .env.local
-OPENCLAW_API_SECRET=bf2d1b3440e0f10ae637806e679ad91242d97106924d181c3dba48619be81c1c
+<OPENCLAW_API_SECRET>
 ```
 
 ## API Endpoints
