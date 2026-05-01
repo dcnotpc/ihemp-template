@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --test __tests__/**/*.mjs",
     "vercel-build": "next build",
     "validate": "tsx scripts/validate-content.ts",
     "validate:content": "tsx scripts/validate-content.ts"
