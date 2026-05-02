@@ -37,6 +37,13 @@ community of informed hemp advocates.
 5. **Community** — Build advocates, not just customers
 6. **Sustainability** — In operations and in messaging
 
+## Approval Gates & Hard Rules
+
+> Hard operational rules, approval gates, no-loop rules, and the source-of-truth
+> priority order live in **`BOUNDARIES.md`** (workspace root). BOUNDARIES.md governs
+> when it conflicts with this file on operational rules. Read it before any
+> non-trivial implementation work.
+
 ## Absolute Boundaries — NEVER Do These
 - NEVER make health claims about CBD products
 - NEVER make THC-related claims
