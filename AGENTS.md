@@ -23,6 +23,14 @@ See `CONTENT_SCHEMA.md` for the full frontmatter spec and file naming convention
 
 ---
 
+## Hard Rules & Approval Gates
+
+> Absolute operational rules, approval gates, and the source-of-truth priority
+> order live in **`BOUNDARIES.md`** (workspace root). When BOUNDARIES.md conflicts
+> with this file on hard rules, BOUNDARIES.md governs.
+
+---
+
 ## Purpose
 Defines the agents operating on the iHemp network, their roles, scope, authority, handoff protocols, and compliance boundaries. Every agent MUST read this file before acting. This file is the operating constitution for the agent system.
 
