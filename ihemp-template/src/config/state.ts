@@ -36,8 +36,10 @@ const baseConfig = {
   },
   // Network states that appear in footer, etc.
   networkStates: [
+    { name: 'Alabama', url: 'https://ihempalabama.com' },
     { name: 'Arkansas', url: 'https://ihemparkansas.com' },
     { name: 'California', url: 'https://ihempcalifornia.com' },
+    { name: 'Colorado', url: 'https://ihempcolorado.com' },
     { name: 'Florida', url: 'https://ihempflorida.com' },
     { name: 'Georgia', url: 'https://ihempgeorgia.com' },
     { name: 'Indiana', url: 'https://ihempindiana.com' },
@@ -70,7 +72,9 @@ const stateOverrides: Record<string, Partial<ReturnType<typeof createStateConfig
 // Create state-specific domain (ihemp{stateSlug}.com)
 const getDomain = (stateSlug: string, stateName: string) => {
   const stateNameLower = stateName.toLowerCase().replace(/\s+/g, '');
-  return stateSlug === 'colorado' ? 'ihempcolorado.com' : `ihemp${stateNameLower}.com`;
+  if (stateSlug === 'colorado') return 'ihempcolorado.com';
+  if (stateSlug === 'michigan') return 'ihempmi.com';
+  return `ihemp${stateNameLower}.com`;
 };
 
 // Create state-specific tagline
