@@ -86,6 +86,15 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_STATE: process.env.NEXT_PUBLIC_STATE || "colorado",
   },
+  images: {
+    // Allow Vercel Blob-hosted images (media assets from iHemp Ops dashboard)
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
