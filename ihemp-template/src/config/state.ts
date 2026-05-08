@@ -1,5 +1,6 @@
 import { states } from '@/data/states';
 import type { StateConfig } from './types';
+import { getStateTheme } from './state-themes';
 
 // Base configuration that's common across all states
 const baseConfig = {
@@ -89,6 +90,7 @@ export const createStateConfig = (stateSlug: string): StateConfig => {
 
   const domain = getDomain(stateSlug, state.name);
   const tagline = getTagline(state.name);
+  const theme = getStateTheme(stateSlug);
   
   const baseDescription = `Stay compliant with ${state.name} hemp regulations.`;
   const description = state.summary ? `${state.summary.split('.')[0]}.` : baseDescription;
@@ -161,6 +163,7 @@ export const createStateConfig = (stateSlug: string): StateConfig => {
     },
 
     networkStates: baseConfig.networkStates,
+    theme,
     ...(stateOverrides[stateSlug] || {}),
   };
 

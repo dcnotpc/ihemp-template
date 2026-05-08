@@ -31,6 +31,45 @@ export interface ResourcesConfig {
   congressUrl: string;
 }
 
+export interface StateThemeColors {
+  primary: string;
+  primaryDark: string;
+  sage: string;
+  leaf: string;
+  gold: string;
+  cream: string;
+  brown: string;
+  heroText: string;
+}
+
+export interface StateThemeHero {
+  image: string;
+  alt: string;
+  overlayClass: string;
+  treatment: 'field' | 'mountain' | 'heritage' | 'prairie' | 'delta' | 'coastal';
+}
+
+export interface StateThemeMotif {
+  name: string;
+  pattern: 'none' | 'topographic' | 'barnwood' | 'river-lines' | 'quilt' | 'grain';
+  accentLabel?: string;
+}
+
+export interface StateThemeHomepage {
+  quote: string;
+  positioning: string;
+  ctaTone: 'compliance' | 'heritage' | 'innovation' | 'market-access' | 'advocacy';
+}
+
+export interface StateTheme {
+  slug: string;
+  name: string;
+  colors: StateThemeColors;
+  hero: StateThemeHero;
+  motif: StateThemeMotif;
+  homepage: StateThemeHomepage;
+}
+
 export interface NetworkState {
   name: string;
   url: string;
@@ -52,4 +91,5 @@ export interface StateConfig {
   pages: Record<string, PageConfig>;
   resources: ResourcesConfig;
   networkStates: NetworkState[];
+  theme: StateTheme;
 }
