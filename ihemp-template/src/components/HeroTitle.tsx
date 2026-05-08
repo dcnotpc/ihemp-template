@@ -26,7 +26,7 @@ export default function HeroTitle() {
   return (
     <h1
       className="font-bold tracking-wider drop-shadow-lg flex flex-col items-center"
-      style={{ fontFamily: 'var(--font-fredoka)', color: '#F5E6C8' }}
+      style={{ fontFamily: 'var(--font-fredoka)', color: 'var(--ihemp-hero-title)' }}
     >
       <span ref={hempRef} className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl">
         HEMP ON
