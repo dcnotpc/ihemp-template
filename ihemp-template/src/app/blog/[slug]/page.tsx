@@ -5,13 +5,19 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { mdxComponents } from "@/lib/mdx-components";
 import type { Metadata } from "next";
 import DraftBanner from "@/components/DraftBanner";
+import { stateConfig } from "@/config/state";
 
 // ─── Static params ─────────────────────────────────────────────────────────────
-// In production: only published posts get pre-rendered.
-// In preview/dev: all posts (any status) are pre-rendered.
+// In production: only published posts that are visible on THIS state site
+// get pre-rendered. Posts targeting other states are excluded, so their
+// routes are never built into this site's static output.
+// In preview/dev: all posts visible on this state are pre-rendered.
 
 export function generateStaticParams() {
-  const posts = getAllPosts({ includeUnpublished: true });
+  const posts = getAllPosts({
+    stateSlug: stateConfig.slug,
+    includeUnpublished: true,
+  });
   return posts.map((post) => ({ slug: post.slug }));
 }
 
@@ -22,7 +28,13 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await params;
   const env = getEnvironment();
-  const post = getPostBySlug(slug, { includeUnpublished: env !== "production" });
+  // Pass stateSlug so metadata for wrong-state articles is suppressed entirely.
+  // A Michigan-only article requested on Alabama returns empty metadata (no
+  // title/description leak in <head>) and the page component returns notFound().
+  const post = getPostBySlug(slug, {
+    includeUnpublished: env !== "production",
+    stateSlug: stateConfig.slug,
+  });
 
   if (!post) return {};
 
@@ -44,9 +56,15 @@ export async function generateMetadata(
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const env = getEnvironment();
-  const post = getPostBySlug(slug, { includeUnpublished: env !== "production" });
+  // State gate: pass stateSlug so articles targeting other states return null.
+  // getPostBySlug returns null when the post's states field does not include
+  // this site's state slug, triggering notFound() below.
+  const post = getPostBySlug(slug, {
+    includeUnpublished: env !== "production",
+    stateSlug: stateConfig.slug,
+  });
 
-  // Production: non-published → 404. Preview/dev: show with banner.
+  // Production: non-published → 404. Wrong-state article → 404. Preview/dev: show with banner.
   if (!post) notFound();
 
   const isUnpublished = post.status !== "published";
