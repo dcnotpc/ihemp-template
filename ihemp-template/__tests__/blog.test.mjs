@@ -177,6 +177,56 @@ test('excerpt field is empty string when not set in frontmatter', () => {
   assert.equal(excerpt, '');
 });
 
+// ─── Tests 17-19: isPostVisibleInState ───────────────────────────────────────────────
+
+// Mirror of isPostVisibleInState from blog.ts (inline for test isolation)
+function isPostVisibleInState(post, stateSlug) {
+  if (!stateSlug) return true;
+  const target = stateSlug.toLowerCase();
+  if (post.states.length === 0) return true;
+  if (post.states.includes('all')) return true;
+  return post.states.includes(target);
+}
+
+describe('isPostVisibleInState — state distribution gate', () => {
+  test('states:["all"] is visible on every state site', () => {
+    const post = { states: ['all'] };
+    assert.equal(isPostVisibleInState(post, 'alabama'), true, 'all → alabama');
+    assert.equal(isPostVisibleInState(post, 'michigan'), true, 'all → michigan');
+    assert.equal(isPostVisibleInState(post, 'tennessee'), true, 'all → tennessee');
+    assert.equal(isPostVisibleInState(post, 'california'), true, 'all → california');
+  });
+
+  test('states:["michigan"] is visible only on Michigan', () => {
+    const post = { states: ['michigan'] };
+    assert.equal(isPostVisibleInState(post, 'michigan'), true,  'michigan → michigan: visible');
+    assert.equal(isPostVisibleInState(post, 'alabama'),  false, 'michigan → alabama: hidden');
+    assert.equal(isPostVisibleInState(post, 'tennessee'), false, 'michigan → tennessee: hidden');
+    assert.equal(isPostVisibleInState(post, 'kentucky'),  false, 'michigan → kentucky: hidden');
+  });
+
+  test('states missing / empty array is treated as all (backward compat)', () => {
+    const noStates  = { states: [] };
+    assert.equal(isPostVisibleInState(noStates, 'alabama'),  true, 'empty → alabama');
+    assert.equal(isPostVisibleInState(noStates, 'michigan'), true, 'empty → michigan');
+  });
+
+  test('states:["tn","ky"] visible on Tennessee and Kentucky only', () => {
+    const post = { states: ['tn', 'ky'] };
+    // slug forms vary; runner writes full slug names from property table
+    assert.equal(isPostVisibleInState(post, 'tn'), true,       'tn slug');
+    assert.equal(isPostVisibleInState(post, 'ky'), true,       'ky slug');
+    assert.equal(isPostVisibleInState(post, 'alabama'), false, 'tn+ky → alabama: hidden');
+    assert.equal(isPostVisibleInState(post, 'michigan'), false,'tn+ky → michigan: hidden');
+  });
+
+  test('no stateSlug context always passes through (non-state usage)', () => {
+    const post = { states: ['michigan'] };
+    assert.equal(isPostVisibleInState(post, undefined), true, 'no context → always visible');
+    assert.equal(isPostVisibleInState(post, ''), true, 'empty string → always visible');
+  });
+});
+
 // ─── Test 7: Real content/blog posts parsed correctly ────────────────────────
 describe('real blog content', () => {
   const blogDir = path.join(ROOT, 'content/blog');
