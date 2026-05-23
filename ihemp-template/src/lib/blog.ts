@@ -243,14 +243,50 @@ export function getAllPosts(
     .sort((a, b) => (a.date > b.date ? -1 : 1));
 }
 
+// ─── isPostVisibleInState ────────────────────────────────────────────────────
+//
+// Canonical state-visibility helper. Single source of truth for whether a
+// post's `states` frontmatter field permits it to appear on a given state site.
+//
+// Rules:
+//   - states: ["all"]    → visible everywhere (explicit all)
+//   - states: []          → visible everywhere (missing/empty = historical all)
+//   - states: ["mi"]      → visible only on Michigan
+//   - states: ["tn","ky"] → visible only on Tennessee and Kentucky
+//   - stateSlug omitted   → always visible (used in non-state contexts)
+//
+// stateSlug should be the lowercase slug from NEXT_PUBLIC_STATE / stateConfig.slug.
+
+export function isPostVisibleInState(
+  post: Pick<PostMeta, "states">,
+  stateSlug: string | undefined
+): boolean {
+  // No state context → pass through
+  if (!stateSlug) return true;
+  const target = stateSlug.toLowerCase();
+  // Empty or missing states array → treat as "all" (backward-compat with old posts)
+  if (post.states.length === 0) return true;
+  // Explicit "all" → visible everywhere
+  if (post.states.includes("all")) return true;
+  // Otherwise: must include this site's state slug
+  return post.states.includes(target);
+}
+
 // ─── getPostBySlug ────────────────────────────────────────────────────────────
 //
 // includeUnpublished: when true (preview/dev), returns draft/review posts.
 // When false (production default), non-published slugs return null → 404.
+//
+// stateSlug: when provided, enforces state visibility — posts whose `states`
+// frontmatter does not include this slug (or "all") return null → 404.
+// Omit stateSlug only in non-state contexts (e.g. admin tools).
 
 export function getPostBySlug(
   slug: string,
-  { includeUnpublished = false }: { includeUnpublished?: boolean } = {}
+  {
+    includeUnpublished = false,
+    stateSlug,
+  }: { includeUnpublished?: boolean; stateSlug?: string } = {}
 ): Post | null {
   const filePath = findPostFile(slug);
   if (!filePath) return null;
@@ -264,8 +300,11 @@ export function getPostBySlug(
   const allowUnpublished = includeUnpublished || !isPublicEnv();
   if (!allowUnpublished && status !== "published") return null;
 
-  return {
-    ...buildPostMeta(slug, data, content),
-    content,
-  };
+  const meta = buildPostMeta(slug, data, content);
+
+  // State gate: if stateSlug is provided, enforce distribution targeting.
+  // A post with states:["mi"] returns null (→ 404) on Alabama, Kentucky, etc.
+  if (!isPostVisibleInState(meta, stateSlug)) return null;
+
+  return { ...meta, content };
 }
