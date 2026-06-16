@@ -1,0 +1,132 @@
+# Triggered by ihemp-ops via repository_dispatch when a content item is approved
+# with featured_image and distribution (states) set.
+#
+# ihemp-ops payload (client_payload):
+#   slug                  string   URL-safe slug, becomes the MDX filename
+#   title                 string   Article title
+#   date                  string   YYYY-MM-DD publish date
+#   body                  string   MDX/markdown article body (no frontmatter)
+#   states                array    e.g. ["all"] or ["colorado","tennessee"]
+#   excerpt               string   Short summary shown in listings
+#   featured_image        string   Vercel Blob URL for the featured image
+#   tags                  array    Tag slugs from TAGS.yml
+#   seo_title             string   ≤60 characters
+#   seo_description       string   ≤160 characters
+#   affiliate_disclosure  boolean
+#   health_claims_reviewed boolean
+#   reviewer              string   Full name of reviewer
+#   reviewedAt            string   ISO 8601 datetime
+#   agent                 string   e.g. "content", "ops"
+#   created               string   ISO 8601 datetime (optional, defaults to now)
+#   review_notes          string   Optional notes, e.g. ihemp-ops deliverable reference
+#
+# Manual trigger: workflow_dispatch with payload_json (same fields as JSON string).
+
+name: Publish Content
+
+on:
+  repository_dispatch:
+    types: [publish-content]
+  workflow_dispatch:
+    inputs:
+      payload_json:
+        description: "Content payload as JSON — same fields as repository_dispatch client_payload"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write MDX and open auto-merge PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAYLOAD: ${{ github.event_name == 'repository_dispatch' && toJson(github.event.client_payload) || inputs.payload_json }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, re, subprocess, yaml
+          from datetime import datetime, timezone
+
+          payload = json.loads(os.environ["PAYLOAD"])
+          now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+          slug = re.sub(r"[^a-z0-9\-_]", "", payload["slug"].lower().replace(" ", "-"))
+          if not slug:
+              raise ValueError("slug is empty after sanitization")
+
+          fm = {
+              "title": payload["title"],
+              "slug": slug,
+              "date": payload["date"],
+              "status": "published",
+              "type": "blog",
+              "states": payload["states"],
+              "excerpt": payload["excerpt"],
+              "featured_image": payload.get("featured_image", ""),
+              "tags": payload["tags"],
+              "agent": payload.get("agent", "ops"),
+              "created": payload.get("created", now),
+              "updated": now,
+              "seo_title": payload["seo_title"],
+              "seo_description": payload["seo_description"],
+              "affiliate_disclosure": payload["affiliate_disclosure"],
+              "health_claims_reviewed": payload["health_claims_reviewed"],
+              "reviewer": payload["reviewer"],
+              "reviewedAt": payload["reviewedAt"],
+          }
+          if payload.get("review_notes"):
+              fm["review_notes"] = payload["review_notes"]
+
+          fm_yaml = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
+          mdx = f"---\n{fm_yaml}---\n{payload['body']}\n"
+
+          path = f"ihemp-template/content/blog/{slug}.mdx"
+          with open(path, "w") as f:
+              f.write(mdx)
+          print(f"Wrote {path}")
+
+          ts = int(datetime.now(timezone.utc).timestamp() * 1000)
+          branch = f"content/publish-{slug[:40]}-{ts}"
+          states_str = ", ".join(payload["states"])
+
+          for cmd in [
+              ["git", "config", "user.name", "iHemp Ops"],
+              ["git", "config", "user.email", "ops@ihemp.net"],
+              ["git", "checkout", "-b", branch],
+              ["git", "add", path],
+              ["git", "commit", "-m", f"content: publish {slug} to iHemp network"],
+              ["git", "push", "origin", branch],
+          ]:
+              subprocess.run(cmd, check=True)
+
+          pr_body = (
+              "## iHemp Ops Auto-Generated PR\n\n"
+              f"**Slug:** `{slug}`\n"
+              f"**Distribution:** {states_str}\n\n"
+              "### Files\n"
+              f"- `{path}`\n\n"
+              "---\n"
+              "*Merging this PR triggers Vercel auto-deploy to all connected state sites.*\n"
+              "*Auto-merge is enabled — merges automatically when content validation passes.*"
+          )
+          result = subprocess.run(
+              ["gh", "pr", "create",
+               "--title", f"content: publish {slug} to iHemp network",
+               "--body", pr_body,
+               "--base", "main",
+               "--head", branch],
+              capture_output=True, text=True, check=True,
+          )
+          pr_url = result.stdout.strip()
+          pr_number = pr_url.rstrip("/").split("/")[-1]
+          print(f"PR created: {pr_url}")
+
+          subprocess.run(["gh", "pr", "merge", pr_number, "--auto", "--merge"], check=True)
+          print(f"Auto-merge enabled on PR #{pr_number}")
+          PYEOF
