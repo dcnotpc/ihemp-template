@@ -2,7 +2,8 @@
 # with featured_image and distribution (states) set.
 #
 # ihemp-ops payload (client_payload):
-#   slug                  string   URL-safe slug, becomes the MDX filename
+#   deliverable_id        string   ihemp-ops deliverable UUID — written back on merge
+#   slug                  string   URL-safe slug (null → derived from title)
 #   title                 string   Article title
 #   date                  string   YYYY-MM-DD publish date
 #   body                  string   MDX/markdown article body (no frontmatter)
@@ -18,9 +19,15 @@
 #   reviewedAt            string   ISO 8601 datetime
 #   agent                 string   e.g. "content", "ops"
 #   created               string   ISO 8601 datetime (optional, defaults to now)
-#   review_notes          string   Optional notes, e.g. ihemp-ops deliverable reference
+#   review_notes          string   Optional notes
 #
 # Manual trigger: workflow_dispatch with payload_json (same fields as JSON string).
+#
+# DB writeback (mark-published job):
+#   Fires when a content/publish-* PR merges to main.
+#   Calls POST $IHEMP_OPS_CALLBACK_URL/api/internal/publish-callback with the
+#   deliverable_id extracted from the PR body.
+#   Requires repo secrets: IHEMP_OPS_CALLBACK_URL, IHEMP_OPS_API_SECRET.
 
 name: Publish Content
 
@@ -33,13 +40,18 @@ on:
         description: "Content payload as JSON — same fields as repository_dispatch client_payload"
         required: true
         type: string
+  pull_request:
+    types: [closed]
+    branches: [main]
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
+  # ── Job 1: write MDX → branch → PR → auto-merge ────────────────────────────
   publish:
+    if: github.event_name == 'repository_dispatch' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -56,9 +68,16 @@ jobs:
           payload = json.loads(os.environ["PAYLOAD"])
           now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
-          slug = re.sub(r"[^a-z0-9\-_]", "", payload["slug"].lower().replace(" ", "-"))
+          # Derive slug from title if not provided or null
+          raw_slug = payload.get("slug") or ""
+          if not raw_slug or raw_slug.lower() == "null":
+              raw_slug = payload["title"]
+          slug = re.sub(r"[^a-z0-9\-]", "-", raw_slug.lower().strip())
+          slug = re.sub(r"-{2,}", "-", slug).strip("-")
           if not slug:
-              raise ValueError("slug is empty after sanitization")
+              raise ValueError("Could not derive a slug from title or slug field")
+
+          deliverable_id = payload.get("deliverable_id", "")
 
           fm = {
               "title": payload["title"],
@@ -80,8 +99,11 @@ jobs:
               "reviewer": payload["reviewer"],
               "reviewedAt": payload["reviewedAt"],
           }
-          if payload.get("review_notes"):
-              fm["review_notes"] = payload["review_notes"]
+          notes = payload.get("review_notes") or ""
+          if deliverable_id:
+              notes = (notes + f" deliverable:{deliverable_id}").strip()
+          if notes:
+              fm["review_notes"] = notes
 
           fm_yaml = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
           mdx = f"---\n{fm_yaml}---\n{payload['body']}\n"
@@ -95,12 +117,16 @@ jobs:
           branch = f"content/publish-{slug[:40]}-{ts}"
           states_str = ", ".join(payload["states"])
 
+          commit_msg = f"content: publish {slug} to iHemp network"
+          if deliverable_id:
+              commit_msg += f"\n\nDeliverable: {deliverable_id}"
+
           for cmd in [
               ["git", "config", "user.name", "iHemp Ops"],
               ["git", "config", "user.email", "ops@ihemp.net"],
               ["git", "checkout", "-b", branch],
               ["git", "add", path],
-              ["git", "commit", "-m", f"content: publish {slug} to iHemp network"],
+              ["git", "commit", "-m", commit_msg],
               ["git", "push", "origin", branch],
           ]:
               subprocess.run(cmd, check=True)
@@ -108,8 +134,9 @@ jobs:
           pr_body = (
               "## iHemp Ops Auto-Generated PR\n\n"
               f"**Slug:** `{slug}`\n"
-              f"**Distribution:** {states_str}\n\n"
-              "### Files\n"
+              f"**Distribution:** {states_str}\n"
+              + (f"**Deliverable:** `{deliverable_id}`\n" if deliverable_id else "")
+              + "\n### Files\n"
               f"- `{path}`\n\n"
               "---\n"
               "*Merging this PR triggers Vercel auto-deploy to all connected state sites.*\n"
@@ -130,3 +157,43 @@ jobs:
           subprocess.run(["gh", "pr", "merge", pr_number, "--auto", "--merge"], check=True)
           print(f"Auto-merge enabled on PR #{pr_number}")
           PYEOF
+
+  # ── Job 2: write status=published back to ihemp-ops DB after PR merges ─────
+  # Requires repo secrets: IHEMP_OPS_CALLBACK_URL, IHEMP_OPS_API_SECRET
+  mark-published:
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'content/publish-')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract deliverable_id from PR body
+        id: meta
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_MERGED_AT: ${{ github.event.pull_request.merged_at }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          DELIVERABLE_ID=$(echo "$PR_BODY" | grep -oP '(?<=\*\*Deliverable:\*\* `)([^`]+)' || true)
+          SLUG=$(echo "$PR_BODY" | grep -oP '(?<=\*\*Slug:\*\* `)([^`]+)' || true)
+          echo "deliverable_id=$DELIVERABLE_ID" >> $GITHUB_OUTPUT
+          echo "slug=$SLUG" >> $GITHUB_OUTPUT
+          echo "merged_at=$PR_MERGED_AT" >> $GITHUB_OUTPUT
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+
+      - name: Notify ihemp-ops (mark published)
+        if: steps.meta.outputs.deliverable_id != '' && env.IHEMP_OPS_CALLBACK_URL != ''
+        env:
+          IHEMP_OPS_CALLBACK_URL: ${{ secrets.IHEMP_OPS_CALLBACK_URL }}
+          IHEMP_OPS_API_SECRET: ${{ secrets.IHEMP_OPS_API_SECRET }}
+        run: |
+          curl -fsS -X POST "${IHEMP_OPS_CALLBACK_URL}/api/internal/publish-callback" \
+            -H "Authorization: Bearer ${IHEMP_OPS_API_SECRET}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"deliverable_id\": \"${{ steps.meta.outputs.deliverable_id }}\",
+              \"slug\": \"${{ steps.meta.outputs.slug }}\",
+              \"published_at\": \"${{ steps.meta.outputs.merged_at }}\",
+              \"pr_number\": ${{ steps.meta.outputs.pr_number }}
+            }"
+          echo "ihemp-ops notified"
