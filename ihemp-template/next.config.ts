@@ -88,10 +88,15 @@ const nextConfig: NextConfig = {
   },
   images: {
     // Allow Vercel Blob-hosted images (media assets from iHemp Ops dashboard)
+    // Allow ihempmichigan.com for featured images sourced from the network foundation site
     remotePatterns: [
       {
         protocol: "https",
         hostname: "*.public.blob.vercel-storage.com",
+      },
+      {
+        protocol: "https",
+        hostname: "ihempmichigan.com",
       },
     ],
   },
