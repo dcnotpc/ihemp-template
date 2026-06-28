@@ -1,6 +1,7 @@
 import { getPostBySlug, getAllPosts, getEnvironment } from "@/lib/blog";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { mdxComponents } from "@/lib/mdx-components";
 import type { Metadata } from "next";
@@ -91,6 +92,21 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </Link>
 
         <article className="bg-white rounded-2xl border border-gray-200 p-8 md:p-12 shadow-sm mt-4">
+          {/* Featured image */}
+          {post.featuredImage && (
+            <div className="mb-8 -mx-8 md:-mx-12 -mt-8 rounded-t-2xl overflow-hidden">
+              <Image
+                src={post.featuredImage}
+                alt={post.title}
+                width={900}
+                height={500}
+                className="w-full object-cover"
+                priority
+                unoptimized
+              />
+            </div>
+          )}
+
           <header className="mb-8 border-b border-gray-100 pb-8">
             <h1 className="text-4xl font-bold text-hemp-green mb-4">{post.title}</h1>
 
