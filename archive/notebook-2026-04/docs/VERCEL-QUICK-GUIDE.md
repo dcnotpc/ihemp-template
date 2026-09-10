@@ -26,7 +26,7 @@ git push
 ### **3. Add API Key in Vercel (2 minutes)**
 In Vercel project settings → **Environment Variables**:
 - **Key**: `OPENCLAW_API_SECRET`
-- **Value**: `***REDACTED***`
+- **Value**: `<REDACTED_LEGACY_KEY>`
 
 ## **Result**
 - **Vercel URL**: `https://ihemp-template.vercel.app/dashboard`

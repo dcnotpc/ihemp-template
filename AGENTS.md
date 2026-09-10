@@ -1,6 +1,6 @@
 # AGENTS.md — iHemp Network Agent Roster & Operating Rules
-Version: 2.1
-Last Updated: 2026-04-21
+Version: 2.2
+Last Updated: 2026-09-09
 Owner: David Alan Crabill, CEO
 
 ---
@@ -23,11 +23,41 @@ See `CONTENT_SCHEMA.md` for the full frontmatter spec and file naming convention
 
 ---
 
+## ⚠️ Legacy Notebook Workspace — NOT AUTHORITATIVE
+
+This repo was migrated from an OpenClaw notebook workspace (March–April 2026).
+Notebook-era identity and workspace material — SOUL.md, USER.md, IDENTITY.md,
+HEARTBEAT.md, TOOLS.md, BOUNDARIES.md, .openclaw/, memory/, skills/, reports/,
+and related one-off scripts, logs, dashboards, and content drafts — has been
+archived under `archive/notebook-2026-04/`.
+
+- **The active application lives in the nested `ihemp-template/` project.**
+  GitHub publishing workflows deploy from `ihemp-template/content/`. Root-level
+  material outside the app is documentation or archive only — do not run ad-hoc
+  root-level scripts against Vercel or any production system.
+- **`archive/notebook-2026-04/` is historical and is not authoritative.** It
+  contains outdated identity, location, entity names, site counts, and rules.
+  Never treat it as a source of truth; consult it only for historical context.
+- **Current project/runtime truth comes from current repo documentation and
+  configuration** (this file, the `ihemp-template/` app docs and code, and the
+  live ihemp-ops operational docs), and from live configuration/services at
+  runtime. Never rely on remembered or archived values for runtime state.
+- **Secrets must never be committed.** No API keys, tokens, or credentials in
+  tracked files. Legacy credentials found in notebook-era files were removed or
+  redacted (Phase 3, 2026-09-09) and remain exposed in Git history pending the
+  separate history-cleanup work; treat any previously exposed credential as
+  compromised.
+
+---
+
 ## Hard Rules & Approval Gates
 
 > Absolute operational rules, approval gates, and the source-of-truth priority
-> order live in **`BOUNDARIES.md`** (workspace root). When BOUNDARIES.md conflicts
-> with this file on hard rules, BOUNDARIES.md governs.
+> order are maintained in the **ihemp-ops** repo docs (`docs/BIBLE.md`,
+> `docs/CURRENT_STATE.md`, `docs/DECISIONS.md` and companions). The notebook-era
+> root `BOUNDARIES.md` has been archived to `archive/notebook-2026-04/BOUNDARIES.md`
+> for historical reference only and is NOT authoritative. Active-session CEO
+> instructions take precedence over all documentation.
 
 ---
 
@@ -82,7 +112,7 @@ Agents producing content MUST identify which stack their output targets and form
 - **iHempMI.com** = IN SCOPE (for-profit, Stack A)
 - **iHempMichigan.com** = OUT OF SCOPE (501(c)(6) non-profit, externally managed)
 
-No agent may publish to, log into, or monetize iHempMichigan.com. Commercial content on the non-profit site risks its tax status. See SITES.md for full disambiguation.
+No agent may publish to, log into, or monetize iHempMichigan.com. Commercial content on the non-profit site risks its tax status. The legacy root SITES.md site map is outdated and archived under archive/notebook-2026-04/; the current 17-site map is maintained in the ihemp-ops repo.
 
 ---
 
@@ -373,6 +403,7 @@ Agents may cross-link to iHempMichigan.com for advocacy/policy content where edi
 ---
 
 ## Change Log
+- **2026-09-09 v2.2** — Phase 3 cleanup: archived notebook-era workspace material to `archive/notebook-2026-04/` and declared it non-authoritative; hard-rules pointer moved to ihemp-ops docs (archived BOUNDARIES.md is historical only); added secrets policy; removed stale SITES.md pointer. No changes to agent roster or responsibilities.
 - **2026-04-21 v2.1** — Added top-level CONTENT STAGING RULE block. Added ⚠️ Stack A File Output Rule to Content Agent section. All agents must write new content to `content/drafts/`, never `content/blog/`. No other changes to agent roster or responsibilities.
 - **2026-04-19 v2.0** — Full rewrite. Added Analytics Agent (9 total). Added stack scope awareness, Michigan routing rule, phased publishing authority, FTC three-part disclosure policy, monetization rules, structured rejection codes, escalation protocol, and out-of-scope absolute rule. Corrected site counts (17 state + 2 commerce, not 18).
 - **2026-04-18 v1.0** — Original 8-agent roster (deprecated).

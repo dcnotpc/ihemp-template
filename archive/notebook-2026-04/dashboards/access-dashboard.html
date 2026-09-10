@@ -230,7 +230,7 @@
             <p>The dashboard is protected with CEO-only access. The button above automatically handles authentication using your API key:</p>
             
             <div class="api-key">
-                ***REDACTED***
+                <REDACTED_LEGACY_KEY>
             </div>
             
             <p>To access manually:</p>
@@ -263,7 +263,7 @@
                 try {
                     const script = `
                         try {
-                            localStorage.setItem('OPENCLAW_API_SECRET', '${'***REDACTED***'}');
+                            localStorage.setItem('OPENCLAW_API_SECRET', '${'<REDACTED_LEGACY_KEY>'}');
                             console.log('Authentication set. Refresh page if needed.');
                         } catch(e) {
                             console.error('Could not set localStorage:', e);
@@ -272,13 +272,13 @@
                     
                     const authWindow = newWindow;
                     if (authWindow) {
-                        authWindow.postMessage({type: 'setAuth', key: '***REDACTED***'}, '*');
+                        authWindow.postMessage({type: 'setAuth', key: '<REDACTED_LEGACY_KEY>'}, '*');
                     }
                     
                     // Also try to trigger an authenticated request
                     fetch('http://localhost:3080/dashboard', {
                         headers: {
-                            'Authorization': 'Bearer ***REDACTED***'
+                            'Authorization': 'Bearer <REDACTED_LEGACY_KEY>'
                         }
                     }).catch(() => {
                         // Expected - the fetch will fail due to CORS, but we tried

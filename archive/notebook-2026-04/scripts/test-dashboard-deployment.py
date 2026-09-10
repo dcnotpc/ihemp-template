@@ -7,7 +7,7 @@ import requests
 import time
 import json
 
-API_KEY = "***REDACTED***"
+API_KEY = "<REDACTED_LEGACY_KEY>"
 DEPLOYMENT_URLS = [
     "https://ihemp-dashboard-mdck6bcka-dave-crabills-projects.vercel.app",
     "https://ihemp-dashboard-dave-crabills-projects.vercel.app"

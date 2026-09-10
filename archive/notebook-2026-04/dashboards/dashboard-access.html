@@ -258,7 +258,7 @@
             <p>Your dashboard is protected with CEO-only authentication. Use the buttons below to access:</p>
             
             <div class="api-key">
-                API Key: ***REDACTED***
+                API Key: <REDACTED_LEGACY_KEY>
             </div>
             
             <div class="button-group">
@@ -283,7 +283,7 @@
                 <li>Go to the Console tab</li>
                 <li>Paste this command and press Enter:
                     <div style="margin: 10px 0;">
-                        <code>localStorage.setItem('OPENCLAW_API_SECRET', '***REDACTED***')</code>
+                        <code>localStorage.setItem('OPENCLAW_API_SECRET', '<REDACTED_LEGACY_KEY>')</code>
                     </div>
                 </li>
                 <li>Refresh the page (F5 or Ctrl+R)</li>
@@ -309,7 +309,7 @@
                         // Create a script to inject authentication
                         const authScript = `
                             try {
-                                localStorage.setItem('OPENCLAW_API_SECRET', '***REDACTED***');
+                                localStorage.setItem('OPENCLAW_API_SECRET', '<REDACTED_LEGACY_KEY>');
                                 console.log('🔐 iHemp Dashboard: Authentication token set successfully.');
                                 console.log('🔄 Refresh the page if you still see "Unauthorized".');
                             } catch(e) {
@@ -321,7 +321,7 @@
                         // Try to execute in the new window context
                         dashboardWindow.postMessage({
                             type: 'SET_AUTH_TOKEN',
-                            token: '***REDACTED***'
+                            token: '<REDACTED_LEGACY_KEY>'
                         }, '*');
                         
                         // Also show a helpful message
@@ -341,7 +341,7 @@
                 // Send the token back if requested
                 event.source.postMessage({
                     type: 'AUTH_TOKEN',
-                    token: '***REDACTED***'
+                    token: '<REDACTED_LEGACY_KEY>'
                 }, '*');
             }
         });

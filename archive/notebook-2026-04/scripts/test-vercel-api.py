@@ -2,7 +2,7 @@
 import json
 import urllib.request
 
-API_TOKEN = "***REDACTED***"
+API_TOKEN = "<REDACTED_LEGACY_TOKEN>"
 API_BASE = "https://api.vercel.com"
 
 def api_request(method, endpoint):
