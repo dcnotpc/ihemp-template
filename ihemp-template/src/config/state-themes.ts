@@ -32,6 +32,23 @@ export const defaultStateTheme: StateTheme = {
 };
 
 export const stateThemes: Partial<Record<string, StateTheme>> = {
+  // Texas: dedicated hero artwork — the shared stylized landscape revised to
+  // include rows of industrial hemp drawn into the field as part of the
+  // illustration (single self-contained raster, no external image refs).
+  texas: {
+    ...defaultStateTheme,
+    slug: 'texas',
+    name: 'Texas Open Range',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-texas.webp',
+      alt: 'Industrial hemp field on a Texas ranch landscape',
+    },
+    motif: {
+      ...defaultStateTheme.motif,
+      name: 'Open range hills and industrial hemp rows',
+    },
+  },
   tennessee: {
     slug: 'tennessee',
     name: 'Tennessee Valley',
@@ -46,8 +63,8 @@ export const stateThemes: Partial<Record<string, StateTheme>> = {
       heroText: '#f6e6c8',
     },
     hero: {
-      image: '/images/hemp-field.webp',
-      alt: 'Hemp field representing Tennessee agriculture',
+      image: '/images/states/hero-tennessee.webp',
+      alt: 'Industrial hemp field in rural Tennessee landscape',
       overlayClass: 'bg-black/35',
       treatment: 'heritage',
     },
@@ -76,8 +93,8 @@ export const stateThemes: Partial<Record<string, StateTheme>> = {
       heroText: '#f4e5c7',
     },
     hero: {
-      image: '/images/hemp-field.webp',
-      alt: 'Kentucky hemp field and agricultural landscape',
+      image: '/images/states/hero-kentucky.webp',
+      alt: 'Industrial hemp field in rural Kentucky landscape',
       overlayClass: 'bg-black/30',
       treatment: 'heritage',
     },
@@ -106,8 +123,8 @@ export const stateThemes: Partial<Record<string, StateTheme>> = {
       heroText: '#f2e6c8',
     },
     hero: {
-      image: '/images/hemp-field.webp',
-      alt: 'Colorado hemp agriculture and mountain market landscape',
+      image: '/images/states/hero-colorado.webp',
+      alt: 'Industrial hemp field in rural Colorado landscape',
       overlayClass: 'bg-black/40',
       treatment: 'mountain',
     },
@@ -120,6 +137,123 @@ export const stateThemes: Partial<Record<string, StateTheme>> = {
       quote: 'High-altitude standards for a regulated hemp economy.',
       positioning: 'A Colorado-focused guide for hemp businesses balancing innovation, agriculture, and stricter product rules.',
       ctaTone: 'innovation',
+    },
+  },
+  alabama: {
+    ...defaultStateTheme,
+    slug: 'alabama',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-alabama.webp',
+      alt: 'Industrial hemp field in rural Alabama landscape',
+    },
+  },
+  arkansas: {
+    ...defaultStateTheme,
+    slug: 'arkansas',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-arkansas.webp',
+      alt: 'Industrial hemp field in rural Arkansas landscape',
+    },
+  },
+  california: {
+    ...defaultStateTheme,
+    slug: 'california',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-california.webp',
+      alt: 'Industrial hemp field in rural California landscape',
+    },
+  },
+  florida: {
+    ...defaultStateTheme,
+    slug: 'florida',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-florida.webp',
+      alt: 'Industrial hemp field in rural Florida landscape',
+    },
+  },
+  georgia: {
+    ...defaultStateTheme,
+    slug: 'georgia',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-georgia.webp',
+      alt: 'Industrial hemp field in rural Georgia landscape',
+    },
+  },
+  michigan: {
+    ...defaultStateTheme,
+    slug: 'michigan',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-michigan.webp',
+      alt: 'Industrial hemp field in rural Michigan landscape',
+    },
+  },
+  indiana: {
+    ...defaultStateTheme,
+    slug: 'indiana',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-indiana.webp',
+      alt: 'Industrial hemp field in rural Indiana landscape',
+    },
+  },
+  iowa: {
+    ...defaultStateTheme,
+    slug: 'iowa',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-iowa.webp',
+      alt: 'Industrial hemp field in rural Iowa landscape',
+    },
+  },
+  kansas: {
+    ...defaultStateTheme,
+    slug: 'kansas',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-kansas.webp',
+      alt: 'Industrial hemp field in rural Kansas landscape',
+    },
+  },
+  mississippi: {
+    ...defaultStateTheme,
+    slug: 'mississippi',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-mississippi.webp',
+      alt: 'Industrial hemp field in rural Mississippi landscape',
+    },
+  },
+  nebraska: {
+    ...defaultStateTheme,
+    slug: 'nebraska',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-nebraska.webp',
+      alt: 'Industrial hemp field in rural Nebraska landscape',
+    },
+  },
+  ohio: {
+    ...defaultStateTheme,
+    slug: 'ohio',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-ohio.webp',
+      alt: 'Industrial hemp field in rural Ohio landscape',
+    },
+  },
+  oklahoma: {
+    ...defaultStateTheme,
+    slug: 'oklahoma',
+    hero: {
+      ...defaultStateTheme.hero,
+      image: '/images/states/hero-oklahoma.webp',
+      alt: 'Industrial hemp field in rural Oklahoma landscape',
     },
   },
 };
